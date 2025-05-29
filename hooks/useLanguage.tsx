@@ -13,7 +13,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 // Traducciones
-const translations = {
+const translations: Record<Language, Record<string, string>> = {
   es: {
     // Navigation
     "nav.about": "Acerca de mí",
@@ -392,8 +392,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("portfolio-language", lang)
   }
 
-  const t = (key: TranslationKey): string => {
-    return translations[language][key] || key;
+  const t = (key: string): string => {
+    return translations[language][key] ?? key
   }
 
   return (
