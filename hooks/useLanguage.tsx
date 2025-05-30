@@ -1,6 +1,7 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+import type React from "react"
+import { createContext, useContext, useState, useEffect } from "react"
 
 type Language = "es" | "en" | "eu"
 
@@ -12,7 +13,6 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-// Traducciones
 const translations: Record<Language, Record<string, string>> = {
   es: {
     // Navigation
@@ -139,14 +139,14 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     "hero.name": "Felipe Pereira A.",
-    "hero.title": "Computer Engineering",
+    "hero.title": "Computer Science Engineer",
     "hero.description": "Developing modern and innovative solutions to improve the world",
     "hero.aboutBtn": "About Me",
     "hero.contactBtn": "Contact Me",
 
     // About Section
     "about.title": "About Me",
-    "about.engineer": "Computer Engineering",
+    "about.engineer": "Computer Science Engineering",
     "about.engineerDescription":
       "with creative passion to find innovative solutions to the world with the help of my knowledge.",
     "about.exchange":
@@ -362,21 +362,27 @@ const translations: Record<Language, Record<string, string>> = {
   },
 }
 
-// Detectar idioma del navegador
+// Detect browser language safely
 const detectBrowserLanguage = (): Language => {
   if (typeof window === "undefined") return "es"
 
-  const browserLang = navigator.language.toLowerCase()
-
-  if (browserLang.startsWith("eu")) return "eu"
-  if (browserLang.startsWith("en")) return "en"
-  return "es" // Default to Spanish
+  try {
+    const browserLang = navigator.language.toLowerCase()
+    if (browserLang.startsWith("eu")) return "eu"
+    if (browserLang.startsWith("en")) return "en"
+    return "es"
+  } catch {
+    return "es"
+  }
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("es")
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+
     // Check localStorage first, then detect browser language
     const savedLang = localStorage.getItem("portfolio-language") as Language
     if (savedLang && ["es", "en", "eu"].includes(savedLang)) {
@@ -389,11 +395,20 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang)
-    localStorage.setItem("portfolio-language", lang)
+    if (typeof window !== "undefined") {
+      localStorage.setItem("portfolio-language", lang)
+    }
   }
 
   const t = (key: string): string => {
-    return translations[language][key] ?? key
+    if (!mounted) return key // Return key during SSR
+
+    try {
+      return translations[language][key as keyof (typeof translations)[typeof language]] || key
+    } catch (error) {
+      console.error(`Translation error for key "${key}" in language "${language}":`, error)
+      return key
+    }
   }
 
   return (
@@ -405,7 +420,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
 export function useLanguage() {
   const context = useContext(LanguageContext)
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useLanguage must be used within a LanguageProvider")
   }
   return context

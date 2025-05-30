@@ -1,6 +1,8 @@
 "use client"
 
-import { Fragment, useState, useEffect, useRef } from "react"
+import type React from "react"
+
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import {
   Code,
@@ -14,16 +16,23 @@ import {
   Palette,
   Target,
   Zap,
+  LogIn,
+  LogOut,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "../components/language-selector"
+import { AuthModal } from "../components/auth-modal"
+import { SocialMediaPanel } from "../components/social-media-panel"
+import { AIChatbot } from "../components/ai-chatbot"
 import { useLanguage } from "../hooks/useLanguage"
-
 
 export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { t } = useLanguage()
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null)
+  const { t, language } = useLanguage()
   const [rotation, setRotation] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const profileRef = useRef<HTMLDivElement>(null)
@@ -35,16 +44,46 @@ export default function Portfolio() {
       setScrolled(window.scrollY > 50)
     }
 
+    // Check if user is already logged in (localStorage)
+    const savedUser = localStorage.getItem("portfolioUser")
+    if (savedUser) {
+      try {
+        const userData = JSON.parse(savedUser)
+        setIsLoggedIn(true)
+        setUser(userData)
+      } catch {
+        localStorage.removeItem("portfolioUser")
+      }
+    }
+
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  const handleLogin = (userData: { name: string; email: string }) => {
+    const userInfo = {
+      name: userData.name,
+      email: userData.email,
+      loginTime: new Date().toISOString(),
+    }
+
+    localStorage.setItem("portfolioUser", JSON.stringify(userInfo))
+    setIsLoggedIn(true)
+    setUser(userInfo)
+    setIsAuthModalOpen(false)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("portfolioUser")
+    setIsLoggedIn(false)
+    setUser(null)
+  }
 
   // Detecta el lado de entrada del mouse
   const handleMouseEnter = (e: React.MouseEvent) => {
     const rect = profileRef.current?.getBoundingClientRect()
     if (!rect) return
     const x = e.clientX - rect.left
-    // Si entra por la izquierda, gira a la derecha; si entra por la derecha, gira a la izquierda
     setRotation(x < rect.width / 2 ? 8 : -8)
   }
   const handleMouseLeave = () => setRotation(0)
@@ -73,38 +112,83 @@ export default function Portfolio() {
             <Code className="w-8 h-8" />
             <span className="text-lg md:text-xl font-bold whitespace-nowrap">{t("hero.name")}</span>
           </div>
+
           {/* Navegación */}
           <nav className="hidden md:flex items-center gap-3 lg:gap-6 flex-nowrap overflow-x-auto">
-            <a href="#about" className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap">
+            <a
+              href="#about"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+            >
               <User size={16} />
               <span>{t("nav.about")}</span>
             </a>
-            <a href="#experience" className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap">
+            <a
+              href="#experience"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+            >
               <Briefcase size={16} />
               <span>{t("nav.experience")}</span>
             </a>
-            <a href="#projects" className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap">
+            <a
+              href="#projects"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+            >
               <Code size={16} />
               <span>{t("nav.projects")}</span>
             </a>
-            <a href="#certifications" className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap">
+            <a
+              href="#certifications"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+            >
               <Monitor size={16} />
               <span>{t("certifications.title")}</span>
             </a>
-            <a href="#contact" className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap">
+            <a
+              href="#contact"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+            >
               <Mail size={16} />
               <span>{t("nav.contact")}</span>
             </a>
           </nav>
-          {/* Selector de idioma y menú móvil */}
+
+          {/* Auth, Language Selector y menú móvil */}
           <div className="flex items-center gap-2 flex-shrink-0 ml-auto md:ml-0 md:order-2">
-            <div className="order-2 md:order-1">
+            {/* Auth Button */}
+            <div className="order-1">
+              {isLoggedIn && user ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-purple-200 hidden sm:inline">{user.name}</span>
+                  <Button
+                    onClick={handleLogout}
+                    variant="ghost"
+                    size="sm"
+                    className="text-white hover:text-purple-300 hover:bg-white/10"
+                  >
+                    <LogOut className="w-4 h-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => setIsAuthModalOpen(true)}
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:text-purple-300 hover:bg-white/10"
+                >
+                  <LogIn className="w-4 h-4 mr-1" />
+                  <span className="hidden sm:inline">Login</span>
+                </Button>
+              )}
+            </div>
+
+            <div className="order-2">
               <LanguageSelector />
             </div>
+
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden order-1 md:order-2"
+              className="md:hidden order-3"
               onClick={() => setMobileMenuOpen((open) => !open)}
               aria-label="Abrir menú"
             >
@@ -112,23 +196,44 @@ export default function Portfolio() {
             </Button>
           </div>
         </div>
+
         {/* Menú móvil */}
         {mobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full bg-purple-900/95 shadow-lg z-50 animate-fade-in">
             <nav className="flex flex-col py-4 px-6 gap-4">
-              <a href="#about" className="py-2 text-white font-semibold hover:text-purple-300" onClick={() => setMobileMenuOpen(false)}>
+              <a
+                href="#about"
+                className="py-2 text-white font-semibold hover:text-purple-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 {t("nav.about")}
               </a>
-              <a href="#experience" className="py-2 text-white font-semibold hover:text-purple-300" onClick={() => setMobileMenuOpen(false)}>
+              <a
+                href="#experience"
+                className="py-2 text-white font-semibold hover:text-purple-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 {t("nav.experience")}
               </a>
-              <a href="#projects" className="py-2 text-white font-semibold hover:text-purple-300" onClick={() => setMobileMenuOpen(false)}>
+              <a
+                href="#projects"
+                className="py-2 text-white font-semibold hover:text-purple-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 {t("nav.projects")}
               </a>
-              <a href="#certifications" className="py-2 text-white font-semibold hover:text-purple-300" onClick={() => setMobileMenuOpen(false)}>
+              <a
+                href="#certifications"
+                className="py-2 text-white font-semibold hover:text-purple-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 {t("certifications.title")}
               </a>
-              <a href="#contact" className="py-2 text-white font-semibold hover:text-purple-300" onClick={() => setMobileMenuOpen(false)}>
+              <a
+                href="#contact"
+                className="py-2 text-white font-semibold hover:text-purple-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 {t("nav.contact")}
               </a>
             </nav>
@@ -141,7 +246,7 @@ export default function Portfolio() {
         {/* Fondo con imagen y degradado */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/img/background.jpg" // Cambia por la ruta de tu imagen
+            src="/img/background.jpg"
             alt="Fondo Hero"
             layout="fill"
             objectFit="cover"
@@ -158,14 +263,7 @@ export default function Portfolio() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Image
-              src="/img/profile.jpg"
-              alt="Profile"
-              width={200}
-              height={200}
-              className="object-cover"
-              priority
-            />
+            <Image src="/img/profile.jpg" alt="Profile" width={200} height={200} className="object-cover" priority />
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold mb-2">{t("hero.name")}</h1>
@@ -173,10 +271,7 @@ export default function Portfolio() {
           <p className="max-w-2xl text-center mb-8">{t("hero.description")}</p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button
-              asChild
-              className="bg-white text-purple-900 hover:bg-purple-100"
-            >
+            <Button asChild className="bg-white text-purple-900 hover:bg-purple-100">
               <a
                 href="https://www.linkedin.com/in/felipe-pereira-alarc%C3%B3n/"
                 target="_blank"
@@ -185,10 +280,7 @@ export default function Portfolio() {
                 <User className="mr-2 h-4 w-4" /> Linkedin
               </a>
             </Button>
-            <Button
-              asChild
-              className="bg-white text-purple-900 hover:bg-purple-100"
-            >
+            <Button asChild className="bg-white text-purple-900 hover:bg-purple-100">
               <a href="mailto:f.pereiraalarcn@gmail.com">
                 <Mail className="mr-2 h-4 w-4" /> {t("hero.contactBtn")}
               </a>
@@ -197,7 +289,19 @@ export default function Portfolio() {
         </div>
 
         <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-          <ChevronDown className="h-8 w-8" />
+          <button
+            type="button"
+            aria-label="Ir a Sobre Mí"
+            onClick={() => {
+              const aboutSection = document.getElementById("about")
+              if (aboutSection) {
+                aboutSection.scrollIntoView({ behavior: "smooth" })
+              }
+            }}
+            className="focus:outline-none"
+          >
+            <ChevronDown className="h-8 w-8" />
+          </button>
         </div>
       </section>
 
@@ -242,9 +346,7 @@ export default function Portfolio() {
                   <div>
                     <span className="text-gray-700">
                       {t("about.exchange").split("Pontíficia Universidad Javeriana Cali")[0]}
-                      <span className="font-semibold">
-                        Pontíficia Universidad Javeriana Cali
-                      </span>
+                      <span className="font-semibold">Pontíficia Universidad Javeriana Cali</span>
                       {t("about.exchange").split("Pontíficia Universidad Javeriana Cali")[1]}
                     </span>
                   </div>
@@ -365,22 +467,27 @@ export default function Portfolio() {
             {/* Technologies Grid */}
             <div className="grid grid-cols-4 gap-4">
               {[
+                // Análisis de datos (amarillo)
+                { name: "Python", icon: "🐍", color: "bg-yellow-400" }, // Data Analysis
+                // Ciberseguridad (verde)
+                { name: "AWS", icon: "☁️", color: "bg-green-600" }, // Cybersecurity
+                // Desarrollo de software (morado)
+                { name: "AMPL", icon: "📊", color: "bg-purple-400" }, // Desarrollo de software
+                { name: "Node.js", icon: "🟢", color: "bg-purple-500" }, // Desarrollo de software
+                { name: "Express", icon: "⚡", color: "bg-purple-600" }, // Desarrollo de software
+                // Análisis y diseño de software (azul)
+                { name: "C", icon: "💾", color: "bg-blue-700" }, // Análisis/diseño software
                 { name: "PHP", icon: "🐘", color: "bg-blue-600" },
-                { name: "HTML5", icon: "🌐", color: "bg-orange-600" },
-                { name: "VS Code", icon: "💻", color: "bg-blue-500" },
-                { name: "CSS3", icon: "🎨", color: "bg-blue-400" },
-                { name: "GitHub", icon: "🐙", color: "bg-gray-800" },
-                { name: "GitLab", icon: "🦊", color: "bg-orange-500" },
-                { name: "AWS", icon: "☁️", color: "bg-yellow-600" },
-                { name: "Oracle", icon: "🔴", color: "bg-red-600" },
-                { name: "JavaScript", icon: "⚡", color: "bg-yellow-500" },
-                { name: "TypeScript", icon: "📘", color: "bg-blue-600" },
-                { name: "Figma", icon: "🎯", color: "bg-purple-500" },
-                { name: "Node.js", icon: "🟢", color: "bg-green-600" },
-                { name: "Express", icon: "⚡", color: "bg-gray-600" },
-                { name: "PostgreSQL", icon: "🐘", color: "bg-blue-700" },
+                { name: "HTML5", icon: "🌐", color: "bg-blue-400" },
+                { name: "CSS3", icon: "🎨", color: "bg-blue-300" },
+                { name: "TypeScript", icon: "📘", color: "bg-blue-500" },
+                { name: "JavaScript", icon: "⚡", color: "bg-blue-200" },
+                { name: "PostgreSQL", icon: "🐘", color: "bg-blue-800" },
+                // Otros
+                { name: "Angular", icon: "🅰️", color: "bg-red-600" },
                 { name: "React", icon: "⚛️", color: "bg-cyan-500" },
                 { name: "Next.js", icon: "▲", color: "bg-black" },
+                { name: "GitHub", icon: "🐙", color: "bg-gray-800" },
               ].map((tech, index) => (
                 <div
                   key={index}
@@ -496,7 +603,11 @@ export default function Portfolio() {
                   <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">ComputerVision</span>
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">IA</span>
                 </div>
-                <Button asChild variant="outline" className="w-full border-purple-600 text-green-600 hover:bg-purple-50">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full border-purple-600 text-green-600 hover:bg-purple-50"
+                >
                   <a href="https://github.com/fpereira22/PneumoniaDetectorCV" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-2" />
                     {t("projects.viewBtn")}
@@ -516,20 +627,12 @@ export default function Portfolio() {
             <div className="w-16 h-1 bg-purple-600 mx-auto"></div>
           </div>
           {/* Texto introductorio de certificaciones */}
-          <p className="text-center max-w-2xl mx-auto mb-10 text-lg text-gray-700">
-            {t("certifications.intro")}
-          </p>
+          <p className="text-center max-w-2xl mx-auto mb-10 text-lg text-gray-700">{t("certifications.intro")}</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Ejemplo de certificación */}
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/ibm.png"
-                  alt="IBM"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/ibm.png" alt="IBM" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">Python for Data Science, AI & Development</h3>
               <p className="text-gray-600 mb-4">IBM - 2025</p>
@@ -545,13 +648,7 @@ export default function Portfolio() {
             </div>
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/esade.png"
-                  alt="Esade"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/esade.png" alt="Esade" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">Bussiness</h3>
               <p className="text-gray-600 mb-4">Esade - 2025</p>
@@ -567,13 +664,7 @@ export default function Portfolio() {
             </div>
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/ibm.png"
-                  alt="IBM"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/ibm.png" alt="IBM" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">Artificial Intelligence (AI)</h3>
               <p className="text-gray-600 mb-4">IBM - 2025</p>
@@ -589,13 +680,7 @@ export default function Portfolio() {
             </div>
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/google.png"
-                  alt="Google"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/google.png" alt="Google" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">Búsqueda de Google Ads</h3>
               <p className="text-gray-600 mb-4">Google - 2025</p>
@@ -611,13 +696,7 @@ export default function Portfolio() {
             </div>
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/cisco.png"
-                  alt="Cisco"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/cisco.png" alt="Cisco" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">Python Essentials 2</h3>
               <p className="text-gray-600 mb-4">Cisco - 2025</p>
@@ -633,13 +712,7 @@ export default function Portfolio() {
             </div>
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/cisco.png"
-                  alt="Cisco"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/cisco.png" alt="Cisco" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">Python Essentials 1</h3>
               <p className="text-gray-600 mb-4">Cisco - 2025</p>
@@ -655,13 +728,7 @@ export default function Portfolio() {
             </div>
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/udemy.png"
-                  alt="Udemy"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/udemy.png" alt="Udemy" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">Full Stack Web Developer (HTML5, CSS3, JS AJAX PHP y MySQL)</h3>
               <p className="text-gray-600 mb-4">Udemy - 2025</p>
@@ -677,13 +744,7 @@ export default function Portfolio() {
             </div>
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/scrum.png"
-                  alt="Scrum"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/scrum.png" alt="Scrum" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">Scrum Foundation Professional Certification - SFPC™</h3>
               <p className="text-gray-600 mb-4">Scrum - 2023</p>
@@ -699,13 +760,7 @@ export default function Portfolio() {
             </div>
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/ibm.png"
-                  alt="IBM"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
+                <Image src="/img/logos/ibm.png" alt="IBM" width={64} height={64} className="object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2">IBM Data Science Practitioner Certificate</h3>
               <p className="text-gray-600 mb-4">Scrum - 2024</p>
@@ -740,11 +795,7 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-8 text-center">{t("contact.title")}</h2>
           <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-xl">
-            <form
-              className="space-y-4"
-              action="https://formspree.io/f/tu_codigo"
-              method="POST"
-            >
+            <form className="space-y-4" action="https://formspree.io/f/tu_codigo" method="POST">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block mb-2">
@@ -753,7 +804,7 @@ export default function Portfolio() {
                   <input
                     type="text"
                     id="name"
-                    className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
                 <div>
@@ -763,7 +814,7 @@ export default function Portfolio() {
                   <input
                     type="email"
                     id="email"
-                    className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
               </div>
@@ -774,7 +825,7 @@ export default function Portfolio() {
                 <input
                   type="text"
                   id="subject"
-                  className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 placeholder:text-gray-500"
                 />
               </div>
               <div>
@@ -784,7 +835,7 @@ export default function Portfolio() {
                 <textarea
                   id="message"
                   rows={5}
-                  className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 placeholder:text-gray-500"
                 ></textarea>
               </div>
               <Button className="w-full md:w-auto bg-white text-purple-900 hover:bg-purple-100">
@@ -818,9 +869,7 @@ export default function Portfolio() {
               />
               <circle cx="12" cy="11" r="3" />
             </svg>
-            <span className="text-white font-medium">
-              Santiago, Chile / Bilbao, España / Cali, Colombia
-            </span>
+            <span className="text-white font-medium">Santiago, Chile / Bilbao, España / Cali, Colombia</span>
           </div>
           <div className="flex justify-center gap-4 mt-4">
             <Button asChild variant="ghost" size="icon" className="rounded-full">
@@ -849,12 +898,7 @@ export default function Portfolio() {
               </a>
             </Button>
             <Button asChild variant="ghost" size="icon" className="rounded-full">
-              <a
-                href="https://github.com/fpereira22"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-              >
+              <a href="https://github.com/fpereira22" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -907,16 +951,19 @@ export default function Portfolio() {
         className="fixed bottom-6 right-6 z-50 bg-purple-700 hover:bg-purple-800 text-white rounded-full shadow-lg w-14 h-14 flex items-center justify-center transition-colors"
         aria-label="Ir al inicio"
       >
-        <svg
-          className="w-7 h-7 animate-bounce"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-7 h-7 animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
         </svg>
       </a>
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} onLogin={handleLogin} />
+
+      {/* Social Media Panel - Siempre visible */}
+      <SocialMediaPanel language={language} />
+
+      {/* AI Chatbot - Siempre visible */}
+      <AIChatbot />
 
       <style jsx global>{`
         @keyframes bounce-up {
