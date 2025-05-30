@@ -401,14 +401,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   const t = (key: string): string => {
-    if (!mounted) return key // Return key during SSR
-
-    try {
-      return translations[language][key as keyof (typeof translations)[typeof language]] || key
-    } catch (error) {
-      console.error(`Translation error for key "${key}" in language "${language}":`, error)
-      return key
-    }
+    return translations[language][key] || key
   }
 
   return (
