@@ -280,10 +280,10 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Experience Section
     "experience.title": "Esperientzia eta Teknologiak",
-    "experience.intro": "",
-    "experience.faculty": "Universidad Andres Belloko Ingeniaritza fakultatean",
-    "experience.university": "",
-    "experience.developing": "prestatu nintzen, proiektuak garatuz",
+    "experience.intro": "Universidad Andres Belloko Ingeniaritza fakultatean",
+    "experience.faculty": "Ingeniaritza Fakultatea",
+    "experience.university": "Universidad Andres Bello",
+    "experience.developing": ", proiektuak garatuz",
     "experience.personal": "pertsonalak",
     "experience.and": "eta",
     "experience.professional": "profesionalak",
@@ -418,4 +418,3 @@ export function useLanguage() {
   }
   return context
 }
-
