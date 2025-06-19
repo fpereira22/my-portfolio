@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { X, Mail, Lock, User, Eye, EyeOff, AlertCircle, CheckCircle } from "lucide-react"
@@ -23,8 +23,77 @@ export function AuthModal({ isOpen, onClose, onLogin }: AuthModalProps) {
     email: "",
     password: "",
   })
+  const [keysPressed, setKeysPressed] = useState<Set<string>>(new Set())
+
+  useEffect(() => {
+    // Detectar combinación de teclas: Ctrl+Alt+T para usuario de prueba y Ctrl+Alt+S para superadmin
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const newKeysPressed = new Set(keysPressed)
+      newKeysPressed.add(e.key.toLowerCase())
+      setKeysPressed(newKeysPressed)
+
+      // Verificar si la combinación está completa para usuario de prueba (Ctrl+Alt+T)
+      if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "t") {
+        e.preventDefault()
+        const testUser = AuthService.getTestUser()
+        setFormData({
+          name: testUser.name,
+          email: testUser.email,
+          password: testUser.password,
+        })
+
+        // Auto-login después de un breve retraso
+        setTimeout(() => {
+          handleAutoLogin(testUser)
+        }, 500)
+      }
+
+      // Verificar si la combinación está completa para superadmin (Ctrl+Alt+S)
+      if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "s") {
+        e.preventDefault()
+        const superAdmin = AuthService.getSuperAdmin()
+        setFormData({
+          name: superAdmin.name,
+          email: superAdmin.email,
+          password: superAdmin.password,
+        })
+
+        // Auto-login después de un breve retraso
+        setTimeout(() => {
+          handleAutoLogin(superAdmin)
+        }, 500)
+      }
+    }
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      const newKeysPressed = new Set(keysPressed)
+      newKeysPressed.delete(e.key.toLowerCase())
+      setKeysPressed(newKeysPressed)
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keyup", handleKeyUp)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("keyup", handleKeyUp)
+    }
+  }, [keysPressed])
 
   if (!isOpen) return null
+
+  const handleAutoLogin = async (testUser: { name: string; email: string; password: string }) => {
+    setLoading(true)
+    setMessage({ type: "success", text: "Acceso automático con usuario de prueba" })
+
+    setTimeout(() => {
+      onLogin({ name: testUser.name, email: testUser.email })
+      onClose()
+      setFormData({ name: "", email: "", password: "" })
+      setMessage(null)
+      setLoading(false)
+    }, 1000)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -94,6 +163,9 @@ export function AuthModal({ isOpen, onClose, onLogin }: AuthModalProps) {
           </button>
           <h2 className="text-2xl font-bold">{isLoginMode ? "Iniciar Sesión" : "Crear Cuenta"}</h2>
           <p className="text-purple-100 mt-1">{isLoginMode ? "Accede a tu cuenta" : "Únete a nuestra comunidad"}</p>
+          {/* <div className="text-xs text-purple-200 mt-2 opacity-70">
+            Tip: Usa Ctrl+Alt+T para usuario de prueba o Ctrl+Alt+S para superadmin
+          </div> */}
         </div>
 
         {/* Message */}

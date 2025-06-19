@@ -17,25 +17,29 @@ import {
   Target,
   Zap,
   LogIn,
-  LogOut,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "../components/language-selector"
 import { AuthModal } from "../components/auth-modal"
 import { SocialMediaPanel } from "../components/social-media-panel"
 import { AIChatbot } from "../components/ai-chatbot"
+import { UserMenu } from "../components/user-menu"
+import { ProfileModal } from "../components/profile-modal"
 import { useLanguage } from "../hooks/useLanguage"
+import { useRouter } from "next/navigation"
 
 export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState<{ name: string; email: string } | null>(null)
-  const { t, language } = useLanguage()
+  const { t } = useLanguage()
   const [rotation, setRotation] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const profileRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   useEffect(() => {
     setMounted(true)
@@ -79,6 +83,18 @@ export default function Portfolio() {
     setUser(null)
   }
 
+  const handleOpenDashboard = () => {
+    router.push("/dashboard")
+  }
+
+  const handleOpenProfile = () => {
+    setIsProfileModalOpen(true)
+  }
+
+  const handleUpdateUser = (updatedUser: { name: string; email: string }) => {
+    setUser(updatedUser)
+  }
+
   // Detecta el lado de entrada del mouse
   const handleMouseEnter = (e: React.MouseEvent) => {
     const rect = profileRef.current?.getBoundingClientRect()
@@ -99,6 +115,9 @@ export default function Portfolio() {
   if (!mounted) {
     return null
   }
+
+  const profileImage =
+    user?.email ? localStorage.getItem(`profileImage-${user.email}`) : null
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-violet-800 to-indigo-900 text-white">
@@ -154,20 +173,17 @@ export default function Portfolio() {
 
           {/* Auth, Language Selector y menú móvil */}
           <div className="flex items-center gap-2 flex-shrink-0 ml-auto md:ml-0 md:order-2">
-            {/* Auth Button */}
+            {/* Auth Button / User Menu */}
             <div className="order-1">
               {isLoggedIn && user ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-purple-200 hidden sm:inline">{user.name}</span>
-                  <Button
-                    onClick={handleLogout}
-                    variant="ghost"
-                    size="sm"
-                    className="text-white hover:text-purple-300 hover:bg-white/10"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </Button>
-                </div>
+                <UserMenu
+                  user={user}
+                  isLoggedIn={isLoggedIn}
+                  onLogout={handleLogout}
+                  onOpenDashboard={handleOpenDashboard}
+                  onOpenProfile={handleOpenProfile}
+                  profileImage={profileImage} // <-- pásala como prop
+                />
               ) : (
                 <Button
                   onClick={() => setIsAuthModalOpen(true)}
@@ -248,9 +264,8 @@ export default function Portfolio() {
           <Image
             src="/img/background.jpg"
             alt="Fondo Hero"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-60"
+            fill
+            className="object-cover opacity-60"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-purple-900/80 via-violet-800/70 to-indigo-900/90"></div>
@@ -263,7 +278,14 @@ export default function Portfolio() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Image src="/img/profile.jpg" alt="Profile" width={200} height={200} className="object-cover" priority />
+            <Image
+              src="/img/profile.jpg"
+              alt="Profile"
+              width={200}
+              height={200}
+              className="object-cover"
+              priority
+            />
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold mb-2">{t("hero.name")}</h1>
@@ -381,9 +403,14 @@ export default function Portfolio() {
               </div>
 
               <div className="pt-4">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
-                  <Download className="w-5 h-5" />
-                  {t("about.downloadCV")}
+                <Button
+                  asChild
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+                >
+                  <a href="/CVFelipePereira.pdf" download target="_blank" rel="noopener noreferrer">
+                    <Download className="w-5 h-5" />
+                    {t("about.downloadCV")}
+                  </a>
                 </Button>
               </div>
             </div>
@@ -465,7 +492,7 @@ export default function Portfolio() {
             </div>
 
             {/* Technologies Grid */}
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-4 self-start">
               {[
                 // Análisis de datos (amarillo)
                 { name: "Python", icon: "🐍", color: "bg-yellow-400" }, // Data Analysis
@@ -477,6 +504,8 @@ export default function Portfolio() {
                 { name: "Express", icon: "⚡", color: "bg-purple-600" }, // Desarrollo de software
                 // Análisis y diseño de software (azul)
                 { name: "C", icon: "💾", color: "bg-blue-700" }, // Análisis/diseño software
+                { name: "C++", icon: "➕", color: "bg-blue-900" }, // Nuevo
+                { name: "Java", icon: "☕", color: "bg-orange-700" }, // Nuevo
                 { name: "PHP", icon: "🐘", color: "bg-blue-600" },
                 { name: "HTML5", icon: "🌐", color: "bg-blue-400" },
                 { name: "CSS3", icon: "🎨", color: "bg-blue-300" },
@@ -486,7 +515,9 @@ export default function Portfolio() {
                 // Otros
                 { name: "Angular", icon: "🅰️", color: "bg-red-600" },
                 { name: "React", icon: "⚛️", color: "bg-cyan-500" },
+                { name: "Vue.js", icon: "🟩", color: "bg-green-400" }, // Nuevo
                 { name: "Next.js", icon: "▲", color: "bg-black" },
+                { name: "PowerBI", icon: "📊", color: "bg-yellow-600" }, // Nuevo
                 { name: "GitHub", icon: "🐙", color: "bg-gray-800" },
               ].map((tech, index) => (
                 <div
@@ -629,15 +660,21 @@ export default function Portfolio() {
           {/* Texto introductorio de certificaciones */}
           <p className="text-center max-w-2xl mx-auto mb-10 text-lg text-gray-700">{t("certifications.intro")}</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Ejemplo de certificación */}
+            {/* IBM */}
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/ibm.png" alt="IBM" width={64} height={64} className="object-contain" />
+                <Image
+                  src="/img/logos/ibm.png"
+                  alt="IBM"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
               </div>
-              <h3 className="text-xl font-bold mb-2">Python for Data Science, AI & Development</h3>
+              <h3 className="text-xl font-bold mb-2">AI Developer Specialization - Professional</h3>
               <p className="text-gray-600 mb-4">IBM - 2025</p>
               <a
-                href="https://www.coursera.org/account/accomplishments/verify/JZLY826KAWND"
+                href="https://www.coursera.org/account/accomplishments/specialization/145AHJLRIH6A"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-600 hover:underline flex items-center gap-1"
@@ -646,105 +683,16 @@ export default function Portfolio() {
                 Ver credencial
               </a>
             </div>
+            {/* Scrum */}
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/esade.png" alt="Esade" width={64} height={64} className="object-contain" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Bussiness</h3>
-              <p className="text-gray-600 mb-4">Esade - 2025</p>
-              <a
-                href="https://drive.google.com/file/d/1OTR2miQCzq7KR737WJrZ_tm9bD33AIN-/view"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/ibm.png" alt="IBM" width={64} height={64} className="object-contain" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Artificial Intelligence (AI)</h3>
-              <p className="text-gray-600 mb-4">IBM - 2025</p>
-              <a
-                href="https://www.coursera.org/account/accomplishments/verify/CPW9A9W1DP2T"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/google.png" alt="Google" width={64} height={64} className="object-contain" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Búsqueda de Google Ads</h3>
-              <p className="text-gray-600 mb-4">Google - 2025</p>
-              <a
-                href="https://skillshop.credential.net/13f5bae5-b564-4439-8162-48a0117ca2b1"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/cisco.png" alt="Cisco" width={64} height={64} className="object-contain" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Python Essentials 2</h3>
-              <p className="text-gray-600 mb-4">Cisco - 2025</p>
-              <a
-                href="https://www.credly.com/badges/a8d62e07-9d97-4a5a-9a21-2f27cca1f60b"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/cisco.png" alt="Cisco" width={64} height={64} className="object-contain" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Python Essentials 1</h3>
-              <p className="text-gray-600 mb-4">Cisco - 2025</p>
-              <a
-                href="https://www.credly.com/badges/96870313-aa82-4000-86f9-6af442362a96/public_url"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/udemy.png" alt="Udemy" width={64} height={64} className="object-contain" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Full Stack Web Developer (HTML5, CSS3, JS AJAX PHP y MySQL)</h3>
-              <p className="text-gray-600 mb-4">Udemy - 2025</p>
-              <a
-                href="https://www.udemy.com/certificate/UC-459391a7-36c3-4bfa-a16a-9b0b753b18ed/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/scrum.png" alt="Scrum" width={64} height={64} className="object-contain" />
+                <Image
+                  src="/img/logos/scrum.png"
+                  alt="Scrum"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-xl font-bold mb-2">Scrum Foundation Professional Certification - SFPC™</h3>
               <p className="text-gray-600 mb-4">Scrum - 2023</p>
@@ -758,12 +706,158 @@ export default function Portfolio() {
                 Ver credencial
               </a>
             </div>
+            
+            {/* IBM */}
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image src="/img/logos/ibm.png" alt="IBM" width={64} height={64} className="object-contain" />
+                <Image
+                  src="/img/logos/ibm.png"
+                  alt="IBM"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Python for Data Science, AI & Development</h3>
+              <p className="text-gray-600 mb-4">IBM - 2025</p>
+              <a
+                href="https://www.coursera.org/account/accomplishments/verify/JZLY826KAWND"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* Cisco 2 */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/img/logos/cisco.png"
+                  alt="Cisco"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Python Essentials 2</h3>
+              <p className="text-gray-600 mb-4">Cisco - 2025</p>
+              <a
+                href="https://www.credly.com/badges/a8d62e07-9d97-4a5a-9a21-2f27cca1f60b"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* Esade */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/img/logos/esade.png"
+                  alt="Esade"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Business</h3>
+              <p className="text-gray-600 mb-4">Esade - 2025</p>
+              <a
+                href="https://drive.google.com/file/d/1OTR2miQCzq7KR737WJrZ_tm9bD33AIN-/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* Cisco 1 */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/img/logos/cisco.png"
+                  alt="Cisco"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Python Essentials 1</h3>
+              <p className="text-gray-600 mb-4">Cisco - 2025</p>
+              <a
+                href="https://www.credly.com/badges/96870313-aa82-4000-86f9-6af442362a96/public_url"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* Udemy */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/img/logos/udemy.png"
+                  alt="Udemy"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Full Stack Web Developer (HTML5, CSS3, JS AJAX PHP y MySQL)</h3>
+              <p className="text-gray-600 mb-4">Udemy - 2025</p>
+              <a
+                href="https://www.udemy.com/certificate/UC-459391a7-36c3-4bfa-a16a-9b0b753b18ed/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* Google */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/img/logos/google.png"
+                  alt="Google"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Búsqueda de Google Ads</h3>
+              <p className="text-gray-600 mb-4">Google - 2025</p>
+              <a
+                href="https://skillshop.credential.net/13f5bae5-b564-4439-8162-48a0117ca2b1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* IBM Data Science Practitioner */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/img/logos/ibm.png"
+                  alt="IBM"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-xl font-bold mb-2">IBM Data Science Practitioner Certificate</h3>
-              <p className="text-gray-600 mb-4">Scrum - 2024</p>
+              <p className="text-gray-600 mb-4">IBM - 2024</p>
               <a
                 href="https://drive.google.com/file/d/1BzlhI7kxtxcke_GFrjiwrE7TG9EsafAL/view"
                 target="_blank"
@@ -775,6 +869,7 @@ export default function Portfolio() {
               </a>
             </div>
           </div>
+          
           {/* Enlace a más certificaciones centrado */}
           <div className="flex flex-col items-center mt-10">
             <span className="mb-2 text-gray-700">{t("certifications.more")}:</span>
@@ -959,24 +1054,19 @@ export default function Portfolio() {
       {/* Auth Modal */}
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} onLogin={handleLogin} />
 
+      {/* Profile Modal */}
+      <ProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        user={user}
+        onUpdateUser={handleUpdateUser}
+      />
+
       {/* Social Media Panel - Siempre visible */}
-      <SocialMediaPanel language={language} />
+      <SocialMediaPanel />
 
       {/* AI Chatbot - Siempre visible */}
       <AIChatbot />
-
-      <style jsx global>{`
-        @keyframes bounce-up {
-          0%, 100% { transform: translateY(0);}
-          20% { transform: translateY(-10px);}
-          40% { transform: translateY(-20px);}
-          60% { transform: translateY(-10px);}
-          80% { transform: translateY(-5px);}
-        }
-        .group-hover\\:animate-bounce-up:hover {
-          animation: bounce-up 0.7s;
-        }
-      `}</style>
     </div>
   )
 }

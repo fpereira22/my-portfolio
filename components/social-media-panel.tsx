@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { MessageCircle, Instagram, Music, ExternalLink, Users, ChevronRight, X } from "lucide-react"
+import { useLanguage } from "@/hooks/useLanguage"
 
-export function SocialMediaPanel({ language = "es" }: { language?: "es" | "en" | "eu" }) {
+export function SocialMediaPanel() {
+  const { language } = useLanguage()
   const [isExpanded, setIsExpanded] = useState(false)
 
   // Cerrar panel al hacer scroll

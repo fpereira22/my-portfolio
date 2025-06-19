@@ -457,7 +457,7 @@ export function AIChatbot() {
       <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Bot className="w-5 h-5" />
-          <span className="font-semibold">Pipeño IA</span>
+          <span className="font-semibold">ChatBot AI</span>
           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
         </div>
         <div className="flex items-center gap-2">

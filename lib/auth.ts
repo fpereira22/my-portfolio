@@ -5,17 +5,41 @@ interface User {
   email: string
   password: string
   createdAt: string
+  role?: "admin" | "user" | "superAdmin"
 }
 
 const USERS_KEY = "portfolio_users"
 
 export class AuthService {
+  // Usuarios predefinidos
+  private static predefinedUsers: User[] = [
+    {
+      name: "Felipe Pereira A.",
+      email: "felipe14chile@gmail.com",
+      password: "F.pereira24$",
+      createdAt: new Date().toISOString(),
+      role: "superAdmin",
+    },
+    {
+      name: "Testing",
+      email: "a@a.com",
+      password: "123456",
+      createdAt: new Date().toISOString(),
+      role: "user",
+    },
+  ]
+
   private static getUsers(): User[] {
     if (typeof window === "undefined") return []
 
     try {
       const users = localStorage.getItem(USERS_KEY)
-      return users ? JSON.parse(users) : []
+      if (!users) {
+        // Si no hay usuarios, inicializar con los predefinidos
+        this.saveUsers(this.predefinedUsers)
+        return this.predefinedUsers
+      }
+      return JSON.parse(users)
     } catch {
       return []
     }
@@ -77,6 +101,7 @@ export class AuthService {
       email: email.toLowerCase().trim(),
       password, // En producción, esto debería estar hasheado
       createdAt: new Date().toISOString(),
+      role: "user",
     }
 
     users.push(newUser)
@@ -109,5 +134,23 @@ export class AuthService {
   static getAllUsers(): Omit<User, "password">[] {
     const users = this.getUsers()
     return users.map(({ password, ...user }) => user)
+  }
+
+  // Método para obtener el usuario de prueba para la combinación de teclas
+  static getTestUser(): { name: string; email: string; password: string } {
+    return {
+      name: "Testing",
+      email: "a@a.com",
+      password: "123456",
+    }
+  }
+
+  // Añadir método para obtener el superadmin
+  static getSuperAdmin(): { name: string; email: string; password: string } {
+    return {
+      name: "Felipe Pereira A.",
+      email: "felipe14chile@gmail.com",
+      password: "F.pereira24$",
+    }
   }
 }
