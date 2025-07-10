@@ -407,7 +407,7 @@ export default function Portfolio() {
                   asChild
                   className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  <a href="/CVFelipePereira.pdf" download target="_blank" rel="noopener noreferrer">
+                  <a href="/CVFelipePereiraAlarcon.pdf" download target="_blank" rel="noopener noreferrer">
                     <Download className="w-5 h-5" />
                     {t("about.downloadCV")}
                   </a>
