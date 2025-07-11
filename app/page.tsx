@@ -281,8 +281,8 @@ export default function Portfolio() {
             <Image
               src="/img/profile.jpg"
               alt="Profile"
-              width={200}
-              height={200}
+              width={300}
+              height={300}
               className="object-cover"
               priority
             />
