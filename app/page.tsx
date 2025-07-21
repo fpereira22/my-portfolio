@@ -273,7 +273,7 @@ export default function Portfolio() {
         <div className="relative z-10 flex flex-col items-center text-center">
           <div
             ref={profileRef}
-            className="w-32 h-32 rounded-full border-4 border-white overflow-hidden mb-6 relative transition-transform duration-300"
+            className="w-128 h-128 rounded-full border-4 border-white overflow-hidden mb-6 relative transition-transform duration-300"
             style={{ transform: `scale(${rotation !== 0 ? 1.1 : 1}) rotate(${rotation}deg)` }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
