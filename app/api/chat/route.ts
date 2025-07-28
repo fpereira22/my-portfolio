@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     const { message, language } = (await req.json()) as { message: string; language: Language };
     
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.5-flash",
+      model: "gemini-2.0-flash",
     });
 
     const safeLanguage = ["es", "en", "eu"].includes(language) ? language : "es";

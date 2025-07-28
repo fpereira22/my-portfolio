@@ -1,6 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useEffect, useRef } from "react"
+import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore"
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { storage } from "@/lib/firebase"
+import { db } from "@/lib/firebase"
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth"
 import {
   Bell,
   Command,
@@ -28,6 +34,7 @@ import {
   UserPlus,
   Mail,
   Save,
+  Trash,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -122,31 +129,144 @@ interface CalendarEvent {
 }
 
 export default function Dashboard() {
+  const [user, setUser] = useState<{ name: string; email: string | null; role?: string } | null>(null);
+  const router = useRouter();
   const [currentTime, setCurrentTime] = useState(new Date())
   const [isLoading, setIsLoading] = useState(true)
-  const [user, setUser] = useState<{ name: string; email: string; role?: string } | null>(null)
+  // const [user, setUser] = useState<{ name: string; email: string; role?: string } | null>(null)
+  const [tasks, setTasks] = useState<Task[]>([])
   const [activeSection, setActiveSection] = useState<ActiveSection>("dashboard")
   const [selectedUser, setSelectedUser] = useState<string>("all")
-  const router = useRouter()
+  const [showTaskModal, setShowTaskModal] = useState(false)
+  const [showProjectModal, setShowProjectModal] = useState(false)
+  const [newProject, setNewProject] = useState<Omit<Project, "id">>({
+    name: "",
+    description: "",
+    progress: 0,
+    tasks: 0,
+    completedTasks: 0,
+    dueDate: "",
+    team: [user?.email || ""],
+    color: "from-purple-500 to-blue-500",
+    owner: user?.email || "",
+    status: "active",
+    budget: 0,
+    spent: 0,
+  })
+  const [newTask, setNewTask] = useState<Omit<Task, "id">>({
+    title: "",
+    description: "",
+    project: "",
+    status: "pending",
+    priority: "medium",
+    dueDate: "",
+    assignee: "",
+    owner: user?.email || "",
+    createdAt: new Date().toISOString().slice(0, 10),
+  })
+  const [showNewProjectInput, setShowNewProjectInput] = useState(false)
+  const [newProjectName, setNewProjectName] = useState("")
+  const [showUploadModal, setShowUploadModal] = useState(false)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const allDocuments: Document[] = [
+    {
+      id: "1",
+      name: "Especificaciones Técnicas.pdf",
+      type: "PDF",
+      size: "2.4 MB",
+      uploadedBy: "felipe14chile@gmail.com",
+      uploadedAt: "2025-06-01T10:30:00",
+      project: "Análisis de Tachas",
+      url: "#",
+    },
+    {
+      id: "2",
+      name: "Diseño UI Mockups.fig",
+      type: "Figma",
+      size: "15.2 MB",
+      uploadedBy: "maria.sanchez@email.com",
+      uploadedAt: "2025-06-02T14:15:00",
+      project: "Análisis de Tachas",
+      url: "#",
+    },
+    {
+      id: "3",
+      name: "Dataset Entrenamiento.csv",
+      type: "CSV",
+      size: "45.8 MB",
+      uploadedBy: "ana.rodriguez@email.com",
+      uploadedAt: "2025-06-03T09:20:00",
+      project: "Detector de Neumonía",
+      url: "#",
+    },
+    {
+      id: "4",
+      name: "Propuesta Cliente.docx",
+      type: "Word",
+      size: "1.1 MB",
+      uploadedBy: "a@a.com",
+      uploadedAt: "2025-06-04T16:45:00",
+      project: "Proyecto Web Cliente A",
+      url: "#",
+    },
+  ]
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const { language, t } = useLanguage()
+
+
+  const fetchDocuments = async () => {
+    if (!user) return; // No hace nada si no hay usuario
+    const querySnapshot = await getDocs(collection(db, "documents"));
+    const docsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Document));
+    setDocuments(docsData);
+  };
 
   // Check authentication and get user role
   useEffect(() => {
-    const savedUser = localStorage.getItem("portfolioUser")
-    if (!savedUser) {
-      router.push("/")
-      return
-    }
-    try {
-      const userData = JSON.parse(savedUser)
-      // Determine role based on email
-      const role = userData.email === "felipe14chile@gmail.com" ? "superAdmin" : "user"
-      setUser({ ...userData, role })
-    } catch {
-      router.push("/")
-    }
-  }, [router])
+    // onAuthStateChanged es el listener oficial de Firebase
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        // Si hay un usuario de Firebase, lo usamos
+        // Aquí puedes obtener el nombre y el email directamente de Firebase
+        const role = firebaseUser.email === "felipe14chile@gmail.com" ? "superAdmin" : "user";
+        setUser({
+          name: firebaseUser.displayName || "Usuario", // O usa la lógica que tenías
+          email: firebaseUser.email,
+          role: role,
+        });
+        
+        // También puedes guardar la información en localStorage si la necesitas para otras cosas
+        localStorage.setItem("portfolioUser", JSON.stringify({
+            name: firebaseUser.displayName || "Usuario",
+            email: firebaseUser.email
+        }));
 
+      } else {
+        // Si no hay usuario, lo redirigimos a la página de inicio
+        localStorage.removeItem("portfolioUser");
+        router.push("/");
+      }
+    });
+
+    // Limpiamos el listener cuando el componente se desmonta
+    return () => unsubscribe();
+  }, [router]);
+
+  useEffect(() => {
+    if (!user) return
+    const fetchTasks = async () => {
+      const querySnapshot = await getDocs(collection(db, "tasks"))
+      const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
+      setTasks(tasksData)
+    }
+    fetchTasks()
+  }, [user])
+
+  useEffect(() => {
+    fetchDocuments();
+  }, [user]);
   // Simulate data loading
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -162,6 +282,13 @@ export default function Dashboard() {
     }, 1000)
     return () => clearInterval(interval)
   }, [])
+
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files && e.target.files[0]) {
+    setSelectedFile(e.target.files[0])
+  }
+}
 
   // Mock data
   const allProjects: Project[] = [
@@ -211,58 +338,6 @@ export default function Dashboard() {
       spent: 12000,
     },
   ]
-
-  const allTasks: Task[] = [
-    {
-      id: "1",
-      title: "Optimizar algoritmo de detección",
-      description: "Mejorar la precisión del algoritmo principal",
-      project: "Análisis de Tachas",
-      status: "in-progress",
-      priority: "high",
-      dueDate: "2025-06-10",
-      assignee: "felipe14chile@gmail.com",
-      owner: "felipe14chile@gmail.com",
-      createdAt: "2025-06-01",
-    },
-    {
-      id: "2",
-      title: "Implementar interfaz de usuario",
-      description: "Crear la interfaz principal del sistema",
-      project: "Análisis de Tachas",
-      status: "pending",
-      priority: "medium",
-      dueDate: "2025-06-12",
-      assignee: "maria.sanchez@email.com",
-      owner: "felipe14chile@gmail.com",
-      createdAt: "2025-06-01",
-    },
-    {
-      id: "3",
-      title: "Documentar API",
-      description: "Crear documentación completa de la API",
-      project: "Análisis de Tachas",
-      status: "completed",
-      priority: "low",
-      dueDate: "2025-06-05",
-      assignee: "juan.diaz@email.com",
-      owner: "felipe14chile@gmail.com",
-      createdAt: "2025-05-28",
-    },
-    {
-      id: "4",
-      title: "Diseñar landing page",
-      description: "Crear el diseño de la página principal",
-      project: "Proyecto Web Cliente A",
-      status: "in-progress",
-      priority: "high",
-      dueDate: "2025-06-20",
-      assignee: "a@a.com",
-      owner: "a@a.com",
-      createdAt: "2025-06-02",
-    },
-  ]
-
   const allTeamMembers: TeamMember[] = [
     {
       id: "1",
@@ -325,50 +400,6 @@ export default function Dashboard() {
       joinDate: "2024-03-05",
     },
   ]
-
-  const allDocuments: Document[] = [
-    {
-      id: "1",
-      name: "Especificaciones Técnicas.pdf",
-      type: "PDF",
-      size: "2.4 MB",
-      uploadedBy: "felipe14chile@gmail.com",
-      uploadedAt: "2025-06-01T10:30:00",
-      project: "Análisis de Tachas",
-      url: "#",
-    },
-    {
-      id: "2",
-      name: "Diseño UI Mockups.fig",
-      type: "Figma",
-      size: "15.2 MB",
-      uploadedBy: "maria.sanchez@email.com",
-      uploadedAt: "2025-06-02T14:15:00",
-      project: "Análisis de Tachas",
-      url: "#",
-    },
-    {
-      id: "3",
-      name: "Dataset Entrenamiento.csv",
-      type: "CSV",
-      size: "45.8 MB",
-      uploadedBy: "ana.rodriguez@email.com",
-      uploadedAt: "2025-06-03T09:20:00",
-      project: "Detector de Neumonía",
-      url: "#",
-    },
-    {
-      id: "4",
-      name: "Propuesta Cliente.docx",
-      type: "Word",
-      size: "1.1 MB",
-      uploadedBy: "a@a.com",
-      uploadedAt: "2025-06-04T16:45:00",
-      project: "Proyecto Web Cliente A",
-      url: "#",
-    },
-  ]
-
   const allMessages: Message[] = [
     {
       id: "1",
@@ -444,6 +475,134 @@ export default function Dashboard() {
     },
   ]
 
+  const createTask = async (taskData: Omit<Task, "id">) => {
+    await addDoc(collection(db, "tasks"), taskData)
+    // Recarga las tareas
+    const querySnapshot = await getDocs(collection(db, "tasks"))
+    const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
+    setTasks(tasksData)
+  }
+
+  // Estado de notificaciones
+  const [notifications, setNotifications] = useState<{ type: string; message: string; timestamp: number; read: boolean }[]>([])
+  const [showNotifications, setShowNotifications] = useState(false)
+
+  const handleCreateTask = async () => {
+    if (!newTask.title || !newTask.project || !newTask.assignee) {
+      alert("Completa todos los campos obligatorios.")
+      return
+    }
+    await addDoc(collection(db, "tasks"), newTask)
+    setShowTaskModal(false)
+    setNewTask({
+      title: "",
+      description: "",
+      project: "",
+      status: "pending",
+      priority: "medium",
+      dueDate: "",
+      assignee: "",
+      owner: user?.email || "",
+      createdAt: new Date().toISOString().slice(0, 10),
+    })
+    // Recarga las tareas
+    const querySnapshot = await getDocs(collection(db, "tasks"))
+    const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
+    setTasks(tasksData)
+    addNotification("task", language === "en" ? "Task created" : language === "eu" ? "Zeregina sortuta" : "Tarea creada")
+  }
+
+  // Función para añadir un nuevo proyecto
+  const handleAddNewProject = () => {
+    if (!newProjectName.trim()) return
+    const newProject: Project = {
+      id: (allProjects.length + localProjects.length + 1).toString(),
+      name: newProjectName,
+      description: "",
+      progress: 0,
+      tasks: 0,
+      completedTasks: 0,
+      dueDate: "",
+      team: [user?.email || ""],
+      color: "from-purple-500 to-blue-500",
+      owner: user?.email || "",
+      status: "active",
+      budget: 0,
+      spent: 0,
+    }
+    setLocalProjects([...localProjects, newProject])
+    setNewTask({ ...newTask, project: newProjectName })
+    setShowNewProjectInput(false)
+    setNewProjectName("")
+    addNotification("project", language === "en" ? "Project created" : language === "eu" ? "Proiektua sortuta" : "Proyecto creado")
+  }
+
+  const handleDeleteTask = async (taskId: string) => {
+    if (!window.confirm("¿Estás seguro de que deseas borrar esta tarea?")) return
+    await deleteDoc(doc(db, "tasks", taskId))
+    // Recarga las tareas después de borrar
+    const querySnapshot = await getDocs(collection(db, "tasks"))
+    const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
+    setTasks(tasksData)
+  }
+
+  const handleUploadDocument = async () => {
+  console.log("[DEBUG] auth.currentUser:", auth.currentUser);
+  if (!auth.currentUser) {
+    console.warn("[DEBUG] El usuario NO está autenticado en este momento.");
+  } else {
+    console.info("[DEBUG] El usuario SÍ está autenticado:", auth.currentUser.email);
+  }
+  console.log("[DEBUG] user:", user);
+  console.log("[DEBUG] selectedFile:", selectedFile);
+  if (!selectedFile || !user?.email) {
+    alert("No hay usuario autenticado o no se ha seleccionado archivo.");
+    setUploading(false);
+    return;
+  }
+  setUploading(true);
+  try {
+    // 1. Subir archivo a Firebase Storage
+    const storageRef = ref(storage, `documents/${Date.now()}_${selectedFile.name}`);
+    await uploadBytes(storageRef, selectedFile);
+    const url = await getDownloadURL(storageRef);
+
+    // 2. Guardar metadata en Firestore
+    const newDoc = {
+      name: selectedFile.name,
+      type: selectedFile.type || "Archivo",
+      size: `${(selectedFile.size / (1024 * 1024)).toFixed(2)} MB`,
+      uploadedBy: user.email,
+      uploadedAt: new Date().toISOString(),
+      project: "",
+      url,
+    };
+    await addDoc(collection(db, "documents"), newDoc);
+
+    // 3. Refrescar la lista de documentos desde la base de datos ✨
+    await fetchDocuments(); 
+
+  } catch (err) {
+    console.error("Error al subir el documento:", err);
+    const errorMsg = (err && (err as any).message) ? (err as any).message : "";
+    alert("Error al subir el documento. " + errorMsg);
+  }
+  setUploading(false);
+  setShowUploadModal(false);
+  setSelectedFile(null);
+  addNotification("file", language === "en" ? "File uploaded" : language === "eu" ? "Fitxategia igo da" : "Archivo subido")
+};
+
+  // Estado para proyectos creados localmente
+  const [localProjects, setLocalProjects] = useState<Project[]>([])
+
+  // Función para eliminar proyectos locales
+  const handleDeleteLocalProject = (id: string) => {
+    if (window.confirm("¿Estás seguro de que deseas borrar este proyecto?")) {
+      setLocalProjects(localProjects.filter((p) => p.id !== id))
+    }
+  }
+
   // Filter data based on user permissions
   const getFilteredData = <T extends { owner: string }>(data: T[]): T[] => {
     if (user?.role === "superAdmin") {
@@ -455,10 +614,10 @@ export default function Dashboard() {
   const getFilteredTasks = (): Task[] => {
     if (user?.role === "superAdmin") {
       return selectedUser === "all"
-        ? allTasks
-        : allTasks.filter((task) => task.owner === selectedUser || task.assignee === selectedUser)
+        ? tasks
+        : tasks.filter((task) => task.owner === selectedUser || task.assignee === selectedUser)
     }
-    return allTasks.filter((task) => task.owner === user?.email || task.assignee === user?.email)
+    return tasks.filter((task) => task.owner === user?.email || task.assignee === user?.email)
   }
 
   const getFilteredMessages = (): Message[] => {
@@ -482,7 +641,7 @@ export default function Dashboard() {
   }
 
   const projects = getFilteredData(allProjects)
-  const tasks = getFilteredTasks()
+  const filteredTasks = getFilteredTasks()
   // const documents = getFilteredData(allDocuments)
   const messages = getFilteredMessages()
   const calendarEvents = getFilteredEvents()
@@ -548,6 +707,14 @@ export default function Dashboard() {
     }
   }
 
+  // Función para agregar notificación
+  const addNotification = (type: string, message: string) => {
+    setNotifications(prev => [
+      { type, message, timestamp: Date.now(), read: false },
+      ...prev
+    ])
+  }
+
   if (!user) {
     return null
   }
@@ -591,7 +758,7 @@ export default function Dashboard() {
                     </SelectContent>
                   </Select>
                 )}
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="bg-purple-600 hover:bg-purple-700" onClick={() => setShowProjectModal(true)}>
                   <PlusCircle className="h-4 w-4 mr-2" />
                   {language === "en"
                     ? "New Project"
@@ -603,12 +770,26 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((project) => (
-                <Card key={project.id} className="bg-white/5 border-white/10 backdrop-blur-sm">
+              {[...projects, ...localProjects].map((project) => (
+                <Card key={project.id + project.name} className="bg-white/5 border-white/10 backdrop-blur-sm">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-white text-lg">{project.name}</CardTitle>
-                      <Badge className={getStatusColor(project.status)}>{project.status}</Badge>
+                      <div className="flex items-center space-x-2">
+                        <Badge className={getStatusColor(project.status)}>{project.status}</Badge>
+                        {/* Solo permite borrar proyectos locales */}
+                        {localProjects.some((p) => p.id === project.id) && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="text-red-400 hover:text-red-600"
+                            onClick={() => handleDeleteLocalProject(project.id)}
+                            title="Eliminar proyecto"
+                          >
+                            <Trash className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </div>
                     </div>
                     <p className="text-white/70 text-sm">{project.description}</p>
                   </CardHeader>
@@ -628,7 +809,6 @@ export default function Dashboard() {
                           />
                         </div>
                       </div>
-
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                           <span className="text-white/70">
@@ -643,25 +823,26 @@ export default function Dashboard() {
                             {language === "en" ? "Due Date" : "Fecha Límite"}
                           </span>
                           <p className="text-white font-medium">
-                            {new Date(project.dueDate).toLocaleDateString(language === "en" ? "en-US" : "es-ES")}
+                            {project.dueDate
+                              ? new Date(project.dueDate).toLocaleDateString(language === "en" ? "en-US" : "es-ES")
+                              : "-"}
                           </p>
                         </div>
                       </div>
-
                       <div className="flex items-center justify-between">
                         <div className="flex -space-x-2">
-                          {project.team.slice(0, 3).map((email, i) => {
+                          {project.team?.slice(0, 3).map((email, i) => {
                             const member = allTeamMembers.find((m) => m.email === email)
                             return (
                               <div
                                 key={i}
-                                className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 flex items-center justify-center text-xs font-medium border-2 border-white/20"
+                                className="w-8 h-8 rounded-full bg-purple-700 text-white flex items-center justify-center text-xs font-medium border-2 border-white/20"
                               >
                                 {member?.avatar || email.charAt(0).toUpperCase()}
                               </div>
                             )
                           })}
-                          {project.team.length > 3 && (
+                          {project.team && project.team.length > 3 && (
                             <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-medium border-2 border-white/20">
                               +{project.team.length - 3}
                             </div>
@@ -676,6 +857,66 @@ export default function Dashboard() {
                 </Card>
               ))}
             </div>
+
+            {showProjectModal && (
+              <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                  <h2 className="text-xl font-bold mb-4 text-purple-700">Crear Proyecto</h2>
+                  <div className="space-y-3">
+                    <input
+                      placeholder="Nombre"
+                      value={newProject.name}
+                      onChange={e => setNewProject({ ...newProject, name: e.target.value })}
+                      className="w-full border p-2 rounded text-gray-900"
+                    />
+                    <input
+                      placeholder="Descripción"
+                      value={newProject.description}
+                      onChange={e => setNewProject({ ...newProject, description: e.target.value })}
+                      className="w-full border p-2 rounded text-gray-900"
+                    />
+                    <input
+                      type="date"
+                      className="w-full border p-2 rounded text-gray-900"
+                      value={newProject.dueDate}
+                      onChange={e => setNewProject({ ...newProject, dueDate: e.target.value })}
+                    />
+                  </div>
+                  <div className="flex justify-end space-x-2 mt-4">
+                    <Button variant="outline" onClick={() => setShowProjectModal(false)}>
+                      Cancelar
+                    </Button>
+                    <Button
+                      className="bg-purple-600 hover:bg-purple-700"
+                      onClick={() => {
+                        const projectToAdd = {
+                          ...newProject,
+                          id: (allProjects.length + localProjects.length + 1).toString(),
+                        }
+                        setLocalProjects([...localProjects, projectToAdd])
+                        setShowProjectModal(false)
+                        setNewProject({
+                          name: "",
+                          description: "",
+                          progress: 0,
+                          tasks: 0,
+                          completedTasks: 0,
+                          dueDate: "",
+                          team: [user?.email || ""],
+                          color: "from-purple-500 to-blue-500",
+                          owner: user?.email || "",
+                          status: "active",
+                          budget: 0,
+                          spent: 0,
+                        })
+                      }}
+                    >
+                      Crear
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )
 
@@ -712,7 +953,7 @@ export default function Dashboard() {
                     </SelectContent>
                   </Select>
                 )}
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="bg-purple-600 hover:bg-purple-700" onClick={() => setShowTaskModal(true)}>
                   <PlusCircle className="h-4 w-4 mr-2" />
                   {language === "en"
                     ? "New Task"
@@ -726,52 +967,171 @@ export default function Dashboard() {
             <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="divide-y divide-white/10">
-                  {tasks.map((task) => (
-                    <div key={task.id} className="p-4 hover:bg-white/5">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
-                          <div
-                            className={`w-4 h-4 rounded-full border ${
-                              task.status === "completed"
-                                ? "bg-green-500/50 border-green-500"
-                                : "bg-transparent border-white/30"
-                            } flex items-center justify-center`}
-                          >
-                            {task.status === "completed" && <CheckCircle className="h-3 w-3 text-white" />}
-                          </div>
-                          <div>
-                            <h3
-                              className={`font-medium ${
-                                task.status === "completed" ? "text-white/50 line-through" : "text-white"
-                              }`}
+                  {filteredTasks.map((task) => {
+                    // Permisos: superAdmin puede borrar todo, el owner puede borrar sus tareas, el assignee no puede borrar
+                    const canDelete =
+                      user.role === "superAdmin" ||
+                      (task.owner === user.email && user.role !== "superAdmin")
+                    return (
+                      <div key={task.id} className="p-4 hover:bg-white/5">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div
+                              className={`w-4 h-4 rounded-full border ${
+                                task.status === "completed"
+                                  ? "bg-green-500/50 border-green-500"
+                                  : "bg-transparent border-white/30"
+                              } flex items-center justify-center`}
                             >
-                              {task.title}
-                            </h3>
-                            <p className="text-sm text-white/70">{task.description}</p>
-                            <div className="flex items-center space-x-4 mt-2">
-                              <span className="text-xs text-white/50">{task.project}</span>
-                              <span className="text-xs text-white/50">
-                                {allTeamMembers.find((m) => m.email === task.assignee)?.name || task.assignee}
-                              </span>
+                              {task.status === "completed" && <CheckCircle className="h-3 w-3 text-white" />}
+                            </div>
+                            <div>
+                              <h3
+                                className={`font-medium ${
+                                  task.status === "completed" ? "text-white/50 line-through" : "text-white"
+                                }`}
+                              >
+                                {task.title}
+                              </h3>
+                              <p className="text-sm text-white/70">{task.description}</p>
+                              <div className="flex items-center space-x-4 mt-2">
+                                <span className="text-xs text-white/50">{task.project}</span>
+                                <span className="text-xs text-white/50">
+                                  {allTeamMembers.find((m) => m.email === task.assignee)?.name || task.assignee}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Badge className={getPriorityColor(task.priority)}>{task.priority}</Badge>
+                            <Badge className={getStatusColor(task.status)}>{task.status}</Badge>
+                            <span className="text-xs text-white/50">
+                              {new Date(task.dueDate).toLocaleDateString(language === "en" ? "en-US" : "es-ES")}
+                            </span>
+                            <div className="relative group" tabIndex={0}>
+                              <Button variant="ghost" size="sm" className="text-white/70 hover:text-white">
+                                <MoreHorizontal className="h-4 w-4" />
+                              </Button>
+                              <div className="absolute right-0 mt-2 w-32 bg-white rounded shadow-lg z-10 hidden group-hover:block group-focus-within:block">
+                                {canDelete && (
+                                  <button
+                                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                                    onClick={() => handleDeleteTask(task.id)}
+                                  >
+                                    Borrar tarea
+                                  </button>
+                                )}
+                                {/* Puedes agregar más opciones aquí */}
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Badge className={getPriorityColor(task.priority)}>{task.priority}</Badge>
-                          <Badge className={getStatusColor(task.status)}>{task.status}</Badge>
-                          <span className="text-xs text-white/50">
-                            {new Date(task.dueDate).toLocaleDateString(language === "en" ? "en-US" : "es-ES")}
-                          </span>
-                          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white">
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               </CardContent>
             </Card>
+
+            {showTaskModal && (
+              <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                  <h2 className="text-xl font-bold mb-4 text-purple-700">Crear Tarea</h2>
+                  <div className="space-y-3">
+                    <input
+                      placeholder="Título"
+                      value={newTask.title}
+                      onChange={e => setNewTask({ ...newTask, title: e.target.value })}
+                      className="w-full border p-2 rounded text-gray-900"
+                    />
+                    <input
+                      placeholder="Descripción"
+                      value={newTask.description}
+                      onChange={e => setNewTask({ ...newTask, description: e.target.value })}
+                      className="w-full border p-2 rounded text-gray-900"
+                    />
+                    <select
+                      className="w-full border p-2 rounded text-gray-900"
+                      value={newTask.project}
+                      onChange={e => {
+                        if (e.target.value === "__new__") {
+                          setShowNewProjectInput(true)
+                        } else {
+                          setNewTask({ ...newTask, project: e.target.value })
+                        }
+                      }}
+                    >
+                      <option value="">Selecciona un proyecto</option>
+                      {[...allProjects, ...localProjects].map((p) => (
+                        <option key={p.id} value={p.name}>{p.name}</option>
+                      ))}
+                      <option value="__new__">+ Crear nuevo proyecto...</option>
+                    </select>
+                    {showNewProjectInput && (
+                      <div className="flex space-x-2 mt-2">
+                        <input
+                          className="w-full border p-2 rounded text-gray-900"
+                          placeholder="Nombre del nuevo proyecto"
+                          value={newProjectName}
+                          onChange={e => setNewProjectName(e.target.value)}
+                          autoFocus
+                        />
+                        <Button
+                          className="bg-purple-600 hover:bg-purple-700"
+                          onClick={handleAddNewProject}
+                          type="button"
+                        >
+                          Añadir
+                        </Button>
+                        <Button
+                          variant="outline"
+                          onClick={() => {
+                            setShowNewProjectInput(false)
+                            setNewProjectName("")
+                          }}
+                          type="button"
+                        >
+                          Cancelar
+                        </Button>
+                      </div>
+                    )}
+                    <select
+                      className="w-full border p-2 rounded text-gray-900"
+                      value={newTask.priority}
+                      onChange={e => setNewTask({ ...newTask, priority: e.target.value as "low" | "medium" | "high" })}
+                    >
+                      <option value="low">Baja</option>
+                      <option value="medium">Media</option>
+                      <option value="high">Alta</option>
+                    </select>
+                    <select
+                      className="w-full border p-2 rounded text-gray-900"
+                      value={newTask.assignee}
+                      onChange={e => setNewTask({ ...newTask, assignee: e.target.value })}
+                    >
+                      <option value="">Asignar a...</option>
+                      {allTeamMembers.map((m) => (
+                        <option key={m.email} value={m.email}>{m.name}</option>
+                      ))}
+                    </select>
+                    <input
+                      type="date"
+                      className="w-full border p-2 rounded text-gray-900"
+                      value={newTask.dueDate}
+                      onChange={e => setNewTask({ ...newTask, dueDate: e.target.value })}
+                    />
+                  </div>
+                  <div className="flex justify-end space-x-2 mt-4">
+                    <Button variant="outline" onClick={() => setShowTaskModal(false)}>
+                      Cancelar
+                    </Button>
+                    <Button className="bg-purple-600 hover:bg-purple-700" onClick={handleCreateTask}>
+                      Crear
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )
 
@@ -898,7 +1258,7 @@ export default function Dashboard() {
                 <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
                   <CardHeader>
                     <CardTitle className="text-white text-base">
-                      {language === "en" ? "Quick Stats" : "Estadísticas Rápidas"}
+                      {language === "en" ? "Quick Stats" : language === "eu" ? "Estadistika Azkarrak" : "Estadísticas Rápidas"}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -948,9 +1308,9 @@ export default function Dashboard() {
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-4 mb-4">
                       <div className="relative">
-                        <Avatar className="h-12 w-12">
-                          <AvatarFallback className="bg-purple-700 text-white">{member.avatar}</AvatarFallback>
-                        </Avatar>
+                        <div className="h-12 w-12 rounded-full bg-purple-700 text-white flex items-center justify-center text-lg font-bold">
+                          {member.avatar}
+                        </div>
                         <div
                           className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white ${getStatusIcon(member.status)}`}
                         />
@@ -1033,7 +1393,7 @@ export default function Dashboard() {
                     </SelectContent>
                   </Select>
                 )}
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="bg-purple-600 hover:bg-purple-700" onClick={() => setShowUploadModal(true)}>
                   <Upload className="h-4 w-4 mr-2" />
                   {language === "en" ? "Upload" : language === "eu" ? "Igo" : "Subir"}
                 </Button>
@@ -1043,7 +1403,7 @@ export default function Dashboard() {
             <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="divide-y divide-white/10">
-                  {/* {documents.map((doc) => (
+                  {documents.map((doc) => (
                     <div key={doc.id} className="p-4 hover:bg-white/5">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
@@ -1065,19 +1425,48 @@ export default function Dashboard() {
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white">
+                          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white" onClick={() => window.open(doc.url, "_blank")}>
                             <Download className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white">
-                            <MoreHorizontal className="h-4 w-4" />
+                          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white" onClick={() => {/* abre modal de edición */}}>
+                            <Edit className="h-4 w-4" />
                           </Button>
                         </div>
                       </div>
                     </div>
-                  ))} */}
+                  ))}
                 </div>
               </CardContent>
             </Card>
+
+            {showUploadModal && (
+              <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                  <h2 className="text-xl font-bold mb-4 text-purple-700">Subir Documento</h2>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    className="w-full border p-2 rounded text-gray-900"
+                  />
+                  <div className="flex justify-end space-x-2 mt-4">
+                    <Button variant="outline" onClick={() => setShowUploadModal(false)}>
+                      Cancelar
+                    </Button>
+                    <Button
+                      className="bg-purple-600 hover:bg-purple-700"
+                      onClick={() => {
+                        console.log("CLICK SUBIR DOCUMENTO");
+                        handleUploadDocument();
+                      }}
+                      disabled={uploading || !selectedFile}
+                    >
+                      {uploading ? "Subiendo..." : "Subir"}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )
 
@@ -1211,7 +1600,7 @@ export default function Dashboard() {
                       {language === "en" ? "Email" : language === "eu" ? "Posta" : "Correo"}
                     </Label>
                     <Input
-                      defaultValue={user.email}
+                      defaultValue={user?.email || ""}
                       className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
                     />
                   </div>
@@ -1448,7 +1837,9 @@ export default function Dashboard() {
                         <p className="text-sm text-white">
                           {language === "en" ? "Updated project progress" : language === "eu" ? "Proiektuaren aurrerapena eguneratu du" : "Actualizó el progreso del proyecto"}
                         </p>
-                        <p className="text-xs text-white/50">2 {language === "en" ? "hours ago" : language === "eu" ? "ordu batzuen buruan" : "horas atrás"}</p>
+                        <p className="text-xs text-white/50">
+                          2 {language === "en" ? "hours ago" : language === "eu" ? "ordu batzuen buruan" : "horas atrás"}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -1459,7 +1850,9 @@ export default function Dashboard() {
                         <p className="text-sm text-white">
                           {language === "en" ? "Completed task documentation" : language === "eu" ? "Zeregin dokumentazioa osatu du" : "Completó la documentación de tarea"}
                         </p>
-                        <p className="text-xs text-white/50">4 {language === "en" ? "hours ago" : language === "eu" ? "ordu batzuen buruan" : "horas atrás"}</p>
+                        <p className="text-xs text-white/50">
+                          4 {language === "en" ? "hours ago" : language === "eu" ? "ordu batzuen buruan" : "horas atrás"}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -1468,34 +1861,17 @@ export default function Dashboard() {
                       </div>
                       <div>
                         <p className="text-sm text-white">
-                          {language === "en" ? "Uploaded new design files" : language === "eu" ? "Diseinu fitxategi berriak igo ditu" : "Subió nuevos archivos de diseño"}
+                          {language === "en"
+                            ? "Designed new UI mockups"
+                            : language === "eu"
+                            ? "UI maketak diseinatu ditu"
+                            : "Diseñó nuevos mockups de UI"}
                         </p>
-                        <p className="text-xs text-white/50">6 {language === "en" ? "hours ago" : language === "eu" ? "ordu batzuen buruan" : "horas atrás"}</p>
+                        <p className="text-xs text-white/50">
+                          6 {language === "en" ? "hours ago" : language === "eu" ? "ordu batzuen buruan" : "horas atrás"}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="text-white text-lg">
-                    {language === "en" ? "Today's Schedule" : language === "eu" ? "Gaurko Egutegia" : "Horario de Hoy"}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {calendarEvents.slice(0, 3).map((event) => (
-                      <div key={event.id} className="flex items-center space-x-3">
-                        <div className="w-2 h-2 rounded-full bg-purple-400" />
-                        <div>
-                          <p className="text-sm text-white">{event.title}</p>
-                          <p className="text-xs text-white/50">
-                            {event.time} - {event.project}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 </CardContent>
               </Card>
@@ -1555,7 +1931,7 @@ export default function Dashboard() {
               />
             </div>
 
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 relative">
               <LanguageSelector />
 
               <TooltipProvider>
@@ -1565,9 +1941,12 @@ export default function Dashboard() {
                       variant="ghost"
                       size="icon"
                       className="relative text-white/70 hover:text-white hover:bg-white/10"
+                      onClick={() => setShowNotifications(!showNotifications)}
                     >
                       <Bell className="h-5 w-5" />
-                      <span className="absolute -top-1 -right-1 h-2 w-2 bg-purple-400 rounded-full animate-pulse"></span>
+                      {notifications.some(n => !n.read) && (
+                        <span className="absolute -top-1 -right-1 h-2 w-2 bg-purple-400 rounded-full animate-pulse"></span>
+                      )}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -1575,9 +1954,46 @@ export default function Dashboard() {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+              {/* Panel de notificaciones */}
+              {showNotifications && (
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-50 border border-white/20">
+                  <div className="flex items-center justify-between p-4 border-b border-white/10 font-bold text-purple-700">
+                    <span>
+                      {language === "en" ? "Notifications" : language === "eu" ? "Jakinarazpenak" : "Notificaciones"}
+                    </span>
+                    <button
+                      className="text-gray-400 hover:text-purple-700 text-lg font-bold focus:outline-none"
+                      aria-label="Cerrar"
+                      onClick={() => setShowNotifications(false)}
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <div className="max-h-96 overflow-y-auto divide-y divide-white/10">
+                    {notifications.length === 0 ? (
+                      <div className="p-4 text-gray-500 text-sm">
+                        {language === "en" ? "No notifications" : language === "eu" ? "Jakinarazpenik ez" : "Sin notificaciones"}
+                      </div>
+                    ) : (
+                      notifications.map((n, i) => (
+                        <div key={i} className={`p-4 ${!n.read ? "bg-purple-50" : ""}`}>
+                          <div className="flex items-center justify-between">
+                            <span className="font-medium text-gray-900">
+                              {n.message}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                              {new Date(n.timestamp).toLocaleDateString(language === "en" ? "en-US" : "es-ES", { hour: "2-digit", minute: "2-digit" })}
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
 
               <Avatar>
-                <AvatarFallback className="bg-purple-700 text-white">
+                <AvatarFallback>
                   {user.name
                     .split(" ")
                     .map((n) => n[0])
@@ -1598,6 +2014,7 @@ export default function Dashboard() {
               <CardContent className="p-4">
                 <nav className="space-y-2">
                   <NavItem
+                   
                     icon={Command}
                     label={language === "en" ? "Dashboard" : language === "eu" ? "Kontsola" : "Panel"}
                     active={activeSection === "dashboard"}
@@ -1683,15 +2100,15 @@ export default function Dashboard() {
                 <CardContent className="p-0">
                   <div className="bg-gradient-to-br from-purple-800 to-indigo-900 p-6 border-b border-white/10">
                     <div className="flex flex-col items-center">
-                      <Avatar className="h-20 w-20 mb-4">
-                        {profileImage ? (
+                      <Avatar className="h-28 w-28 mb-4">
+                        {auth.currentUser?.photoURL ? (
                           <img
-                            src={profileImage}
+                            src={auth.currentUser.photoURL}
                             alt="Profile"
-                            className="object-cover w-full h-full rounded-full"
+                            className="w-full h-full rounded-full object-cover"
                           />
                         ) : (
-                          <AvatarFallback className="bg-purple-700 text-white text-xl">
+                          <AvatarFallback>
                             {user.name
                               .split(" ")
                               .map((n) => n[0])

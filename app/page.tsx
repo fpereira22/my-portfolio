@@ -27,6 +27,8 @@ import { UserMenu } from "../components/user-menu"
 import { ProfileModal } from "../components/profile-modal"
 import { useLanguage } from "../hooks/useLanguage"
 import { useRouter } from "next/navigation"
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false)
@@ -42,27 +44,38 @@ export default function Portfolio() {
   const router = useRouter()
 
   useEffect(() => {
-    setMounted(true)
+    setMounted(true);
+
+    // Listener de Firebase para el estado de autenticación
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        // Si hay un usuario, actualizamos el estado
+        setIsLoggedIn(true);
+        setUser({
+          name: firebaseUser.displayName && firebaseUser.displayName.trim() !== "" ? firebaseUser.displayName : "Usuario",
+          email: firebaseUser.email || "No email",
+        });
+        // Guardamos en localStorage solo si queremos recordar datos no sensibles
+        localStorage.setItem("portfolioUser", JSON.stringify({ name: firebaseUser.displayName && firebaseUser.displayName.trim() !== "" ? firebaseUser.displayName : "Usuario", email: firebaseUser.email }));
+      } else {
+        // Si no hay usuario, limpiamos el estado
+        setIsLoggedIn(false);
+        setUser(null);
+        localStorage.removeItem("portfolioUser");
+      }
+    });
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
 
-    // Check if user is already logged in (localStorage)
-    const savedUser = localStorage.getItem("portfolioUser")
-    if (savedUser) {
-      try {
-        const userData = JSON.parse(savedUser)
-        setIsLoggedIn(true)
-        setUser(userData)
-      } catch {
-        localStorage.removeItem("portfolioUser")
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    // Limpiamos tanto el listener de scroll como el de auth
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      unsubscribe();
+    };
+  }, []);
 
   const handleLogin = (userData: { name: string; email: string }) => {
     const userInfo = {
@@ -78,10 +91,8 @@ export default function Portfolio() {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem("portfolioUser")
-    setIsLoggedIn(false)
-    setUser(null)
-  }
+    signOut(auth); // Esto cierra la sesión, y onAuthStateChanged hará el resto.
+  };
 
   const handleOpenDashboard = () => {
     router.push("/dashboard")
@@ -93,6 +104,24 @@ export default function Portfolio() {
 
   const handleUpdateUser = (updatedUser: { name: string; email: string }) => {
     setUser(updatedUser)
+    if (auth.currentUser && updatedUser.name) {
+      import('firebase/auth').then(({ updateProfile, reload }) => {
+        updateProfile(auth.currentUser!, { displayName: updatedUser.name })
+          .then(() => {
+            // Recarga el usuario para obtener el displayName actualizado
+            reload(auth.currentUser!).then(() => {
+              localStorage.setItem("portfolioUser", JSON.stringify({ name: updatedUser.name, email: updatedUser.email }))
+              // Opcional: fuerza un refresco del estado local
+              setUser({
+                name: updatedUser.name,
+                email: updatedUser.email,
+              })
+            })
+          })
+      })
+    } else {
+      localStorage.setItem("portfolioUser", JSON.stringify({ name: updatedUser.name, email: updatedUser.email }))
+    }
   }
 
   // Detecta el lado de entrada del mouse
@@ -407,7 +436,7 @@ export default function Portfolio() {
                   asChild
                   className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  <a href="/CVFelipePereira.pdf" download target="_blank" rel="noopener noreferrer">
+                  <a href="/CVFelipePereiraAlarcon.pdf" download target="_blank" rel="noopener noreferrer">
                     <Download className="w-5 h-5" />
                     {t("about.downloadCV")}
                   </a>
@@ -890,7 +919,7 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-8 text-center">{t("contact.title")}</h2>
           <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-xl">
-            <form className="space-y-4" action="https://formspree.io/f/tu_codigo" method="POST">
+            <form className="space-y-4" action="https://formspree.io/f/xqalqzon" method="POST">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block mb-2">
@@ -899,6 +928,7 @@ export default function Portfolio() {
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
@@ -909,6 +939,7 @@ export default function Portfolio() {
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
@@ -920,6 +951,7 @@ export default function Portfolio() {
                 <input
                   type="text"
                   id="subject"
+                  name="subject"
                   className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 placeholder:text-gray-500"
                 />
               </div>
@@ -929,6 +961,7 @@ export default function Portfolio() {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   rows={5}
                   className="w-full px-4 py-2 rounded-md bg-white/20 backdrop-blur-sm border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900 placeholder:text-gray-500"
                 ></textarea>
@@ -1052,7 +1085,30 @@ export default function Portfolio() {
       </a>
 
       {/* Auth Modal */}
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} onLogin={handleLogin} />
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onLogin={handleLogin}
+        onGoogleLogin={async () => {
+          const { GoogleAuthProvider, signInWithPopup } = await import("firebase/auth");
+          const provider = new GoogleAuthProvider();
+          try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            handleLogin({
+              name: user.displayName || "Usuario",
+              email: user.email || "No email",
+            });
+            setIsAuthModalOpen(false);
+          } catch (error: any) {
+            let msg = "Error al iniciar sesión con Google.";
+            if (error && typeof error === "object" && "message" in error && typeof error.message === "string") {
+              msg += ` ${error.message}`;
+            }
+            alert(msg);
+          }
+        }}
+      />
 
       {/* Profile Modal */}
       <ProfileModal
