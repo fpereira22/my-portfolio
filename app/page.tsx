@@ -28,7 +28,7 @@ import { ProfileModal } from "../components/profile-modal"
 import { useLanguage } from "../hooks/useLanguage"
 import { useRouter } from "next/navigation"
 import { auth } from "@/lib/firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, sendEmailVerification } from "firebase/auth";
 
 export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false)
@@ -77,11 +77,21 @@ export default function Portfolio() {
     };
   }, []);
 
-  const handleLogin = (userData: { name: string; email: string }) => {
+  const handleLogin = async (userData: { name: string; email: string; isNewUser?: boolean }) => {
     const userInfo = {
       name: userData.name,
       email: userData.email,
       loginTime: new Date().toISOString(),
+    }
+
+    // Si es un nuevo usuario, enviar correo de verificación
+    if (userData.isNewUser && auth.currentUser && !auth.currentUser.emailVerified) {
+      try {
+        await sendEmailVerification(auth.currentUser);
+        alert("Se ha enviado un correo de verificación. Por favor revisa tu bandeja de entrada.");
+      } catch (error) {
+        alert("No se pudo enviar el correo de verificación. Intenta más tarde.");
+      }
     }
 
     localStorage.setItem("portfolioUser", JSON.stringify(userInfo))
@@ -361,7 +371,7 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Profile Image */}
-            <div className="flex justify-center mb-8 lg:mb-0">
+            {/* <div className="flex justify-center mb-8 lg:mb-0">
               <div className="relative">
                 <div className="w-64 h-80 sm:w-80 sm:h-[28rem] rounded-3xl border-4 border-purple-500 overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-105 mx-auto">
                   <Image
@@ -370,6 +380,21 @@ export default function Portfolio() {
                     width={320}
                     height={400}
                     className="object-cover w-full h-full"
+                  />
+                </div>
+              </div>
+            </div> */}
+            {/* Profile WebP */}
+            <div className="flex justify-center mb-8 lg:mb-0">
+              <div className="relative">
+                <div className="w-64 h-80 sm:w-80 sm:h-[28rem] rounded-3xl border-4 border-purple-500 overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-105 mx-auto">
+                  <Image
+                    src="/video.webp" // Ruta del archivo WebP
+                    alt="Felipe Pereira A."
+                    width={320}
+                    height={400}
+                    className="object-cover w-full h-full"
+                    priority
                   />
                 </div>
               </div>
@@ -1088,16 +1113,22 @@ export default function Portfolio() {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        onLogin={handleLogin}
+        onLogin={async (userData) => {
+          // Si el usuario es nuevo, pasamos isNewUser=true
+          await handleLogin({ ...userData, isNewUser: userData.isNewUser });
+        }}
         onGoogleLogin={async () => {
           const { GoogleAuthProvider, signInWithPopup } = await import("firebase/auth");
           const provider = new GoogleAuthProvider();
           try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
-            handleLogin({
+            // Detectar si es un usuario nuevo por metadata
+            const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
+            await handleLogin({
               name: user.displayName || "Usuario",
               email: user.email || "No email",
+              isNewUser,
             });
             setIsAuthModalOpen(false);
           } catch (error: any) {
