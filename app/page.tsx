@@ -600,7 +600,8 @@ export default function Portfolio() {
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
               <div className="h-48 bg-gradient-to-br from-blue-100 to-purple-100 p-4">
                 <Image
-                  src="/img/1.png"
+                  // src="/img/1.png"
+                  src="/tachas.webp"
                   alt={t("projects.project1.title")}
                   width={300}
                   height={200}
@@ -635,7 +636,8 @@ export default function Portfolio() {
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
               <div className="h-48 bg-gradient-to-br from-yellow-100 to-red-100 p-4">
                 <Image
-                  src="/img/2.jpg"
+                  // src="/img/2.jpg"
+                  src="/background.webp"
                   alt={t("projects.project2.title")}
                   width={300}
                   height={200}
@@ -670,7 +672,8 @@ export default function Portfolio() {
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
               <div className="h-48 bg-gradient-to-br from-green-100 to-blue-100 p-4">
                 <Image
-                  src="/img/3.png"
+                  // src="/img/3.png"
+                  src="/pulmonia.webp"
                   alt={t("projects.project3.title")}
                   width={300}
                   height={200}
