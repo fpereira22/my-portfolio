@@ -30,6 +30,294 @@ import { useRouter } from "next/navigation"
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, sendEmailVerification } from "firebase/auth";
 
+interface ExperienceCardProps {
+  company: string;
+  title: string;
+  dates: string;
+  location: string;
+  description: string;
+  bullets: string[]; // Un array de strings
+  imageSrc: string;
+}
+interface CardComponentProps extends ExperienceCardProps {
+  index: number;
+}
+
+// El tipo para el array de datos (incluye el 'id')
+type Experience = ExperienceCardProps & {
+  id: number;
+};
+
+const experiencesData: Experience[] = [
+  {
+    id: 1,
+    company: "SOCIEDAD DE SERVICIOS GENERALES LTDA",
+    title: "AI Software Developer & Full Stack Dev — Experto en Programación y Desarrollo",
+    dates: "jul. 2025 - actualidad · 4 meses",
+    location: "Gran Santiago, Región Metropolitana de Santiago, Chile",
+    imageSrc: "/sociedad-servicios.png",
+    description: 'Ascendido a "Experto en Programación y Desarrollo". Tras mi ascenso, mi rol se centra en diseñar, desarrollar e implementar soluciones avanzadas de Inteligencia Artificial y software para la optimización de infraestructura vial y proyectos de automatización a gran escala. Actualmente, mis principales focos son:',
+    bullets: [
+      "IA Visual para Infraestructura Crítica: Desarrollo de modelos avanzados de Computer Vision con Python, PyTorch y YOLO para la detección de elementos clave en carreteras, incluyendo fisuras, tachas, captafaros, balizas y barreras New Jersey, reduciendo falsos positivos y mejorando la precisión.",
+      "Proyectos de Innovación en IA: Diseño de nuevas arquitecturas para análisis geoespacial, integración de sistemas predictivos y uso de datos para optimizar la seguridad vial y la planificación estratégica.",
+      "Automatización y Escalabilidad: Implementación de pipelines inteligentes para procesar datos masivos, integrando dashboards interactivos y herramientas de análisis que facilitan la toma de decisiones en tiempo real.",
+      "Próximos Desarrollos y Nuevos Retos: Exploración de nuevas soluciones basadas en IA para distintos proyectos tecnológicos internos, combinando desarrollo full stack, procesamiento de datos y modelos inteligentes para generar impacto a nivel organizacional."
+    ]
+  },
+  {
+    id: 2,
+    company: "SOCIEDAD DE SERVICIOS GENERALES LTDA",
+    title: "AI Software Developer & Full Stack Dev — Formación Avanzada",
+    dates: "may. 2025 - jul. 2025 · 3 meses",
+    location: "Gran Santiago, Región Metropolitana de Santiago, Chile",
+    imageSrc: "/sociedad-servicios.png", // Reutilizamos la imagen
+    description: "Durante mis prácticas profesionales, contribuí al desarrollo de soluciones tecnológicas avanzadas, enfocándome en la mejora de procesos internos y el análisis de infraestructura vial mediante Inteligencia Artificial.",
+    bullets: [
+      "Desarrollo Full Stack: Lideré el diseño y la implementación de una intranet corporativa segura desde cero, utilizando Angular y Bootstrap. La plataforma centralizó recursos clave y mejoró la comunicación interna, integrando un sistema de autenticación robusto basado en JWT.",
+      "Inteligencia Artificial para Infraestructura Crítica: Desarrollé y desplegué modelos avanzados de Computer Vision (Python, PyTorch, YOLO) para el análisis de infraestructura vial. El proyecto se centró en la detección automática de fisuras en barreras New Jersey y en la identificación de otros elementos como tachas, captafaros y señalética.",
+      "Análisis de Datos y Visualización Avanzada: Transformé datos complejos en insights accionables mediante la creación de dashboards interactivos (Power BI) y desarrollé un framework de visualización a medida integrando Streamlit y Folium para el análisis geoespacial.",
+      "Gestión de Infraestructura y Cloud: Administré bases de datos relacionales (MySQL, PostgreSQL) y gestioné el despliegue de aplicaciones y servicios en la nube de Microsoft Azure."
+    ]
+  },
+  {
+    id: 3,
+    company: "MRComputer Spa LTDA",
+    title: "Ingeniero de TI y Ciberseguridad",
+    dates: "ene. 2024 - feb. 2025 · 1 año 2 meses",
+    location: "Área metropolitana de Santiago · Presencial",
+    imageSrc: "/mrcomputer.png",
+    description: "Inicié como Practicante y fui promovido gracias al rápido desarrollo de habilidades y contribuciones clave en proyectos de seguridad y software. Mis responsabilidades incluyeron:",
+    bullets: [
+      "Gestioné la ciberseguridad del entorno empresarial, implementando políticas de protección (ESET) y realizando análisis proactivos de vulnerabilidades con Kali Linux.",
+      "Desarrollé aplicaciones web y software interno utilizando Python (Django, Flask) y la pila MERN para proyectos Full Stack.",
+      "Administré la infraestructura en la nube (AWS, Azure) y gestioné el ciclo de vida de usuarios y permisos en Google Workspace y Microsoft 365.",
+      "Automaticé la generación de informes mediante scripts en Python (Pandas, NumPy) y macros de Excel (VBA)."
+    ]
+  },
+  {
+    id: 4,
+    company: "La picá del Pipeño",
+    title: "Fundador y Director",
+    dates: "sept. 2021 - ene. 2025 · 3 años 5 meses",
+    location: "Paine, Región Metropolitana de Santiago, Chile · Presencial",
+    imageSrc: "/lapica-pipeno.png",
+    description: "Fundé y lideré un emprendimiento de e-commerce especializado en la importación y comercialización de ropa deportiva. Fui responsable de la gestión integral del negocio:",
+    bullets: [
+      "Gestión de Proveedores y Comercio Internacional: Desarrollé y gestioné una red global de proveedores en Asia, Europa y América (China, Inglaterra, EE. UU., Colombia y Tailandia).",
+      "Desarrollo de Herramientas y Automatización: Diseñé y programé un sistema de gestión de clientes y pedidos en Excel (VBA y Macros) para automatizar el seguimiento de órdenes y la comunicación.",
+      "Análisis Financiero y Business Intelligence: Dirigí el análisis financiero empleando Excel y Power BI para monitorear ingresos, costos y márgenes de ganancia.",
+      "Optimización Logística y de Operaciones: Orquesté toda la cadena logística, desde la importación hasta la entrega final al cliente."
+    ]
+  },
+  {
+    id: 5,
+    company: "Saez y Saez Cia Automóviles.",
+    title: "Ingeniero de Redes y Telecomunicaciones",
+    dates: "sept. 2021 - feb. 2022 · 6 meses",
+    location: "Talagante, Región Metropolitana de Santiago, Chile · Presencial",
+    imageSrc: "/saez.png", // ¡Asegúrate de tener esta imagen en tu carpeta /public/img/!
+    description: "Responsable de la infraestructura de red y el desarrollo de herramientas de automatización.",
+    bullets: [
+      "Lideré el proyecto de rediseño de la red local de la empresa, utilizando Cisco Packet Tracer y GSN3 para planificar y simular una topología más segura y eficiente.",
+      "Desarrollé una herramienta personalizada con Python y VBA para automatizar el proceso de contacto con clientes, mejorando los tiempos de respuesta.",
+      "Implementé y administré un nuevo sistema de cámaras de seguridad, configurando el control de movimiento y el acceso remoto (SMARTPSS)."
+    ]
+  },
+  {
+    id: 6,
+    company: "Universidad Andrés Bello",
+    title: "Ayudante y Tutor",
+    dates: "mar. 2020 - jul. 2020 · 5 meses",
+    location: "Providencia, Región Metropolitana de Santiago, Chile · En remoto",
+    imageSrc: "/unab.png", // ¡Asegúrate de tener esta imagen en tu carpeta /public/img/!
+    description: "Colaboré activamente con el cuerpo docente y brindé apoyo directo a estudiantes de ciencias e ingeniería para fortalecer su comprensión de conceptos fundamentales.",
+    bullets: [
+      "Apoyo Académico y Mentoría: Guié a estudiantes en las asignaturas de Física General e Introducción a las Matemáticas, simplificando temas complejos.",
+      "Colaboración Docente en Programación: Como Ayudante de Cátedra para Introducción a la Programación y Análisis de Algoritmos, asistí en la preparación de material y corrección de proyectos.",
+      "Desarrollo de Habilidades Técnicas: Proporcioné retroalimentación constructiva sobre código y algoritmos, ayudando a los estudiantes a depurar sus soluciones.",
+      "Fomento del Pensamiento Crítico: Fomenté un ambiente de aprendizaje proactivo donde los estudiantes desarrollaron habilidades de resolución de problemas."
+    ]
+  },
+];
+
+// --- COMPONENTE REUTILIZABLE PARA CADA TARJETA DE EXPERIENCIA ---
+// Este componente usa 'group' de Tailwind para manejar el hover
+// const ExperienceCard = ({ 
+//   company, 
+//   title, 
+//   dates, 
+//   location, 
+//   description, 
+//   bullets, 
+//   imageSrc,
+//   index 
+// }: CardComponentProps) => { // <-- 1. Aquí aplicamos el tipo
+//   return (
+//     // 'group' activa el hover para los elementos hijos
+//     <div className="group bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-700 ease-in-out hover:shadow-2xl">
+//       <div className={`flex flex-col ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+        
+//         {/* --- Imagen --- */}
+//         <div className="md:w-56 md:h-auto flex-shrink-0 p-6 flex items-center justify-center bg-gray-50 md:bg-white">
+//           <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg">
+//             <Image
+//               src={imageSrc}
+//               alt={company}
+//               width={160}
+//               height={160}
+//               className="object-cover w-full h-full"
+//             />
+//           </div>
+//         </div>
+        
+//         {/* --- Contenido de Texto --- */}
+//         <div className="flex-grow p-6">
+          
+//           {/* === PARTE SIEMPRE VISIBLE === */}
+//           <div>
+//             <h3 className="text-2xl font-bold text-purple-600">{company}</h3>
+//             <p className="text-xl font-semibold text-gray-800 mt-1">{title}</p>
+//             <p className="text-md text-gray-600 mt-1">{dates}</p>
+//           </div>
+          
+//           {/* === PARTE OCULTA (APARECE EN HOVER) === */}
+//           <div className="group bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-700 ease-in-out hover:shadow-2xl">
+//             <p className="text-gray-700 italic font-medium">{location}</p>
+//             <p className="text-gray-700 mt-4">
+//               {description}
+//             </p>
+//             <ul className="list-disc ml-6 mt-3 space-y-1 text-gray-700">
+//               {/* 2. Aquí especificamos los tipos para 'bullet' e 'index' */}
+//               {bullets.map((bullet: string, index: number) => (
+//                 <li key={index}>{bullet}</li>
+//               ))}
+//             </ul>
+//           </div>
+          
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+// este codigo sirve para menu desplegable
+// const ExperienceCard = ({ 
+//   company, 
+//   title, 
+//   dates, 
+//   location, 
+//   description, 
+//   bullets, 
+//   imageSrc,
+//   index 
+// }: CardComponentProps) => {
+//   return (
+//     <div className="relative group bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-105">
+//       {/* Contenedor principal */}
+//       <div className="flex flex-col items-center justify-center p-6 space-y-4">
+//         {/* Logo de la empresa */}
+//         <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
+//           <Image
+//             src={imageSrc}
+//             alt={company}
+//             width={80}
+//             height={80}
+//             className="object-cover w-full h-full"
+//           />
+//         </div>
+
+//         {/* Información básica */}
+//         <div className="text-center">
+//           <h3 className="text-lg font-bold text-gray-800">{company}</h3>
+//           <p className="text-sm font-medium text-purple-600">{title}</p>
+//           <p className="text-sm text-gray-500">{dates}</p>
+//         </div>
+//       </div>
+
+//       {/* Contenido oculto (aparece al hacer hover) */}
+//       <div className="absolute inset-0 bg-purple-900 text-white p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-center">
+//         <h4 className="text-lg font-bold mb-2">{company}</h4>
+//         <p className="text-sm mb-4">{description}</p>
+//         <ul className="list-disc ml-4 space-y-1 text-sm">
+//           {bullets.map((bullet, index) => (
+//             <li key={index}>{bullet}</li>
+//           ))}
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// };
+
+const ExperienceCard = ({
+  company,
+  title,
+  dates,
+  location,
+  description,
+  bullets,
+  imageSrc,
+  index
+}: CardComponentProps) => {
+  return (
+    // El 'group' y 'relative' están bien.
+    // 'overflow-hidden' en el padre es CLAVE para que las esquinas 
+    // redondeadas se respeten durante la animación.
+    <div className="relative group bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-105">
+      
+      {/* Contenedor principal (Siempre visible) */}
+      <div className="flex flex-col items-center justify-center p-6 space-y-4">
+        {/* Logo de la empresa */}
+        <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
+          <Image
+            src={imageSrc}
+            alt={company}
+            width={80}
+            height={80}
+            className="object-cover w-full h-full"
+          />
+        </div>
+
+        {/* Información básica */}
+        <div className="text-center">
+          <h3 className="text-lg font-bold text-gray-800">{company}</h3>
+          <p className="text-sm font-medium text-purple-600">{title}</p>
+          <p className="text-sm text-gray-500">{dates}</p>
+        </div>
+      </div>
+
+      {/* === CAMBIOS AQUÍ === */}
+      {/* Contenido oculto (ahora se expande hacia abajo) 
+        1. Quitamos 'absolute', 'inset-0', 'opacity-0', 'group-hover:opacity-100'.
+        2. Quitamos 'flex flex-col justify-center'.
+        3. Añadimos 'max-h-0' (oculto por defecto).
+        4. Añadimos 'group-hover:max-h-[500px]' (revelado en hover).
+           (Usa un valor grande, ej. [500px], que sepas que cubrirá tu contenido).
+        5. Añadimos 'transition-all duration-500 ease-in-out' para la animación.
+        6. Añadimos 'overflow-hidden' para que el contenido no se vea cuando está colapsado.
+      */}
+      <div 
+        className="bg-purple-900 text-white 
+                   max-h-0 group-hover:max-h-[500px] 
+                   transition-all duration-500 ease-in-out 
+                   overflow-hidden"
+      >
+        {/* Es buena práctica poner el padding en un div INTERNO.
+          Si pones 'p-6' en el mismo div que 'max-h-0', el padding 
+          también se animará y se verá extraño.
+        */}
+        <div className="p-6">
+          <h4 className="text-lg font-bold mb-2">{company}</h4>
+          <p className="text-sm mb-4">{description}</p>
+          <ul className="list-disc ml-4 space-y-1 text-sm">
+            {bullets.map((bullet, index) => (
+              <li key={index}>{bullet}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -584,6 +872,33 @@ export default function Portfolio() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Historial Cronológico */}
+      <section id="work-history" className="py-20 px-4 bg-gray-50 text-gray-800">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-4xl font-bold text-purple-600 mb-12 text-center">Experiencia Laboral</h2>
+          
+          {/* Aquí mapeamos el array de experiencias.
+            'space-y-8' añade espacio entre cada tarjeta.
+          */}
+          <div className="space-y-8">
+            {experiencesData.map((exp, index) => (
+              <ExperienceCard
+                key={exp.id}
+                company={exp.company}
+                title={exp.title}
+                dates={exp.dates}
+                location={exp.location}
+                description={exp.description}
+                bullets={exp.bullets}
+                imageSrc={exp.imageSrc}
+                index={index}
+              />
+            ))}
+          </div>
+          
         </div>
       </section>
 
