@@ -111,7 +111,7 @@ const translations = {
 
     // Certifications Section
     "certifications.title": "Certificaciones",
-    "certifications.intro": "Cuento con más de 90 certificaciones profesionales que respaldan mi experiencia y conocimientos técnicos.",
+    "certifications.intro": "Cuento con más de 100 certificaciones profesionales que respaldan mi experiencia y conocimientos técnicos.",
     "certifications.more": "Vea más certificaciones",
     "certifications.button": "Click aquí",
 
@@ -234,7 +234,7 @@ const translations = {
 
     // Certifications Section
     "certifications.title": "Certifications",
-    "certifications.intro": "I have more than 90 Professional certifications that support my experience and technical knowledge.",
+    "certifications.intro": "I have more than 100 Professional certifications that support my experience and technical knowledge.",
     "certifications.more": "View more certifications",
     "certifications.button": "Click here",
 
@@ -358,7 +358,7 @@ const translations = {
 
     // Certifications Section
     "certifications.title": "Ziurtagiriak",
-    "certifications.intro": "90 Ziurtagiri Profesional baino gehiago ditut nire esperientzia eta ezagutza teknikoa babesten dutenak.",
+    "certifications.intro": "100 Ziurtagiri Profesional baino gehiago ditut nire esperientzia eta ezagutza teknikoa babesten dutenak.",
     "certifications.more": "Ziurtagiri gehiago ikusi",
     "certifications.button": "Egin click",
 
