@@ -127,10 +127,10 @@ const translations = {
     "projects.project1.title": "Análisis de Tachas",
     "projects.project1.desc":
       "Sistema de análisis de datos para optimización de rutas y gestión de infraestructura vial.",
-    "projects.project2.title": "Proyecto Web",
-    "projects.project2.desc": "Desarrollo de aplicación web completa con backend robusto y frontend moderno.",
-    "projects.project3.title": "Detector de Neumonía",
-    "projects.project3.desc": "Sistema de detección de neumonía usando Computer Vision e Inteligencia Artificial.",
+    "projects.project2.title": "Housing Price API",
+    "projects.project2.desc": "Desarrollo de API para la predicción de precios de viviendas utilizando Machine Learning.",
+    "projects.project3.title": "Detector de Sentimientos",
+    "projects.project3.desc": "Sistema de detección de sentimientos en reseñas de productos usando NLP e Inteligencia Artificial.",
     "projects.viewBtn": "Ver Proyecto",
 
     // Work History Section
@@ -318,10 +318,10 @@ const translations = {
     "projects.title": "Featured Projects",
     "projects.project1.title": "Road Stud Analysis",
     "projects.project1.desc": "Data analysis system for route optimization and road infrastructure management.",
-    "projects.project2.title": "Web Project",
-    "projects.project2.desc": "Complete web application development with robust backend and modern frontend.",
-    "projects.project3.title": "Pneumonia Detector",
-    "projects.project3.desc": "Pneumonia detection system using Computer Vision and Artificial Intelligence.",
+    "projects.project2.title": "Housing Price API",
+    "projects.project2.desc": "API development for housing price prediction using Machine Learning.",
+    "projects.project3.title": "Sentiment Detector",
+    "projects.project3.desc": "Sentiment detection system for product reviews using NLP and Artificial Intelligence.",
     "projects.viewBtn": "View Project",
 
     // Work History Section
@@ -518,10 +518,10 @@ const translations = {
     "projects.title": "Proiektu Nabarmenenak",
     "projects.project1.title": "Tatxen Analisia",
     "projects.project1.desc": "Datu-analisi sistema bide optimizaziorako eta bide azpiegituren kudeaketarako.",
-    "projects.project2.title": "Web Proiektua",
-    "projects.project2.desc": "Web aplikazio osoa backend sendoarekin eta frontend modernoarekin.",
-    "projects.project3.title": "Pneumonia Detektorea",
-    "projects.project3.desc": "Pneumonia detektatzeko sistema Computer Vision eta Adimen Artifiziala erabiliz.",
+    "projects.project2.title": "Housing Price API",
+    "projects.project2.desc": "Etxebizitzen prezioen aurreikuspena egiteko API garapena Machine Learning erabiliz.",
+    "projects.project3.title": "Sentimendua Detektorea",
+    "projects.project3.desc": "Sentimendua detektatzeko sistema produktuen iritzietan NLP eta Adimen Artifiziala erabiliz.",
     "projects.viewBtn": "Proiektua ikusi",
 
     // Work History Section
