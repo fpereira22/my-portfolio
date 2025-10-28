@@ -1223,9 +1223,9 @@ export default function Portfolio() {
                 </div>
                 <p className="text-gray-600 mb-4">{t("projects.project1.desc")}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Python</span>
-                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Node.js</span>
-                  <span className="px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-sm">Tailwind</span>
+                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Python</span>
+                  <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Computer Vision</span>
+                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">IA</span>
                 </div>
                 <Button
                   asChild
@@ -1259,16 +1259,16 @@ export default function Portfolio() {
                 </div>
                 <p className="text-gray-600 mb-4">{t("projects.project2.desc")}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">PHP</span>
-                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Node.js</span>
-                  <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm">HTML</span>
+                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Python</span>
+                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">FastApi</span>
+                  <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm">React</span>
                 </div>
                 <Button
                   asChild
                   variant="outline"
                   className="w-full border-purple-600 text-purple-600 hover:bg-purple-50"
                 >
-                  <a href="https://github.com/fpereira22" target="_blank" rel="noopener noreferrer">
+                  <a href="https://github.com/fpereira22/End-to-End-Housing-Price-API" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-2" />
                     {t("projects.viewBtn")}
                   </a>
@@ -1281,7 +1281,7 @@ export default function Portfolio() {
               <div className="h-48 bg-gradient-to-br from-green-100 to-blue-100 p-4">
                 <Image
                   // src="/img/3.png"
-                  src="/pulmonia.webp"
+                  src="/nlp.webp"
                   alt={t("projects.project3.title")}
                   width={300}
                   height={200}
@@ -1296,15 +1296,15 @@ export default function Portfolio() {
                 <p className="text-gray-600 mb-4">{t("projects.project3.desc")}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Python</span>
-                  <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">ComputerVision</span>
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">IA</span>
+                  <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Machine Learning</span>
                 </div>
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-purple-600 text-green-600 hover:bg-purple-50"
+                  className="w-full border-purple-600 text-purple-600 hover:bg-purple-50"
                 >
-                  <a href="https://github.com/fpereira22/PneumoniaDetectorCV" target="_blank" rel="noopener noreferrer">
+                  <a href="https://github.com/fpereira22/Product-Review-Sentiment-Topic-Analysis" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-2" />
                     {t("projects.viewBtn")}
                   </a>
@@ -1325,6 +1325,7 @@ export default function Portfolio() {
           {/* Texto introductorio de certificaciones */}
           <p className="text-center max-w-2xl mx-auto mb-10 text-lg text-gray-700">{t("certifications.intro")}</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
             {/* IBM */}
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
@@ -1336,10 +1337,56 @@ export default function Portfolio() {
                   className="object-contain"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-2">AI Developer Specialization - Professional</h3>
+              <h3 className="text-xl font-bold mb-2">IBM AI Developer Professional</h3>
               <p className="text-gray-600 mb-4">IBM - 2025</p>
               <a
                 href="https://www.coursera.org/account/accomplishments/specialization/145AHJLRIH6A"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* UCc */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/uc.png"
+                  alt="IBM"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Minería de Datos</h3>
+              <p className="text-gray-600 mb-4">Pontífice Universidad Católica de Chile (UC)- 2025</p>
+              <a
+                href="https://www.coursera.org/account/accomplishments/verify/11S9V3ITMPJ9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* Cisco */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/img/logos/cisco.png"
+                  alt="Cisco"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Certified Ethical Hacker</h3>
+              <p className="text-gray-600 mb-4">Cisco - 2025</p>
+              <a
+                href="https://www.credly.com/badges/9be60aca-2c54-4cc9-9f56-57f7f8112e2a"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-600 hover:underline flex items-center gap-1"
@@ -1371,30 +1418,6 @@ export default function Portfolio() {
                 Ver credencial
               </a>
             </div>
-            
-            {/* IBM */}
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/ibm.png"
-                  alt="IBM"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Python for Data Science, AI & Development</h3>
-              <p className="text-gray-600 mb-4">IBM - 2025</p>
-              <a
-                href="https://www.coursera.org/account/accomplishments/verify/JZLY826KAWND"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
             {/* Cisco 2 */}
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
@@ -1406,56 +1429,10 @@ export default function Portfolio() {
                   className="object-contain"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-2">Python Essentials 2</h3>
+              <h3 className="text-xl font-bold mb-2">Python Essentials 1 y 2</h3>
               <p className="text-gray-600 mb-4">Cisco - 2025</p>
               <a
                 href="https://www.credly.com/badges/a8d62e07-9d97-4a5a-9a21-2f27cca1f60b"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
-            {/* Esade */}
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/esade.png"
-                  alt="Esade"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Business</h3>
-              <p className="text-gray-600 mb-4">Esade - 2025</p>
-              <a
-                href="https://drive.google.com/file/d/1OTR2miQCzq7KR737WJrZ_tm9bD33AIN-/view"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-600 hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Ver credencial
-              </a>
-            </div>
-            {/* Cisco 1 */}
-            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/logos/cisco.png"
-                  alt="Cisco"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Python Essentials 1</h3>
-              <p className="text-gray-600 mb-4">Cisco - 2025</p>
-              <a
-                href="https://www.credly.com/badges/96870313-aa82-4000-86f9-6af442362a96/public_url"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-600 hover:underline flex items-center gap-1"
@@ -1486,22 +1463,45 @@ export default function Portfolio() {
                 <ExternalLink className="w-4 h-4" />
                 Ver credencial
               </a>
-            </div>
-            {/* Google */}
+            </div>            
+            {/* IBM */}
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
                 <Image
-                  src="/img/logos/google.png"
-                  alt="Google"
+                  src="/img/logos/ibm.png"
+                  alt="IBM"
                   width={64}
                   height={64}
                   className="object-contain"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-2">Búsqueda de Google Ads</h3>
-              <p className="text-gray-600 mb-4">Google - 2025</p>
+              <h3 className="text-xl font-bold mb-2">Python for Data Science, AI & Development</h3>
+              <p className="text-gray-600 mb-4">IBM - 2025</p>
               <a
-                href="https://skillshop.credential.net/13f5bae5-b564-4439-8162-48a0117ca2b1"
+                href="https://www.coursera.org/account/accomplishments/verify/JZLY826KAWND"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ver credencial
+              </a>
+            </div>
+            {/* Esade */}
+            <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <Image
+                  src="/img/logos/udemy.png"
+                  alt="Esade"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Universidad Java - de Cero a Experto</h3>
+              <p className="text-gray-600 mb-4">Udemy - 2025</p>
+              <a
+                href="https://www.udemy.com/certificate/UC-35b8d1d5-47ab-4a78-8f4c-00abfacf2035/?utm_campaign=email&utm_medium=email&utm_source=sendgrid.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-600 hover:underline flex items-center gap-1"
@@ -1521,10 +1521,10 @@ export default function Portfolio() {
                   className="object-contain"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-2">IBM Data Science Practitioner Certificate</h3>
-              <p className="text-gray-600 mb-4">IBM - 2024</p>
+              <h3 className="text-xl font-bold mb-2">Software Engineering Essentials</h3>
+              <p className="text-gray-600 mb-4">IBM - 2025</p>
               <a
-                href="https://drive.google.com/file/d/1BzlhI7kxtxcke_GFrjiwrE7TG9EsafAL/view"
+                href="https://www.credly.com/badges/c0121319-02f3-4d89-8739-69eab233aa8e/public_url"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-600 hover:underline flex items-center gap-1"
@@ -1534,6 +1534,7 @@ export default function Portfolio() {
               </a>
             </div>
           </div>
+          
           
           {/* Enlace a más certificaciones centrado */}
           <div className="flex flex-col items-center mt-10">
