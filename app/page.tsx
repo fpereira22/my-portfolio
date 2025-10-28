@@ -17,6 +17,8 @@ import {
   Target,
   Zap,
   LogIn,
+  GraduationCap,
+  Award
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "../components/language-selector"
@@ -35,6 +37,7 @@ interface ExperienceCardProps {
   title: string;
   dates: string;
   location: string;
+  slug?: string;
   description: string;
   bullets: string[]; // Un array de strings
   imageSrc: string;
@@ -48,9 +51,195 @@ type Experience = ExperienceCardProps & {
   id: number;
 };
 
+// Interfaces para Educación y Becas
+interface EducationCardProps {
+  institution: string;
+  degree: string;
+  slug?: string;
+  dates: string;
+  location?: string;
+  description: string;
+  bullets?: string[];
+  grade?: string;
+  imageSrc: string;
+  skills?: string[];
+}
+
+interface ScholarshipCardProps {
+  slug?: string;
+  institution: string;
+  name: string;
+  dates: string;
+  description: string;
+  bullets?: string[];
+  imageSrc: string;
+}
+
+type Education = EducationCardProps & { id: number };
+type Scholarship = ScholarshipCardProps & { id: number };
+
+// Datos de Educación
+const educationData: Education[] = [
+  {
+    id: 1,
+    institution: "Universidad Andrés Bello",
+    slug: "unab_postgrado",
+    degree: "Postgrado, Ciencias de la computación",
+    dates: "2025",
+    location: "Santiago, Chile",
+    description: "Programa de postgrado enfocado en la aplicación de técnicas avanzadas de Inteligencia Artificial y optimización para la resolución de problemas computacionales complejos.",
+    bullets: [
+      "Modelado y Resolución de Problemas de Optimización: Aplicación de heurísticas y metaheurísticas.",
+      "Implementación de Soluciones de IA en Python: Desarrollo de algoritmos de Inteligencia Artificial.",
+      "Dominio de Lenguajes de Modelado y Programación: Uso avanzado de AMPL y Julia."
+    ],
+    grade: "En curso",
+    imageSrc: "/unab.png",
+    skills: ["Programador", "Julia", "Python", "AMPL", "AIOps"]
+  },
+  {
+    id: 2,
+    institution: "Pontificia Universidad Católica de Chile (UC)",
+    slug: "uc_diplomado",
+    degree: "Diplomado en Gestión de proyectos de tecnologías de la información",
+    dates: "2025",
+    location: "Santiago, Chile",
+    description: "Programa especializado en la gestión estratégica de proyectos tecnológicos, abarcando metodologías ágiles, gestión de equipos y planificación de recursos. El diplomado proporciona una sólida base en marcos de trabajo modernos como SCRUM, Kanban y metodologías híbridas, además de herramientas para la gestión efectiva de presupuestos y cronogramas en proyectos TI.",
+    bullets: [
+      "Gestión Ágil de Proyectos: Implementación de metodologías SCRUM y marcos de trabajo adaptativos.",
+      "Planificación Estratégica: Desarrollo de roadmaps y gestión de recursos en proyectos tecnológicos.",
+      "Liderazgo y Comunicación: Habilidades para la gestión efectiva de equipos y stakeholders."
+    ],
+    grade: "6.5",
+    imageSrc: "/uc.png"
+  },
+  {
+    id: 3,
+    institution: "Pontificia Universidad Católica de Chile (UC)",
+    slug: "uc_ingelectrica",
+    degree: "Ingeniero Civil Eléctrico",
+    dates: "2020 - 2024",
+    location: "Santiago, Chile",
+    description: "Formación integral en ingeniería eléctrica con énfasis en tecnologías de la información y sistemas computacionales. El programa combina fundamentos sólidos en electricidad y electrónica con aplicaciones avanzadas en software y sistemas de control.",
+    bullets: [
+      "Especialización en Tecnologías de la Información: Desarrollo de software, bases de datos y sistemas distribuidos.",
+      "Sistemas de Control y Automatización: Diseño e implementación de sistemas de control industrial y automatización.",
+      "Gestión de Proyectos Tecnológicos: Experiencia en dirección de proyectos de ingeniería y desarrollo de soluciones.",
+      "Innovación y Desarrollo: Participación en proyectos de investigación y desarrollo tecnológico."
+    ],
+    grade: "6.8",
+    imageSrc: "/uc.png"
+  },
+  {
+    id: 4,
+    institution: "Universidad Andrés Bello",
+    slug: "unab_diseno_algoritmos",
+    degree: "Grado en Ingeniería, Diseño de algoritmos",
+    dates: "2024",
+    location: "Santiago, Chile",
+    description: "Programa especializado en el diseño y análisis de algoritmos avanzados, con énfasis en la optimización computacional y la resolución de problemas complejos. La formación incluye fundamentos teóricos profundos y aplicaciones prácticas en diversos campos de la ingeniería de software.",
+    bullets: [
+      "Algoritmos Avanzados: Desarrollo de soluciones eficientes para problemas computacionales complejos.",
+      "Optimización y Complejidad: Análisis y mejora de eficiencia algorítmica en sistemas computacionales.",
+      "Machine Learning y AI: Implementación de algoritmos de aprendizaje automático y sistemas inteligentes.",
+      "Big Data y Procesamiento: Diseño de algoritmos para el manejo eficiente de grandes volúmenes de datos."
+    ],
+    grade: "PPA 6.8",
+    imageSrc: "/unab.png",
+    skills: ["Diseño de redes", "Desarrollo web", "Análisis de datos", "Inteligencia artificial"]
+  },
+  {
+    id: 5,
+    institution: "Pontificia Universidad Javeriana Cali",
+    slug: "puj_cali",
+    degree: "Ingeniería de Sistemas y Computación e Industrial",
+    dates: "jul. 2023 - dic. 2023",
+    location: "Cali, Colombia",
+    description: "Programa de intercambio académico internacional que combinó una inmersión cultural completa con una formación académica rigurosa en áreas avanzadas de Ingeniería Industrial e Ingeniería de Sistemas. El programa incluyó cursos de nivel de postgrado y participación en proyectos de investigación aplicada, permitiendo una experiencia educativa integral en un entorno multicultural.",
+    bullets: [
+      "Formación Avanzada: Participación en cursos de postgrado en optimización de sistemas y gestión de operaciones industriales.",
+      "Desarrollo Técnico: Implementación de soluciones en ciberseguridad y arquitectura de sistemas empresariales.",
+      "Optimización y Logística: Estudio de modelos avanzados de optimización y gestión de cadenas de suministro.",
+      "Desarrollo Personal: Inmersión cultural y lingüística a través de actividades extracurriculares y proyectos internacionales.",
+      "Control de Calidad: Aplicación de metodologías avanzadas para el aseguramiento de la calidad en desarrollo de software.",
+      "Networking Internacional: Construcción de una red profesional diversa a través de colaboraciones académicas y culturales."
+    ],
+    imageSrc: "/puj.png",
+    skills: ["Optimización de procesos", "Desarrollo de software"]
+  },
+  {
+    id: 6,
+    institution: "Colegio Santa María de Paine",
+    slug: "colegio_smp",
+    degree: "Educación Media",
+    dates: "2016 - 2019",
+    location: "Paine, Chile",
+    description: "Estudiante destacado en Matemáticas, Química, Artes visuales y Música",
+    grade: "6.0",
+    imageSrc: "/colegio.png",
+    skills: ["Matemáticas", "Ciencias"]
+  }
+];
+
+// Datos de Becas
+const scholarshipsData: Scholarship[] = [
+  {
+    id: 1,
+    institution: "Alura Latam",
+    slug: "alura_one",
+    name: "Data Science - Oracle Next Education (ONE) G9",
+    dates: "ago. 2025 - mar. 2026",
+    description: "Seleccionado como beneficiario de la prestigiosa beca Oracle Next Education (ONE) Generación 9, una iniciativa de alto impacto que combina formación técnica avanzada con desarrollo profesional. El programa está diseñado para formar profesionales en Data Science con un enfoque 100% práctico, abordando desde fundamentos hasta técnicas avanzadas de análisis de datos y machine learning.",
+    bullets: [
+      "Análisis de Datos: Dominio avanzado de Python con Pandas y NumPy para manipulación y análisis de datos masivos",
+      "Visualización Avanzada: Creación de dashboards interactivos utilizando Matplotlib, Seaborn y Plotly para comunicación efectiva de insights",
+      "Machine Learning: Implementación de modelos predictivos y de clasificación usando Scikit-learn y TensorFlow",
+      "Proyectos Prácticos: Desarrollo de casos reales de análisis de datos y predicción en entornos empresariales",
+      "Big Data: Procesamiento de grandes volúmenes de datos y técnicas de optimización de rendimiento",
+      "Estadística Aplicada: Análisis estadístico avanzado para la toma de decisiones basada en datos"
+    ],
+    imageSrc: "/alura.png"
+  },
+  {
+    id: 2,
+    institution: "Coursera",
+    slug: "coursera_santander",
+    name: "Beca Skills for Work - Banco Santander España",
+    dates: "2025",
+    description: "Beneficiario de la prestigiosa Beca Santander Skills | Skills for Work, un programa integral de formación diseñado para desarrollar las competencias más demandadas en el mercado laboral actual. Esta iniciativa, respaldada por el Banco Santander y Coursera, se enfoca en cerrar la brecha entre la formación académica y las necesidades empresariales contemporáneas.",
+    bullets: [
+      "Liderazgo Digital: Desarrollo de competencias para liderar equipos en entornos digitales y remotos",
+      "Gestión de Proyectos Ágiles: Certificación en metodologías ágiles y marcos de trabajo modernos",
+      "Análisis de Datos Empresariales: Capacitación en herramientas y técnicas de Business Intelligence",
+      "Habilidades de Comunicación: Técnicas avanzadas de presentación y comunicación ejecutiva",
+      "Inteligencia Emocional: Desarrollo de soft skills para la gestión efectiva de equipos y conflictos",
+      "Transformación Digital: Estrategias para la adaptación y liderazgo en la era digital"
+    ],
+    imageSrc: "/coursera.png"
+  },
+  {
+    id: 3,
+    institution: "Pontificia Universidad Javeriana Cali",
+    slug: "puj_exchange",
+    name: "Beca de Intercambio Académico Internacional",
+    dates: "2023",
+    description: "Galardonado con una beca completa de intercambio académico que cubrió estudios y alojamiento en una de las universidades más prestigiosas de Colombia. Este programa altamente selectivo permitió una inmersión total en un entorno académico internacional, combinando excelencia académica con enriquecimiento cultural.",
+    bullets: [
+      "Excelencia Académica: Seleccionado por mérito académico entre estudiantes de múltiples países",
+      "Formación Internacional: Acceso a cursos avanzados y programas especializados de postgrado",
+      "Desarrollo Multicultural: Participación en proyectos internacionales y eventos culturales",
+      "Networking Global: Construcción de una red profesional internacional",
+      "Investigación Aplicada: Colaboración en proyectos de investigación con profesores internacionales",
+      "Desarrollo Lingüístico: Mejora de competencias en inglés y español en contexto académico"
+    ],
+    imageSrc: "/puj.png"
+  }
+];
+
 const experiencesData: Experience[] = [
   {
     id: 1,
+    slug: "sociedad_servicios_expert",
     company: "SOCIEDAD DE SERVICIOS GENERALES LTDA",
     title: "AI Software Developer & Full Stack Dev — Experto en Programación y Desarrollo",
     dates: "jul. 2025 - actualidad · 4 meses",
@@ -66,6 +255,7 @@ const experiencesData: Experience[] = [
   },
   {
     id: 2,
+    slug: "sociedad_servicios_practicas",
     company: "SOCIEDAD DE SERVICIOS GENERALES LTDA",
     title: "AI Software Developer & Full Stack Dev — Formación Avanzada",
     dates: "may. 2025 - jul. 2025 · 3 meses",
@@ -81,6 +271,7 @@ const experiencesData: Experience[] = [
   },
   {
     id: 3,
+    slug: "mrcomputer",
     company: "MRComputer Spa LTDA",
     title: "Ingeniero de TI y Ciberseguridad",
     dates: "ene. 2024 - feb. 2025 · 1 año 2 meses",
@@ -96,6 +287,7 @@ const experiencesData: Experience[] = [
   },
   {
     id: 4,
+    slug: "lapica_pipeeno",
     company: "La picá del Pipeño",
     title: "Fundador y Director",
     dates: "sept. 2021 - ene. 2025 · 3 años 5 meses",
@@ -111,6 +303,7 @@ const experiencesData: Experience[] = [
   },
   {
     id: 5,
+    slug: "saez_saez",
     company: "Saez y Saez Cia Automóviles.",
     title: "Ingeniero de Redes y Telecomunicaciones",
     dates: "sept. 2021 - feb. 2022 · 6 meses",
@@ -125,6 +318,7 @@ const experiencesData: Experience[] = [
   },
   {
     id: 6,
+    slug: "unab_ayudante",
     company: "Universidad Andrés Bello",
     title: "Ayudante y Tutor",
     dates: "mar. 2020 - jul. 2020 · 5 meses",
@@ -476,6 +670,20 @@ export default function Portfolio() {
               <span>{t("nav.experience")}</span>
             </a>
             <a
+              href="#education"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+            >
+              <GraduationCap size={16} />
+              <span>{t("nav.education")}</span>
+            </a>
+            <a
+              href="#scholarships"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+            >
+              <Award size={16} />
+              <span>{t("nav.scholarships")}</span>
+            </a>
+            <a
               href="#projects"
               className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
             >
@@ -557,6 +765,20 @@ export default function Portfolio() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {t("nav.experience")}
+              </a>
+              <a
+                href="#education"
+                className="py-2 text-white font-semibold hover:text-purple-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("nav.education")}
+              </a>
+              <a
+                href="#scholarships"
+                className="py-2 text-white font-semibold hover:text-purple-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {t("nav.scholarships")}
               </a>
               <a
                 href="#projects"
@@ -878,27 +1100,98 @@ export default function Portfolio() {
       {/* Historial Cronológico */}
       <section id="work-history" className="py-20 px-4 bg-gray-50 text-gray-800">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-purple-600 mb-12 text-center">Experiencia Laboral</h2>
+          <h2 className="text-4xl font-bold text-purple-600 mb-12 text-center">{t("workHistory.title")}</h2>
           
           {/* Aquí mapeamos el array de experiencias.
             'space-y-8' añade espacio entre cada tarjeta.
           */}
           <div className="space-y-8">
-            {experiencesData.map((exp, index) => (
-              <ExperienceCard
-                key={exp.id}
-                company={exp.company}
-                title={exp.title}
-                dates={exp.dates}
-                location={exp.location}
-                description={exp.description}
-                bullets={exp.bullets}
-                imageSrc={exp.imageSrc}
-                index={index}
-              />
-            ))}
+            {experiencesData.map((exp, index) => {
+              // Si la experiencia tiene un slug, intentamos buscar traducciones
+              const descKey = exp.slug ? `work.${exp.slug}.description` : null
+              const bulletsKey = exp.slug ? `work.${exp.slug}.bullets` : null
+              const descriptionText = descKey ? t(descKey) : exp.description
+              const bulletsText = bulletsKey ? t(bulletsKey) : (exp.bullets ? exp.bullets.join('||') : '')
+              const bulletsArray = bulletsText ? bulletsText.split('||').map(s => s.trim()).filter(Boolean) : []
+
+              return (
+                <ExperienceCard
+                  key={exp.id}
+                  company={exp.company}
+                  title={exp.title}
+                  dates={exp.dates}
+                  location={exp.location}
+                  description={descriptionText}
+                  bullets={bulletsArray}
+                  imageSrc={exp.imageSrc}
+                  index={index}
+                />
+              )
+            })}
           </div>
           
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education" className="py-20 px-4 bg-purple-900 text-white">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-4xl font-bold text-purple-300 mb-12 text-center">{t("education.title")}</h2>
+          
+          <div className="space-y-8">
+            {educationData.map((edu, index) => {
+              const descKey = edu.slug ? `education.${edu.slug}.description` : null
+              const bulletsKey = edu.slug ? `education.${edu.slug}.bullets` : null
+              const descriptionText = descKey ? t(descKey) : edu.description
+              const bulletsText = bulletsKey ? t(bulletsKey) : (edu.bullets ? edu.bullets.join('||') : '')
+              const bulletsArray = bulletsText ? bulletsText.split('||').map(s => s.trim()).filter(Boolean) : []
+
+              return (
+                <ExperienceCard
+                  key={edu.id}
+                  company={edu.institution}
+                  title={edu.degree}
+                  dates={`${t("education.datesLabel")} ${edu.dates}`}
+                  location={edu.location ? `${t("education.locationLabel")} ${edu.location}` : ""}
+                  description={descriptionText}
+                  bullets={bulletsArray}
+                  imageSrc={edu.imageSrc}
+                  index={index}
+                />
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Scholarships Section */}
+      <section id="scholarships" className="py-20 px-4 bg-slate-800 text-white">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-4xl font-bold text-purple-400 mb-12 text-center">{t("scholarships.title")}</h2>
+          
+          <div className="space-y-8">
+            {scholarshipsData.map((scholarship, index) => {
+              const descKey = scholarship.slug ? `scholarships.${scholarship.slug}.description` : null
+              const bulletsKey = scholarship.slug ? `scholarships.${scholarship.slug}.bullets` : null
+              const descriptionText = descKey ? t(descKey) : scholarship.description
+              const bulletsText = bulletsKey ? t(bulletsKey) : (scholarship.bullets ? scholarship.bullets.join('||') : '')
+              const bulletsArray = bulletsText ? bulletsText.split('||').map(s => s.trim()).filter(Boolean) : []
+
+              return (
+                <ExperienceCard
+                  key={scholarship.id}
+                  company={`${t("scholarships.institutionLabel")} ${scholarship.institution}`}
+                  title={scholarship.name}
+                  dates={`${t("scholarships.periodLabel")} ${scholarship.dates}`}
+                  location=""
+                  description={descriptionText}
+                  bullets={bulletsArray}
+                  imageSrc={scholarship.imageSrc}
+                  index={index}
+                />
+              )
+            })}
+          </div>
         </div>
       </section>
 
