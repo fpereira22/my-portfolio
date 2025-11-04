@@ -274,7 +274,7 @@ const experiencesData: Experience[] = [
     slug: "mrcomputer",
     company: "MRComputer Spa LTDA",
     title: "Ingeniero de TI y Ciberseguridad",
-    dates: "ene. 2024 - feb. 2025 · 1 año 2 meses",
+    dates: "ene. 2024 - abr. 2025 · 1 año 4 meses",
     location: "Área metropolitana de Santiago · Presencial",
     imageSrc: "/mrcomputer.png",
     description: "Inicié como Practicante y fui promovido gracias al rápido desarrollo de habilidades y contribuciones clave en proyectos de seguridad y software. Mis responsabilidades incluyeron:",
@@ -283,6 +283,22 @@ const experiencesData: Experience[] = [
       "Desarrollé aplicaciones web y software interno utilizando Python (Django, Flask) y la pila MERN para proyectos Full Stack.",
       "Administré la infraestructura en la nube (AWS, Azure) y gestioné el ciclo de vida de usuarios y permisos en Google Workspace y Microsoft 365.",
       "Automaticé la generación de informes mediante scripts en Python (Pandas, NumPy) y macros de Excel (VBA)."
+    ]
+  },
+  {
+    id: 7,
+    slug: "freelance_developer",
+    company: "Independiente (Freelance)",
+    title: "Desarrollador Full Stack Independiente (Freelance)",
+    dates: "ago. 2023 - dic. 2023 - 5 meses",
+    location: "Modalidad Remota, Santiago, Chile",
+    imageSrc: "/freelance.png",
+    description: "Capitalicé mi especialización en desarrollo y las habilidades adquiridas en el intercambio para construir aplicaciones web a medida para pequeñas empresas y startups.",
+    bullets: [
+      "Diseñé y construí interfaces de usuario (UI) interactivas y responsivas, utilizando React y Angular para consumir APIs RESTful.",
+      "Desarrollé servicios de backend y APIs robustas usando Django y FastAPI, integrando diversas bases de datos según los requisitos del proyecto (PostgreSQL, MySQL y MongoDB).",
+      "Gestioné el ciclo de vida completo de proyectos, desde la toma de requisitos hasta el despliegue, implementando pipelines de CI/CD para la automatización de pruebas y entregas.",
+      "Brindé consultoría sobre arquitectura de software, ayudando a clientes a seleccionar el stack tecnológico (Front, Back, DB) óptimo para sus necesidades."
     ]
   },
   {
@@ -301,12 +317,13 @@ const experiencesData: Experience[] = [
       "Optimización Logística y de Operaciones: Orquesté toda la cadena logística, desde la importación hasta la entrega final al cliente."
     ]
   },
+  
   {
     id: 5,
     slug: "saez_saez",
     company: "Saez y Saez Cia Automóviles.",
     title: "Ingeniero de Redes y Telecomunicaciones",
-    dates: "sept. 2021 - feb. 2022 · 6 meses",
+    dates: "sept. 2021 - diciembre 2023 · 2 años 3 meses",
     location: "Talagante, Región Metropolitana de Santiago, Chile · Presencial",
     imageSrc: "/saez.png", // ¡Asegúrate de tener esta imagen en tu carpeta /public/img/!
     description: "Responsable de la infraestructura de red y el desarrollo de herramientas de automatización.",
@@ -1110,15 +1127,32 @@ export default function Portfolio() {
               // Si la experiencia tiene un slug, intentamos buscar traducciones
               const descKey = exp.slug ? `work.${exp.slug}.description` : null
               const bulletsKey = exp.slug ? `work.${exp.slug}.bullets` : null
+              const companyKey = exp.slug ? `work.${exp.slug}.company` : null
+              const titleKey = exp.slug ? `work.${exp.slug}.title` : null
+
               const descriptionText = descKey ? t(descKey) : exp.description
               const bulletsText = bulletsKey ? t(bulletsKey) : (exp.bullets ? exp.bullets.join('||') : '')
               const bulletsArray = bulletsText ? bulletsText.split('||').map(s => s.trim()).filter(Boolean) : []
 
+              // Traducción segura: t(key) devuelve la clave si no existe traducción.
+              // Evitamos mostrar la clave cruda en la UI comprobando ese caso.
+              let companyText = exp.company
+              if (companyKey) {
+                const translatedCompany = t(companyKey)
+                companyText = translatedCompany && translatedCompany !== companyKey ? translatedCompany : exp.company
+              }
+
+              let titleText = exp.title
+              if (titleKey) {
+                const translatedTitle = t(titleKey)
+                titleText = translatedTitle && translatedTitle !== titleKey ? translatedTitle : exp.title
+              }
+
               return (
                 <ExperienceCard
                   key={exp.id}
-                  company={exp.company}
-                  title={exp.title}
+                  company={companyText}
+                  title={titleText}
                   dates={exp.dates}
                   location={exp.location}
                   description={descriptionText}
