@@ -145,6 +145,10 @@ const translations = {
 
     "work.lapica_pipeeno.description": "Fundé y lideré un emprendimiento de e-commerce especializado en la importación y comercialización de ropa deportiva, gestionando operaciones, proveedores y la plataforma de ventas.",
     "work.lapica_pipeeno.bullets": "Gestión de Proveedores: Desarrollo de red global de proveedores y negociación internacional.||Automatización: Programación de herramientas en Excel (VBA) para automatizar procesos internos.||Análisis Financiero: Uso de BI para monitoreo de ingresos y márgenes.||Optimización Logística: Orquestación de la cadena logística desde importación hasta entrega final.",
+  "work.freelance_developer.company": "Independiente (Freelance)",
+  "work.freelance_developer.title": "Desarrollador Full Stack Independiente (Freelance)",
+  "work.freelance_developer.description": "Capitalicé mi especialización en desarrollo y las habilidades de mi intercambio para construir aplicaciones web a medida para pequeñas empresas y startups.",
+  "work.freelance_developer.bullets": "Diseñé y construí interfaces de usuario (UI) interactivas y responsivas, utilizando React y Angular para consumir APIs RESTful.||Desarrollé servicios de backend y APIs robustas usando Django y FastAPI, integrando diversas bases de datos (PostgreSQL, MySQL, MongoDB).||Gestioné el ciclo de vida completo de proyectos, desde la toma de requisitos hasta el despliegue, implementando pipelines de CI/CD para la automatización de pruebas y entregas.||Brindé consultoría sobre arquitectura de software, ayudando a clientes a seleccionar el stack tecnológico (Front, Back, DB) óptimo para sus necesidades.",
 
     "work.saez_saez.description": "Responsable de la infraestructura de red y del desarrollo de herramientas de automatización en la empresa automotriz.",
     "work.saez_saez.bullets": "Rediseño de la Red Local: Planificación y simulación de topologías seguras (Cisco Packet Tracer, GNS3).||Automatización con Python y VBA: Herramientas para mejorar procesos de contacto y seguimiento.||Sistemas de Seguridad: Implementación y administración de cámaras y accesos remotos (SMARTPSS).",
@@ -336,6 +340,10 @@ const translations = {
 
     "work.lapica_pipeeno.description": "Founded and led an e-commerce venture focused on importing and selling sportswear; responsible for end-to-end business operations and platform management.",
     "work.lapica_pipeeno.bullets": "Supplier Management: Built and negotiated with a global supplier network.||Automation: Developed Excel (VBA) tools to automate internal processes.||Financial Analysis: Used BI tools to monitor revenues and margins.||Logistics Optimization: Orchestrated the supply chain from import to delivery.",
+  "work.freelance_developer.description": "I leveraged my development specialization and exchange experience to build custom web applications for small businesses and startups.",
+  "work.freelance_developer.bullets": "Designed and built interactive, responsive user interfaces using React and Angular to consume RESTful APIs.||Developed robust backend services and APIs with Django and FastAPI, integrating databases like PostgreSQL, MySQL and MongoDB.||Managed full project lifecycle from requirements to deployment, implementing CI/CD pipelines to automate tests and releases.||Provided software architecture consulting, helping clients choose an optimal technology stack (Front, Back, DB) for their needs.",
+    "work.freelance_developer.company": "Independent (Freelance)",
+    "work.freelance_developer.title": "Independent Full Stack Developer (Freelance)",
 
     "work.saez_saez.description": "Responsible for network infrastructure and automation tool development at an automotive company.",
     "work.saez_saez.bullets": "Local Network Redesign: Planned and simulated secure topologies using Cisco Packet Tracer and GNS3.||Automation with Python & VBA: Built custom tools to streamline customer contact processes.||Security Systems: Implemented and managed CCTV and remote access systems (SMARTPSS).",
@@ -536,6 +544,10 @@ const translations = {
 
     "work.lapica_pipeeno.description": "Ekintzailetza bat sortu eta zuzendu nuen, kirolarentzako arropa inportatu eta merkaturatzen zuen e-commerce bat; eragiketak eta plataformaren kudeaketa zenuen.",
     "work.lapica_pipeeno.bullets": "Hornitzaileen Kudeaketa: Mundu osoko hornitzaile sare bat eraiki eta negoziatu.||Automatizazioa: Excel (VBA) tresnak garatu prozesuak automatizatzeko.||Finantza Analisia: BI tresnak erabili irabaziak eta marginak monitorizatzeko.||Logistika Optimizazioa: Hornidura katearen kudeaketa inportetik entrega arte.",
+  "work.freelance_developer.description": "Nire garapen-espezializazioa eta truke-esperientzia baliatuz, web-aplikazio pertsonalizatuak eraiki nituen enpresa txiki eta startupentzako.",
+  "work.freelance_developer.bullets": "UI interaktibo eta erantzunkorrak diseinatu eta eraiki nituen, React eta Angular erabiliz REST API-ak kontsumitzeko.||Django eta FastAPI erabiliz backend eta API sendoak garatu nituen, datu-baseak integratuz (PostgreSQL, MySQL, MongoDB).||Proiektuaren bizitzazko zikloa kudeatu nuen hasieratik deploy-ara arte, CI/CD pipelineak ezarriz testa eta entregak automatizatzeko.||Software arkitektura kontsultoria eskaini nuen, bezeroei stack teknologiko egokia aukeratzen lagunduz (Front, Back, DB).",
+    "work.freelance_developer.company": "Autonomoa (Freelance)",
+    "work.freelance_developer.title": "Full Stack Garatzaile Autonomoa (Freelance)",
 
     "work.saez_saez.description": "Sare azpiegitura eta automatizazio tresnen arduraduna enpresa automotriz batean.",
     "work.saez_saez.bullets": "Tokiko Sare Errediseinua: Topologia seguruak planifikatu eta simulatu Cisco Packet Tracer eta GNS3 erabiliz.||Automatizazioa Python eta VBA-rekin: Erreminta pertsonalizatuak garatu bezeroen jarraipena hobetzeko.||Segurtasun Sistemak: CCTV eta sarbide urruneko sistemak ezarri eta kudeatu (SMARTPSS).",
