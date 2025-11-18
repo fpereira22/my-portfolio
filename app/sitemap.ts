@@ -1,5 +1,11 @@
 // app/sitemap.js
 
+// 🚨 AÑADE ESTAS LÍNEAS AL INICIO DEL ARCHIVO 🚨
+export const dynamic = 'force-dynamic'; 
+export const revalidate = 0; // Desactiva completamente la caché para este endpoint
+export const dynamicParams = true;
+// -----------------------------------------------------
+
 export default function sitemap() {
   return [
     {
@@ -8,14 +14,5 @@ export default function sitemap() {
       changeFrequency: 'monthly',
       priority: 1,
     },
-    // Si tienes otras páginas, agrégalas aquí:
-    /*
-    {
-      url: 'https://fpereiradev.vercel.app/proyectos',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    */
   ]
 }
