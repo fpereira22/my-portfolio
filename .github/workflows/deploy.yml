@@ -22,7 +22,7 @@ jobs:
       # 3. Instala dependencias y construye
       - name: 📦 Install & Build
         run: |
-          npm ci
+          run: npm install
           npm run build
 
       # 4. Sube los archivos al cPanel
