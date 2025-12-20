@@ -1,0 +1,43 @@
+name: Deploy Portfolio to cPanel
+
+on:
+  push:
+    branches: ["master"] # Asegúrate que tu rama se llame 'main' o 'master'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Descarga tu código
+      - name: 🚚 Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Instala Node.js
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 3. Instala dependencias y construye
+      - name: 📦 Install & Build
+        run: |
+          npm ci
+          npm run build
+
+      # 4. Sube los archivos al cPanel
+      - name: 🚀 Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Esta es la carpeta que crea Next.js con el export
+          local-dir: ./out/
+          # IMPORTANTE: Cambia esto si tu carpeta en cPanel tiene otro nombre.
+          # Usualmente cPanel crea una carpeta con el mismo nombre del subdominio.
+          server-dir: ./fpereiradev.sppa.cl/
+          protocol: ftps
+          exclude: |
+            **/.git*
+            **/.git*/**
