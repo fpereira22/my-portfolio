@@ -1,0 +1,36 @@
+name: Deploy a cPanel
+
+on:
+  push:
+    branches:
+      - main  # ⚠️ CONFIRMA si tu rama principal se llama 'main' o 'master'
+
+jobs:
+  web-deploy:
+    name: 🎉 Desplegando a cPanel
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Obtener código
+        uses: actions/checkout@v4
+
+      - name: 🟢 Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🔧 Instalar dependencias
+        run: npm install
+
+      - name: 🏗️ Construir proyecto
+        run: npm run build
+        # Esto generará la carpeta "out" con tu HTML listo
+
+      - name: 📂 Subir a cPanel (FTP)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: ./public_html/ 
+          # ⚠️ OJO: Si sppa.cl usa una subcarpeta, cambia esto (ej: ./public_html/sppa/)
