@@ -719,7 +719,7 @@ export default function Portfolio() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-purple-900/90 backdrop-blur-sm shadow-md" : "bg-transparent"}`}
       >
-        <div className="container mx-auto px-2 py-4 flex flex-nowrap items-center justify-between gap-2">
+        <div className="container mx-auto px-4 py-4 flex flex-nowrap items-center justify-between gap-2">
           {/* Logo y nombre */}
           <div className="flex items-center gap-2 flex-shrink-0">
             <Code className="w-8 h-8" />
@@ -727,70 +727,80 @@ export default function Portfolio() {
           </div>
 
           {/* Navegación */}
-          <nav className="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6 flex-nowrap">
+          {/* Navegación - Solo visible en lg+ (1024px+) */}
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-4 flex-nowrap">
             <a
               href="#about"
-              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap p-2 rounded-lg hover:bg-white/10"
+              title={t("nav.about")}
             >
               <User size={16} />
-              <span>{t("nav.about")}</span>
+              <span className="hidden xl:inline text-sm">{t("nav.about")}</span>
             </a>
             <a
               href="#experience"
-              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap p-2 rounded-lg hover:bg-white/10"
+              title={t("nav.experience")}
             >
               <Briefcase size={16} />
-              <span>{t("nav.experience")}</span>
+              <span className="hidden xl:inline text-sm">{t("nav.experience")}</span>
             </a>
             <a
               href="#education"
-              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap p-2 rounded-lg hover:bg-white/10"
+              title={t("nav.education")}
             >
               <GraduationCap size={16} />
-              <span>{t("nav.education")}</span>
+              <span className="hidden xl:inline text-sm">{t("nav.education")}</span>
             </a>
             <a
               href="#scholarships"
-              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap p-2 rounded-lg hover:bg-white/10"
+              title={t("nav.scholarships")}
             >
               <Award size={16} />
-              <span>{t("nav.scholarships")}</span>
+              <span className="hidden xl:inline text-sm">{t("nav.scholarships")}</span>
             </a>
             <a
               href="#projects"
-              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap p-2 rounded-lg hover:bg-white/10"
+              title={t("nav.projects")}
             >
               <Code size={16} />
-              <span>{t("nav.projects")}</span>
+              <span className="hidden xl:inline text-sm">{t("nav.projects")}</span>
             </a>
             <a
               href="#websites"
-              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap p-2 rounded-lg hover:bg-white/10"
+              title={t("nav.websites")}
             >
               <Globe size={16} />
-              <span>{t("nav.websites")}</span>
+              <span className="hidden xl:inline text-sm">{t("nav.websites")}</span>
             </a>
             <a
               href="#certifications"
-              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap p-2 rounded-lg hover:bg-white/10"
+              title={t("certifications.title")}
             >
               <Monitor size={16} />
-              <span>{t("certifications.title")}</span>
+              <span className="hidden xl:inline text-sm">{t("certifications.title")}</span>
             </a>
             <a
               href="#contact"
-              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="hover:text-purple-300 transition-colors flex items-center gap-1 whitespace-nowrap p-2 rounded-lg hover:bg-white/10"
+              title={t("nav.contact")}
             >
               <Mail size={16} />
-              <span>{t("nav.contact")}</span>
+              <span className="hidden xl:inline text-sm">{t("nav.contact")}</span>
             </a>
           </nav>
 
           {/* Auth, Language Selector y menú móvil */}
-          <div className="flex items-center gap-2 flex-shrink-0 ml-auto md:ml-0 md:order-2">
-            {/* Auth Button / User Menu */}
-            <div className="order-1">
-              {isLoggedIn && user ? (
+          <div className="flex items-center gap-2 flex-shrink-0 ml-auto lg:ml-0 lg:order-2">
+            {/* Auth Button / User Menu - OCULTO TEMPORALMENTE */}
+            {/* TODO: Habilitar cuando se necesite el sistema de login */}
+            {isLoggedIn && user && (
+              <div className="order-1">
                 <UserMenu
                   user={user}
                   isLoggedIn={isLoggedIn}
@@ -799,18 +809,21 @@ export default function Portfolio() {
                   onOpenProfile={handleOpenProfile}
                   profileImage={profileImage} // <-- pásala como prop
                 />
-              ) : (
-                <Button
-                  onClick={() => setIsAuthModalOpen(true)}
-                  variant="ghost"
-                  size="sm"
-                  className="text-white hover:text-purple-300 hover:bg-white/10"
-                >
-                  <LogIn className="w-4 h-4 mr-1" />
-                  <span className="hidden sm:inline">{t("menu.login")}</span>
-                </Button>
-              )}
+              </div>
+            )}
+            {/* Botón de login oculto para uso futuro
+            <div className="order-1">
+              <Button
+                onClick={() => setIsAuthModalOpen(true)}
+                variant="ghost"
+                size="sm"
+                className="text-white hover:text-purple-300 hover:bg-white/10"
+              >
+                <LogIn className="w-4 h-4 mr-1" />
+                <span className="hidden sm:inline">{t("menu.login")}</span>
+              </Button>
             </div>
+            */}
 
             <div className="order-2">
               <LanguageSelector />
@@ -819,7 +832,7 @@ export default function Portfolio() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden order-3"
+              className="lg:hidden order-3"
               onClick={() => setMobileMenuOpen((open) => !open)}
               aria-label={t("aria.openMenu")}
             >
@@ -830,7 +843,7 @@ export default function Portfolio() {
 
         {/* Menú móvil */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-purple-900/95 shadow-lg z-50 animate-fade-in">
+          <div className="lg:hidden absolute top-full left-0 w-full bg-purple-900/95 shadow-lg z-50 animate-fade-in">
             <nav className="flex flex-col py-4 px-6 gap-4">
               <a
                 href="#about"
@@ -1438,11 +1451,11 @@ export default function Portfolio() {
               <div className="flex flex-col lg:flex-row">
                 <div className="lg:w-1/2 relative overflow-hidden">
                   <div className="aspect-video lg:aspect-auto lg:h-full relative">
-                    <Image
-                      src="/img/websites/roadwise.png"
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/img/websites/previews/roadwise-preview.webp"
                       alt="Roadwise.cl"
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-orange-900/80 via-transparent to-transparent lg:bg-gradient-to-r"></div>
                   </div>
@@ -1468,8 +1481,9 @@ export default function Portfolio() {
                     {t("websites.roadwise.desc")}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-full text-sm">React</span>
+                    <span className="px-3 py-1 bg-purple-500/30 border border-purple-400/50 rounded-full text-sm">Three.js / 3D</span>
                     <span className="px-3 py-1 bg-orange-500/30 border border-orange-400/50 rounded-full text-sm">Next.js</span>
-                    <span className="px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-full text-sm">TypeScript</span>
                     <span className="px-3 py-1 bg-green-500/30 border border-green-400/50 rounded-full text-sm">Python</span>
                     <span className="px-3 py-1 bg-yellow-500/30 border border-yellow-400/50 rounded-full text-sm">IA/CV</span>
                   </div>
@@ -1510,6 +1524,7 @@ export default function Portfolio() {
                   {t("websites.ssgl.desc")}
                 </p>
                 <div className="flex flex-wrap gap-1 mb-4">
+                  <span className="px-2 py-0.5 bg-green-500/20 border border-green-400/30 rounded text-xs">React</span>
                   <span className="px-2 py-0.5 bg-green-500/20 border border-green-400/30 rounded text-xs">Next.js</span>
                   <span className="px-2 py-0.5 bg-green-500/20 border border-green-400/30 rounded text-xs">Tailwind</span>
                 </div>
@@ -1523,11 +1538,11 @@ export default function Portfolio() {
             {/* SPPA Hub */}
             <a href="https://sppa.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-cyan-500 hover:border-cyan-400 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/30 cursor-pointer">
               <div className="aspect-video relative overflow-hidden">
-                <Image
-                  src="/img/websites/sppa.png"
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/img/websites/previews/sppa-preview.webp"
                   alt="SPPA.cl"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/90 to-transparent"></div>
                 {/* Logo badge */}
@@ -1596,11 +1611,11 @@ export default function Portfolio() {
             {/* Manuel Photography */}
             <a href="https://manuel-pereira.sppa.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-yellow-500 hover:border-yellow-400 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-yellow-500/30 cursor-pointer">
               <div className="aspect-video relative overflow-hidden">
-                <Image
-                  src="/img/websites/manuel.png"
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/img/websites/previews/manuel-preview.webp"
                   alt="manuel-pereira.sppa.cl"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-yellow-900/90 to-transparent"></div>
                 {/* Logo badge */}
@@ -1619,8 +1634,8 @@ export default function Portfolio() {
                   {t("websites.manuel.desc")}
                 </p>
                 <div className="flex flex-wrap gap-1 mb-4">
-                  <span className="px-2 py-0.5 bg-yellow-500/20 border border-yellow-400/30 rounded text-xs">HTML5</span>
-                  <span className="px-2 py-0.5 bg-yellow-500/20 border border-yellow-400/30 rounded text-xs">CSS3</span>
+                  <span className="px-2 py-0.5 bg-yellow-500/20 border border-yellow-400/30 rounded text-xs">React</span>
+                  <span className="px-2 py-0.5 bg-yellow-500/20 border border-yellow-400/30 rounded text-xs">Next.js</span>
                 </div>
                 <span className="inline-flex items-center gap-1 text-yellow-300 group-hover:text-white text-sm font-medium transition-colors">
                   <ExternalLink className="w-3 h-3" />
