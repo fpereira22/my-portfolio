@@ -123,6 +123,7 @@ body {
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
 }
+<<<<<<< HEAD
 
 /* Ocultar scrollbar en navegación */
 nav::-webkit-scrollbar {
@@ -140,3 +141,5 @@ nav {
     font-size: 0.75rem;
   }
 }
+=======
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510

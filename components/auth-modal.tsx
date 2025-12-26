@@ -1,15 +1,28 @@
 "use client"
 
 import type React from "react"
+<<<<<<< HEAD
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { X, Mail, Lock, User, Eye, EyeOff, AlertCircle, CheckCircle } from "lucide-react"
+=======
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { X, Mail, Lock, User, Eye, EyeOff, AlertCircle, CheckCircle } from "lucide-react"
+import { auth } from "@/lib/firebase"
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
 
 interface AuthModalProps {
   isOpen: boolean
   onClose: () => void
+<<<<<<< HEAD
   onLogin: (user: { name: string; email: string; isNewUser?: boolean }) => void
+=======
+  onLogin: (user: { name: string; email: string }) => void
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
   onGoogleLogin?: () => void
 }
 
@@ -24,17 +37,47 @@ export function AuthModal({ isOpen, onClose, onLogin, onGoogleLogin }: AuthModal
     password: "",
   })
   const [profileImage, setProfileImage] = useState<File | null>(null)
+<<<<<<< HEAD
 
   if (!isOpen) return null
 
   const validateEmail = (email: string) => {
+=======
+  const [keysPressed, setKeysPressed] = useState<Set<string>>(new Set())
+
+  // Eliminado autologin de prueba y combinaciones de teclas. Solo login real con Firebase.
+
+  if (!isOpen) return null
+
+  const handleAutoLogin = async (testUser: { name: string; email: string; password: string }) => {
+    setLoading(true)
+    setMessage({ type: "success", text: "Acceso automático con usuario de prueba" })
+
+    setTimeout(() => {
+      onLogin({ name: testUser.name, email: testUser.email })
+      onClose()
+      setFormData({ name: "", email: "", password: "" })
+      setMessage(null)
+      setLoading(false)
+    }, 1000)
+  }
+
+  const validateEmail = (email: string) => {
+    // Regex para validar formato de email
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/;
     return regex.test(email);
   }
 
   const validatePassword = (password: string) => {
+<<<<<<< HEAD
     // Mínimo 6 caracteres para login local
     return password.length >= 6;
+=======
+    // Mínimo 8 caracteres, al menos una mayúscula, una minúscula, un número y un símbolo
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+    return regex.test(password);
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,6 +85,7 @@ export function AuthModal({ isOpen, onClose, onLogin, onGoogleLogin }: AuthModal
     setLoading(true);
     setMessage(null);
 
+<<<<<<< HEAD
     if (!validateEmail(formData.email)) {
       setMessage({ type: "error", text: "Por favor ingresa un correo electrónico válido." });
       setLoading(false);
@@ -127,6 +171,77 @@ export function AuthModal({ isOpen, onClose, onLogin, onGoogleLogin }: AuthModal
       setMessage({ type: "error", text: "Error inesperado. Intenta nuevamente." });
     } finally {
       setLoading(false);
+=======
+    if (!isLoginMode) {
+      if (!validateEmail(formData.email)) {
+        setMessage({ type: "error", text: "Por favor ingresa un correo electrónico válido." });
+        setLoading(false);
+        return;
+      }
+      if (!validatePassword(formData.password)) {
+        setMessage({ type: "error", text: "La contraseña debe tener mínimo 8 caracteres, incluir mayúsculas, minúsculas, números y símbolos." });
+        setLoading(false);
+        return;
+      }
+    }
+
+    try {
+      if (isLoginMode) {
+        // LOGIN con Firebase
+        const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password)
+        const user = userCredential.user
+        setMessage({ type: "success", text: "Inicio de sesión exitoso" })
+        setTimeout(() => {
+          onLogin({ name: user.displayName || user.email || "Usuario", email: user.email || "" })
+          onClose()
+          setFormData({ name: "", email: "", password: "" })
+          setMessage(null)
+        }, 1000)
+      } else {
+        // REGISTRO con Firebase
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        const user = userCredential.user
+        let photoURL = "";
+        // Subir imagen de perfil si existe
+        if (profileImage) {
+          const { getStorage, ref, uploadBytes, getDownloadURL } = await import("firebase/storage");
+          const storage = getStorage();
+          const imageRef = ref(storage, `profile-images/${user.uid}`);
+          await uploadBytes(imageRef, profileImage);
+          photoURL = await getDownloadURL(imageRef);
+        }
+        // Actualizar el nombre y foto del usuario
+        const updateObj: any = { displayName: formData.name };
+        if (photoURL) updateObj.photoURL = photoURL;
+        await updateProfile(user, updateObj);
+        setMessage({ type: "success", text: "Cuenta creada exitosamente. Ahora puedes iniciar sesión." })
+        setTimeout(() => {
+          setIsLoginMode(true)
+          setFormData({ name: "", email: "", password: "" })
+          setProfileImage(null)
+          setMessage(null)
+        }, 1500)
+      }
+    } catch (error: any) {
+      let msg = "Error inesperado. Intenta nuevamente."
+      if (error && typeof error === "object") {
+        if ("code" in error) {
+          if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
+            msg = "Correo o contraseña incorrectos."
+          } else if (error.code === "auth/email-already-in-use") {
+            msg = "El correo ya está registrado."
+          } else if (error.code === "auth/weak-password") {
+            msg = "La contraseña es demasiado débil."
+          }
+        }
+        if ("message" in error && typeof error.message === "string") {
+          msg += ` (${error.message})`
+        }
+      }
+      setMessage({ type: "error", text: msg })
+    } finally {
+      setLoading(false)
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
     }
   }
 
@@ -142,6 +257,10 @@ export function AuthModal({ isOpen, onClose, onLogin, onGoogleLogin }: AuthModal
     resetForm()
   }
 
+<<<<<<< HEAD
+=======
+  // Vista previa de imagen de perfil
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
   const profileImagePreview = profileImage ? URL.createObjectURL(profileImage) : null;
 
   return (
@@ -160,6 +279,12 @@ export function AuthModal({ isOpen, onClose, onLogin, onGoogleLogin }: AuthModal
           </button>
           <h2 className="text-2xl font-bold">{isLoginMode ? "Iniciar Sesión" : "Crear Cuenta"}</h2>
           <p className="text-purple-100 mt-1">{isLoginMode ? "Accede a tu cuenta" : "Únete a nuestra comunidad"}</p>
+<<<<<<< HEAD
+=======
+          {/* <div className="text-xs text-purple-200 mt-2 opacity-70">
+            Tip: Usa Ctrl+Alt+T para usuario de prueba o Ctrl+Alt+S para superadmin
+          </div> */}
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
           {onGoogleLogin && (
             <Button
               type="button"
@@ -176,8 +301,14 @@ export function AuthModal({ isOpen, onClose, onLogin, onGoogleLogin }: AuthModal
         {/* Message */}
         {message && (
           <div
+<<<<<<< HEAD
             className={`p-4 flex items-center gap-2 ${message.type === "success" ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"
               }`}
+=======
+            className={`p-4 flex items-center gap-2 ${
+              message.type === "success" ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"
+            }`}
+>>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
           >
             {message.type === "success" ? <CheckCircle className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
             <span className="text-sm font-medium">{message.text}</span>
