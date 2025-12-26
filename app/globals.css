@@ -80,6 +80,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -87,19 +88,24 @@ body {
 
 /* Custom animations for portfolio */
 @keyframes bounce-up {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   20% {
     transform: translateY(-10px);
   }
+
   40% {
     transform: translateY(-20px);
   }
+
   60% {
     transform: translateY(-10px);
   }
+
   80% {
     transform: translateY(-5px);
   }
@@ -114,6 +120,7 @@ body {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -123,7 +130,6 @@ body {
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
 }
-<<<<<<< HEAD
 
 /* Ocultar scrollbar en navegación */
 nav::-webkit-scrollbar {
@@ -141,5 +147,3 @@ nav {
     font-size: 0.75rem;
   }
 }
-=======
->>>>>>> 13d27364ff715a4bc0ab36adb77d0f92b2a70510
