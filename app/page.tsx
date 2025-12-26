@@ -2047,26 +2047,18 @@ export default function Portfolio() {
           await handleLogin({ ...userData, isNewUser: userData.isNewUser });
         }}
         onGoogleLogin={async () => {
-          const { GoogleAuthProvider, signInWithPopup } = await import("firebase/auth");
-          const provider = new GoogleAuthProvider();
-          try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            // Detectar si es un usuario nuevo por metadata
-            const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
-            await handleLogin({
-              name: user.displayName || "Usuario",
-              email: user.email || "No email",
-              isNewUser,
-            });
+          // Simulación de login con Google para demo local
+          // const { GoogleAuthProvider, signInWithPopup } = await import("firebase/auth");
+          setTimeout(() => {
+            const mockGoogleUser = {
+              name: "Usuario Demo Google",
+              email: "demo.google@example.com",
+              isNewUser: true
+            };
+            handleLogin(mockGoogleUser);
             setIsAuthModalOpen(false);
-          } catch (error: any) {
-            let msg = "Error al iniciar sesión con Google.";
-            if (error && typeof error === "object" && "message" in error && typeof error.message === "string") {
-              msg += ` ${error.message}`;
-            }
-            alert(msg);
-          }
+            // alert("Google login simulado (Firebase removido para despliegue sin errores)");
+          }, 1000);
         }}
       />
 

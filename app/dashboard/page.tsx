@@ -1,12 +1,8 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore"
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { storage } from "@/lib/firebase"
-import { db } from "@/lib/firebase"
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged } from "firebase/auth"
+
+// Firebase imports removed
 import {
   Bell,
   Command,
@@ -216,50 +212,57 @@ export default function Dashboard() {
   const { language, t } = useLanguage()
 
 
+
+  // Simulate fetching documents locally or from localStorage
   const fetchDocuments = async () => {
-    if (!user) return; // No hace nada si no hay usuario
-    const querySnapshot = await getDocs(collection(db, "documents"));
-    const docsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Document));
-    setDocuments(docsData);
+    if (!user) return;
+    // In a real app without firebase, you might fetch from an API or use local state
+    // For now, we'll just use the initial state or could load from provided mock data if needed
+    // setDocuments(docsData); 
   };
 
-  // Check authentication and get user role
+  // Check authentication using localStorage
   useEffect(() => {
-    // onAuthStateChanged es el listener oficial de Firebase
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        // Si hay un usuario de Firebase, lo usamos
-        // Aquí puedes obtener el nombre y el email directamente de Firebase
-        const role = firebaseUser.email === "felipe14chile@gmail.com" ? "superAdmin" : "user";
-        setUser({
-          name: firebaseUser.displayName || "Usuario", // O usa la lógica que tenías
-          email: firebaseUser.email,
-          role: role,
-        });
-        
-        // También puedes guardar la información en localStorage si la necesitas para otras cosas
-        localStorage.setItem("portfolioUser", JSON.stringify({
-            name: firebaseUser.displayName || "Usuario",
-            email: firebaseUser.email
-        }));
+    const checkAuth = () => {
+      // Intentar obtener usuario desde localStorage (donde lo guarda el auth-modal)
+      // Nota: auth-modal guarda en "registeredUsers" pero el login activo no persiste
+      // explícitamente en una key de sesión global simple en el código anterior,
+      // pero podemos simular que si hay un usuario "logueado" en la sesión actual
+      // o simplemente permitir acceso demo.
 
+      // Asumiremos que si llegamos aquí, validamos contra lo que haya en localStorage
+      // o usamos un mock user si estamos en dev.
+
+      // Revisando auth-modal, hacía: onLogin({ name: user.displayName ... })
+      // No guardaba token persistente en localStorage salvo para "registeredUsers".
+
+      // Para efectos de que el dashboard cargue sin Firebase:
+      // Verificamos si hay algún indicador de sesión o usamos un demo user por defecto
+      // para que el usuario pueda ver su dashboard.
+
+      const storedUserJSON = localStorage.getItem("portfolioUser");
+      if (storedUserJSON) {
+        const storedUser = JSON.parse(storedUserJSON);
+        setUser({
+          name: storedUser.name || "Usuario",
+          email: storedUser.email || "demo@example.com",
+          role: storedUser.email === "felipe14chile@gmail.com" ? "superAdmin" : "user"
+        });
       } else {
-        // Si no hay usuario, lo redirigimos a la página de inicio
-        localStorage.removeItem("portfolioUser");
+        // Si no hay usuario, redirigir
         router.push("/");
       }
-    });
+    };
 
-    // Limpiamos el listener cuando el componente se desmonta
-    return () => unsubscribe();
+    checkAuth();
   }, [router]);
 
   useEffect(() => {
     if (!user) return
     const fetchTasks = async () => {
-      const querySnapshot = await getDocs(collection(db, "tasks"))
-      const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
-      setTasks(tasksData)
+      // Mock fetch tasks
+      // const querySnapshot = await getDocs(collection(db, "tasks")) 
+      // setTasks(tasksData)
     }
     fetchTasks()
   }, [user])
@@ -285,10 +288,10 @@ export default function Dashboard() {
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  if (e.target.files && e.target.files[0]) {
-    setSelectedFile(e.target.files[0])
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0])
+    }
   }
-}
 
   // Mock data
   const allProjects: Project[] = [
@@ -476,11 +479,11 @@ export default function Dashboard() {
   ]
 
   const createTask = async (taskData: Omit<Task, "id">) => {
-    await addDoc(collection(db, "tasks"), taskData)
+    // await addDoc(collection(db, "tasks"), taskData)
     // Recarga las tareas
-    const querySnapshot = await getDocs(collection(db, "tasks"))
-    const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
-    setTasks(tasksData)
+    // const querySnapshot = await getDocs(collection(db, "tasks"))
+    // const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
+    // setTasks(tasksData)
   }
 
   // Estado de notificaciones
@@ -492,7 +495,7 @@ export default function Dashboard() {
       alert("Completa todos los campos obligatorios.")
       return
     }
-    await addDoc(collection(db, "tasks"), newTask)
+    // await addDoc(collection(db, "tasks"), newTask)
     setShowTaskModal(false)
     setNewTask({
       title: "",
@@ -506,9 +509,9 @@ export default function Dashboard() {
       createdAt: new Date().toISOString().slice(0, 10),
     })
     // Recarga las tareas
-    const querySnapshot = await getDocs(collection(db, "tasks"))
-    const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
-    setTasks(tasksData)
+    // const querySnapshot = await getDocs(collection(db, "tasks")) 
+    // setTasks(tasksData)
+    setTasks([...tasks, { ...newTask, id: Date.now().toString() } as Task]); // Agregar localmente
     addNotification("task", language === "en" ? "Task created" : language === "eu" ? "Zeregina sortuta" : "Tarea creada")
   }
 
@@ -539,59 +542,61 @@ export default function Dashboard() {
 
   const handleDeleteTask = async (taskId: string) => {
     if (!window.confirm("¿Estás seguro de que deseas borrar esta tarea?")) return
-    await deleteDoc(doc(db, "tasks", taskId))
+    // await deleteDoc(doc(db, "tasks", taskId))
     // Recarga las tareas después de borrar
-    const querySnapshot = await getDocs(collection(db, "tasks"))
-    const tasksData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task))
-    setTasks(tasksData)
+    // const querySnapshot = await getDocs(collection(db, "tasks"))
+    // setTasks(tasksData)
+    setTasks(tasks.filter(t => t.id !== taskId)); // Borrar localmente
   }
 
   const handleUploadDocument = async () => {
-  console.log("[DEBUG] auth.currentUser:", auth.currentUser);
-  if (!auth.currentUser) {
-    console.warn("[DEBUG] El usuario NO está autenticado en este momento.");
-  } else {
-    console.info("[DEBUG] El usuario SÍ está autenticado:", auth.currentUser.email);
-  }
-  console.log("[DEBUG] user:", user);
-  console.log("[DEBUG] selectedFile:", selectedFile);
-  if (!selectedFile || !user?.email) {
-    alert("No hay usuario autenticado o no se ha seleccionado archivo.");
+    console.log("[DEBUG] auth.currentUser:", auth.currentUser);
+    if (!auth.currentUser) {
+      // console.warn("[DEBUG] El usuario NO está autenticado en este momento.");
+    } else {
+      // console.info("[DEBUG] El usuario SÍ está autenticado:", auth.currentUser.email);
+    }
+    console.log("[DEBUG] user:", user);
+    console.log("[DEBUG] selectedFile:", selectedFile);
+    if (!selectedFile || !user?.email) {
+      alert("No hay usuario autenticado o no se ha seleccionado archivo.");
+      setUploading(false);
+      return;
+    }
+    setUploading(true);
+    try {
+      // 1. Subir archivo simulado
+      // const storageRef = ref(storage, `documents/${Date.now()}_${selectedFile.name}`);
+      // await uploadBytes(storageRef, selectedFile);
+      // const url = await getDownloadURL(storageRef);
+
+      // 2. Guardar metadata simulado
+      const newDoc = {
+        id: Date.now().toString(),
+        name: selectedFile.name,
+        type: selectedFile.type || "Archivo",
+        size: `${(selectedFile.size / (1024 * 1024)).toFixed(2)} MB`,
+        uploadedBy: user.email,
+        uploadedAt: new Date().toISOString(),
+        project: "",
+        url: "#",
+      };
+      // await addDoc(collection(db, "documents"), newDoc);
+
+      // 3. Refrescar la lista de documentos simulada
+      setDocuments([...documents, newDoc as Document]);
+      // await fetchDocuments();
+
+    } catch (err) {
+      console.error("Error al subir el documento:", err);
+      const errorMsg = (err && (err as any).message) ? (err as any).message : "";
+      alert("Error al subir el documento. " + errorMsg);
+    }
     setUploading(false);
-    return;
-  }
-  setUploading(true);
-  try {
-    // 1. Subir archivo a Firebase Storage
-    const storageRef = ref(storage, `documents/${Date.now()}_${selectedFile.name}`);
-    await uploadBytes(storageRef, selectedFile);
-    const url = await getDownloadURL(storageRef);
-
-    // 2. Guardar metadata en Firestore
-    const newDoc = {
-      name: selectedFile.name,
-      type: selectedFile.type || "Archivo",
-      size: `${(selectedFile.size / (1024 * 1024)).toFixed(2)} MB`,
-      uploadedBy: user.email,
-      uploadedAt: new Date().toISOString(),
-      project: "",
-      url,
-    };
-    await addDoc(collection(db, "documents"), newDoc);
-
-    // 3. Refrescar la lista de documentos desde la base de datos ✨
-    await fetchDocuments(); 
-
-  } catch (err) {
-    console.error("Error al subir el documento:", err);
-    const errorMsg = (err && (err as any).message) ? (err as any).message : "";
-    alert("Error al subir el documento. " + errorMsg);
-  }
-  setUploading(false);
-  setShowUploadModal(false);
-  setSelectedFile(null);
-  addNotification("file", language === "en" ? "File uploaded" : language === "eu" ? "Fitxategia igo da" : "Archivo subido")
-};
+    setShowUploadModal(false);
+    setSelectedFile(null);
+    addNotification("file", language === "en" ? "File uploaded" : language === "eu" ? "Fitxategia igo da" : "Archivo subido")
+  };
 
   // Estado para proyectos creados localmente
   const [localProjects, setLocalProjects] = useState<Project[]>([])
@@ -733,8 +738,8 @@ export default function Dashboard() {
                 {language === "en"
                   ? "Projects"
                   : language === "eu"
-                  ? "Proiektuak"
-                  : "Proyectos"}
+                    ? "Proiektuak"
+                    : "Proyectos"}
               </h2>
               <div className="flex items-center space-x-4">
                 {user.role === "superAdmin" && (
@@ -747,8 +752,8 @@ export default function Dashboard() {
                         {language === "en"
                           ? "All Users"
                           : language === "eu"
-                          ? "Erabiltzaile Guztiak"
-                          : "Todos los Usuarios"}
+                            ? "Erabiltzaile Guztiak"
+                            : "Todos los Usuarios"}
                       </SelectItem>
                       {allTeamMembers.map((member) => (
                         <SelectItem key={member.email} value={member.email}>
@@ -763,8 +768,8 @@ export default function Dashboard() {
                   {language === "en"
                     ? "New Project"
                     : language === "eu"
-                    ? "Proiektu Berria"
-                    : "Nuevo Proyecto"}
+                      ? "Proiektu Berria"
+                      : "Nuevo Proyecto"}
                 </Button>
               </div>
             </div>
@@ -928,8 +933,8 @@ export default function Dashboard() {
                 {language === "en"
                   ? "Tasks"
                   : language === "eu"
-                  ? "Zereginak"
-                  : "Tareas"}
+                    ? "Zereginak"
+                    : "Tareas"}
               </h2>
               <div className="flex items-center space-x-4">
                 {user.role === "superAdmin" && (
@@ -942,8 +947,8 @@ export default function Dashboard() {
                         {language === "en"
                           ? "All Users"
                           : language === "eu"
-                          ? "Erabiltzaile Guztiak"
-                          : "Todos los Usuarios"}
+                            ? "Erabiltzaile Guztiak"
+                            : "Todos los Usuarios"}
                       </SelectItem>
                       {allTeamMembers.map((member) => (
                         <SelectItem key={member.email} value={member.email}>
@@ -958,8 +963,8 @@ export default function Dashboard() {
                   {language === "en"
                     ? "New Task"
                     : language === "eu"
-                    ? "Zeregin Berriak"
-                    : "Nueva Tarea"}
+                      ? "Zeregin Berriak"
+                      : "Nueva Tarea"}
                 </Button>
               </div>
             </div>
@@ -977,19 +982,17 @@ export default function Dashboard() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
                             <div
-                              className={`w-4 h-4 rounded-full border ${
-                                task.status === "completed"
-                                  ? "bg-green-500/50 border-green-500"
-                                  : "bg-transparent border-white/30"
-                              } flex items-center justify-center`}
+                              className={`w-4 h-4 rounded-full border ${task.status === "completed"
+                                ? "bg-green-500/50 border-green-500"
+                                : "bg-transparent border-white/30"
+                                } flex items-center justify-center`}
                             >
                               {task.status === "completed" && <CheckCircle className="h-3 w-3 text-white" />}
                             </div>
                             <div>
                               <h3
-                                className={`font-medium ${
-                                  task.status === "completed" ? "text-white/50 line-through" : "text-white"
-                                }`}
+                                className={`font-medium ${task.status === "completed" ? "text-white/50 line-through" : "text-white"
+                                  }`}
                               >
                                 {task.title}
                               </h3>
@@ -1143,8 +1146,8 @@ export default function Dashboard() {
                 {language === "en"
                   ? "Calendar"
                   : language === "eu"
-                  ? "Egutegia"
-                  : "Calendario"}
+                    ? "Egutegia"
+                    : "Calendario"}
               </h2>
               <div className="flex items-center space-x-4">
                 {user.role === "superAdmin" && (
@@ -1157,8 +1160,8 @@ export default function Dashboard() {
                         {language === "en"
                           ? "All Users"
                           : language === "eu"
-                          ? "Erabiltzaile Guztiak"
-                          : "Todos los Usuarios"}
+                            ? "Erabiltzaile Guztiak"
+                            : "Todos los Usuarios"}
                       </SelectItem>
                       {allTeamMembers.map((member) => (
                         <SelectItem key={member.email} value={member.email}>
@@ -1173,8 +1176,8 @@ export default function Dashboard() {
                   {language === "en"
                     ? "New Event"
                     : language === "eu"
-                    ? "Gertaera Berria"
-                    : "Nuevo Evento"}
+                      ? "Gertaera Berria"
+                      : "Nuevo Evento"}
                 </Button>
               </div>
             </div>
@@ -1187,8 +1190,8 @@ export default function Dashboard() {
                       {language === "en"
                         ? "Upcoming Events"
                         : language === "eu"
-                        ? "Hurrengo Gertaerak"
-                        : "Próximos Eventos"}
+                          ? "Hurrengo Gertaerak"
+                          : "Próximos Eventos"}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -1201,13 +1204,12 @@ export default function Dashboard() {
                             className="flex items-start space-x-4 p-4 rounded-lg bg-white/5 border border-white/10"
                           >
                             <div
-                              className={`w-3 h-3 rounded-full mt-2 ${
-                                event.type === "meeting"
-                                  ? "bg-blue-500"
-                                  : event.type === "deadline"
+                              className={`w-3 h-3 rounded-full mt-2 ${event.type === "meeting"
+                                ? "bg-blue-500"
+                                : event.type === "deadline"
                                   ? "bg-red-500"
                                   : "bg-amber-500"
-                              }`}
+                                }`}
                             />
                             <div className="flex-1">
                               <h3 className="font-medium text-white">{event.title}</h3>
@@ -1368,8 +1370,8 @@ export default function Dashboard() {
                 {language === "en"
                   ? "Documents"
                   : language === "eu"
-                  ? "Dokumentuak"
-                  : "Documentos"}
+                    ? "Dokumentuak"
+                    : "Documentos"}
               </h2>
               <div className="flex items-center space-x-4">
                 {user.role === "superAdmin" && (
@@ -1382,8 +1384,8 @@ export default function Dashboard() {
                         {language === "en"
                           ? "All Users"
                           : language === "eu"
-                          ? "Erabiltzaile Guztiak"
-                          : "Todos los Usuarios"}
+                            ? "Erabiltzaile Guztiak"
+                            : "Todos los Usuarios"}
                       </SelectItem>
                       {allTeamMembers.map((member) => (
                         <SelectItem key={member.email} value={member.email}>
@@ -1428,7 +1430,7 @@ export default function Dashboard() {
                           <Button variant="ghost" size="sm" className="text-white/70 hover:text-white" onClick={() => window.open(doc.url, "_blank")}>
                             <Download className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white" onClick={() => {/* abre modal de edición */}}>
+                          <Button variant="ghost" size="sm" className="text-white/70 hover:text-white" onClick={() => {/* abre modal de edición */ }}>
                             <Edit className="h-4 w-4" />
                           </Button>
                         </div>
@@ -1478,8 +1480,8 @@ export default function Dashboard() {
                 {language === "en"
                   ? "Messages"
                   : language === "eu"
-                  ? "Mezuak"
-                  : "Mensajes"}
+                    ? "Mezuak"
+                    : "Mensajes"}
               </h2>
               <div className="flex items-center space-x-4">
                 {user.role === "superAdmin" && (
@@ -1492,8 +1494,8 @@ export default function Dashboard() {
                         {language === "en"
                           ? "All Users"
                           : language === "eu"
-                          ? "Erabiltzaile Guztiak"
-                          : "Todos los Usuarios"}
+                            ? "Erabiltzaile Guztiak"
+                            : "Todos los Usuarios"}
                       </SelectItem>
                       {allTeamMembers.map((member) => (
                         <SelectItem key={member.email} value={member.email}>
@@ -1581,8 +1583,8 @@ export default function Dashboard() {
                     {language === "en"
                       ? "Profile Settings"
                       : language === "eu"
-                      ? "Profilaren Ezarpenak"
-                      : "Configuración del Perfil"}
+                        ? "Profilaren Ezarpenak"
+                        : "Configuración del Perfil"}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -1791,8 +1793,8 @@ export default function Dashboard() {
                       language === "en"
                         ? `${projects.filter((p) => p.status === "active").length} in progress`
                         : language === "eu"
-                        ? `${projects.filter((p) => p.status === "active").length} aurrera doazen proiektuak`
-                        : `${projects.filter((p) => p.status === "active").length} en progreso`
+                          ? `${projects.filter((p) => p.status === "active").length} aurrera doazen proiektuak`
+                          : `${projects.filter((p) => p.status === "active").length} en progreso`
                     }
                   />
                   <MetricCard
@@ -1804,8 +1806,8 @@ export default function Dashboard() {
                       language === "en"
                         ? `${tasks.filter((t) => t.priority === "high").length} high priority`
                         : language === "eu"
-                        ? `${tasks.filter((t) => t.priority === "high").length} lehentasun handikoak`
-                        : `${tasks.filter((t) => t.priority === "high").length} alta prioridad`
+                          ? `${tasks.filter((t) => t.priority === "high").length} lehentasun handikoak`
+                          : `${tasks.filter((t) => t.priority === "high").length} alta prioridad`
                     }
                   />
                   <MetricCard
@@ -1864,8 +1866,8 @@ export default function Dashboard() {
                           {language === "en"
                             ? "Designed new UI mockups"
                             : language === "eu"
-                            ? "UI maketak diseinatu ditu"
-                            : "Diseñó nuevos mockups de UI"}
+                              ? "UI maketak diseinatu ditu"
+                              : "Diseñó nuevos mockups de UI"}
                         </p>
                         <p className="text-xs text-white/50">
                           6 {language === "en" ? "hours ago" : language === "eu" ? "ordu batzuen buruan" : "horas atrás"}
@@ -2014,7 +2016,7 @@ export default function Dashboard() {
               <CardContent className="p-4">
                 <nav className="space-y-2">
                   <NavItem
-                   
+
                     icon={Command}
                     label={language === "en" ? "Dashboard" : language === "eu" ? "Kontsola" : "Panel"}
                     active={activeSection === "dashboard"}
@@ -2218,9 +2220,8 @@ function NavItem({
   return (
     <Button
       variant="ghost"
-      className={`w-full justify-start ${
-        active ? "bg-white/10 text-purple-300" : "text-white/70 hover:text-white hover:bg-white/5"
-      }`}
+      className={`w-full justify-start ${active ? "bg-white/10 text-purple-300" : "text-white/70 hover:text-white hover:bg-white/5"
+        }`}
       onClick={onClick}
     >
       <Icon className="mr-2 h-4 w-4" />
