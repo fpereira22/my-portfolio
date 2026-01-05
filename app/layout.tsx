@@ -1,11 +1,3 @@
-import type React from "react"
-import "./globals.css"
-import { Inter } from "next/font/google"
-import { LanguageProvider } from "@/hooks/useLanguage"
-import type { Metadata } from "next"
-
-const inter = Inter({ subsets: ["latin"] })
-
 export const metadata: Metadata = {
   title: "Felipe Pereira - Portfolio",
   description: "Portfolio personal de Felipe Pereira - Desarrollador de Software",
@@ -13,18 +5,20 @@ export const metadata: Metadata = {
     icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
   },
   manifest: "/site.webmanifest",
-    generator: 'v0.dev'
-}
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="es">
-      <body className={inter.className} suppressHydrationWarning={true}>
-        <LanguageProvider>{children}</LanguageProvider>
-      </body>
-    </html>
-  )
+  generator: 'v0.dev',
+  
+  // --- ESTO ES LO QUE TE FALTA (LA CURA PARA EL ERROR) ---
+  alternates: {
+    canonical: "https://fpereiradev.sppa.cl",
+  },
+  
+  // --- RECOMENDADO: Agrega esto para que Google entienda mejor tu sitio ---
+  openGraph: {
+    title: "Felipe Pereira - Portfolio",
+    description: "Portfolio personal de Felipe Pereira - Desarrollador de Software",
+    url: "https://fpereiradev.sppa.cl",
+    siteName: "Felipe Pereira Portfolio",
+    locale: "es_CL",
+    type: "website",
+  },
 }
