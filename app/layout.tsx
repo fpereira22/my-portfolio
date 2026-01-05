@@ -1,3 +1,13 @@
+import type React from "react"
+import "./globals.css"
+import { Inter } from "next/font/google"
+// IMPORTANTE: Mantenemos las llaves { } porque tu archivo useLanguage tiene "export function"
+import { LanguageProvider } from "@/hooks/useLanguage"
+import type { Metadata } from "next"
+
+const inter = Inter({ subsets: ["latin"] })
+
+// --- AQUÍ ESTÁN TUS MEJORAS DE SEO ---
 export const metadata: Metadata = {
   title: "Felipe Pereira - Portfolio",
   description: "Portfolio personal de Felipe Pereira - Desarrollador de Software",
@@ -7,12 +17,12 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   generator: 'v0.dev',
   
-  // --- ESTO ES LO QUE TE FALTA (LA CURA PARA EL ERROR) ---
+  // SOLUCIÓN AL ERROR DE GOOGLE (URL CANÓNICA)
   alternates: {
     canonical: "https://fpereiradev.sppa.cl",
   },
   
-  // --- RECOMENDADO: Agrega esto para que Google entienda mejor tu sitio ---
+  // MEJORA RECOMENDADA (OPEN GRAPH)
   openGraph: {
     title: "Felipe Pereira - Portfolio",
     description: "Portfolio personal de Felipe Pereira - Desarrollador de Software",
@@ -20,5 +30,30 @@ export const metadata: Metadata = {
     siteName: "Felipe Pereira Portfolio",
     locale: "es_CL",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png", // Asegúrate de tener una imagen o borra esta línea si no
+        width: 1200,
+        height: 630,
+        alt: "Felipe Pereira Portfolio",
+      },
+    ],
   },
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="es">
+      {/* suppressHydrationWarning ayuda a evitar errores de coincidencia HTML/React */}
+      <body className={inter.className} suppressHydrationWarning={true}>
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
+      </body>
+    </html>
+  )
 }
