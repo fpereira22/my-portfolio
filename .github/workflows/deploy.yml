@@ -46,6 +46,7 @@ jobs:
           # Usualmente cPanel crea una carpeta con el mismo nombre del subdominio.
           server-dir: ./public_html/fpereiradev.sppa.cl/
           protocol: ftps
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
