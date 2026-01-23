@@ -829,7 +829,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   const t = (key: string): string => {
-    if (!mounted) return key // Return key during SSR
+    //if (!mounted) return key // Return key during SSR
 
     try {
       return translations[language][key as keyof (typeof translations)[typeof language]] || key
