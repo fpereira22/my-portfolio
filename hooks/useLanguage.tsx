@@ -55,7 +55,7 @@ const translations = {
     "hero.name": "Felipe Pereira A.",
     "hero.title": "Ingeniero Civil Informático",
     "hero.description":
-      "Desarrollador Full Stack especializado en análisis de datos, ciberseguridad y desarrollo web moderno.",
+      "Ingeniero de Software e Investigador Académico. Especializado en Desarrollo Full Stack Web y Móvil, Inteligencia Artificial, Visión por Computadora e Investigación de Operaciones.",
     "hero.contactBtn": "Contactar",
 
     // About Section
@@ -139,6 +139,12 @@ const translations = {
     "projects.project3.title": "Detector de Sentimientos",
     "projects.project3.desc": "Sistema de detección de sentimientos en reseñas de productos usando NLP e Inteligencia Artificial.",
     "projects.viewBtn": "Ver Proyecto",
+    "projects.project4.title": "Optimización Mochila",
+    "projects.project4.desc": "Estudio comparativo de algoritmos (Julia/C/AMPL) para el problema de la mochila: Fuerza bruta, dinámica y heurísticas.",
+    "projects.project5.title": "Impostor Futbolero",
+    "projects.project5.desc": "Juego multijugador en tiempo real tipo Among Us con temática de fútbol chileno. Sockets.IO, Node.js y diseño moderno.",
+    "projects.project6.title": "Telecom Churn AI",
+    "projects.project6.desc": "Pipeline de Data Science para predicción de fuga de clientes. ETL, análisis estadístico y modelos de Machine Learning.",
 
     // Work History Section
     "workHistory.title": "Experiencia Laboral",
@@ -230,6 +236,16 @@ const translations = {
     "websites.fpereiradev.desc": "Portfolio profesional de desarrollo de software y soluciones tecnológicas.",
     "websites.manuel.title": "Manuel Pereira - Fotografía",
     "websites.manuel.desc": "Sitio de marca personal, fotografía profesional y edición artística. Desarrollado con React para una experiencia visual fluida.",
+    "websites.ourtransfer.title": "Our Transfer SSGL",
+    "websites.ourtransfer.desc": "Aplicación web segura y moderna para la transferencia de archivos, diseñada para el ámbito corporativo. Inspirada en WeTransfer, permite subir archivos a la nube y generar enlaces compartibles al instante.",
+    "websites.centroestetica.title": "Centro Estética Fernando Gonzalez",
+    "websites.centroestetica.desc": "Plataforma web responsiva gestión de citas y blog de noticias. Desarrollada con React, GCP y Shadcn UI.",
+    "websites.mrcomputer.title": "MRComputer Enterprise",
+    "websites.mrcomputer.desc": "Sistema de gestión de inventario y landing page corporativa. Incluye dashboard moderno, control de stock personalizado y base de datos SQL.",
+    "websites.jody.title": "Jody Carrillo - Preparador Físico",
+    "websites.jody.desc": "Landing page y sistema de agendamiento para servicios deportivos. Integración con APIs locales y GCP para gestión de citas personalizada.",
+    "websites.smartcare.title": "Centro Médico SmartCare",
+    "websites.smartcare.desc": "Landing page profesional para la Dra. Cecilia Salinas. Incluye mapas interactivos y presentación de servicios médicos en el sur de Chile.",
 
     // Duration/Time translations
     "duration.present": "actualidad",
@@ -297,7 +313,7 @@ const translations = {
     // Hero Section
     "hero.name": "Felipe Pereira A.",
     "hero.title": "Software Engineer",
-    "hero.description": "Full Stack Developer specialized in data analysis, cybersecurity and modern web development.",
+    "hero.description": "Software Engineer & Academic Researcher. Specialized in Full Stack Web and Mobile Development, Artificial Intelligence, Computer Vision, and Operations Research.",
     "hero.contactBtn": "Contact",
 
     // About Section
@@ -379,6 +395,12 @@ const translations = {
     "projects.project3.title": "Sentiment Detector",
     "projects.project3.desc": "Sentiment detection system for product reviews using NLP and Artificial Intelligence.",
     "projects.viewBtn": "View Project",
+    "projects.project4.title": "Knapsack Optimization",
+    "projects.project4.desc": "Comparative study of algorithms (Julia/C/AMPL) for the Knapsack problem: Brute force, dynamic programming and heuristics.",
+    "projects.project5.title": "Impostor FC",
+    "projects.project5.desc": "Real-time multiplayer Among Us-style game with Chilean football theme. Socket.IO, Node.js and modern design.",
+    "projects.project6.title": "Telecom Churn AI",
+    "projects.project6.desc": "Data Science pipeline for customer churn prediction. ETL, statistical analysis and Machine Learning models.",
 
     // Work History Section
     "workHistory.title": "Work Experience",
@@ -480,6 +502,16 @@ const translations = {
     "websites.fpereiradev.desc": "Professional portfolio for software development and technological solutions.",
     "websites.manuel.title": "Manuel Pereira - Photography",
     "websites.manuel.desc": "Personal branding site, professional photography and artistic editing. Built with React for a smooth visual experience.",
+    "websites.ourtransfer.title": "Our Transfer SSGL",
+    "websites.ourtransfer.desc": "Secure and modern file transfer web app for corporate use. Inspired by WeTransfer, allows instant file uploads and shareable link generation.",
+    "websites.centroestetica.title": "Fernando Gonzalez Aesthetic Center",
+    "websites.centroestetica.desc": "Responsive web platform for appointment scheduling and news blog. Built with React, GCP, and Shadcn UI.",
+    "websites.mrcomputer.title": "MRComputer Enterprise",
+    "websites.mrcomputer.desc": "Inventory management system and corporate landing page. Features a modern dashboard, custom stock control, and SQL database.",
+    "websites.jody.title": "Jody Carrillo - Fitness Coach",
+    "websites.jody.desc": "Landing page and scheduling system for fitness services. Integrated with local APIs and GCP for custom appointment management.",
+    "websites.smartcare.title": "SmartCare Medical Center",
+    "websites.smartcare.desc": "Professional landing page for Dr. Cecilia Salinas. Includes interactive maps and medical service showcase in southern Chile.",
 
     // Duration/Time translations
     "duration.present": "present",
@@ -548,7 +580,7 @@ const translations = {
     "hero.name": "Felipe Pereira A.",
     "hero.title": "Informatikako Ingeniari Zibila",
     "hero.description":
-      "Full Stack garatzailea, datu-analisian, ziberseguritasunean eta web garapen modernoan espezializatua.",
+      "Software Ingeniaria eta Ikertzaile Akademikoa. Full Stack Web eta Mugikor Garapenean, Adimen Artifizialean, Ordenagailu Bidezko Ikusmenean eta Eragiketa Ikerketan espezializatua.",
     "hero.contactBtn": "Kontaktatu",
 
     // About Section
@@ -630,6 +662,12 @@ const translations = {
     "projects.project3.title": "Sentimendua Detektorea",
     "projects.project3.desc": "Sentimendua detektatzeko sistema produktuen iritzietan NLP eta Adimen Artifiziala erabiliz.",
     "projects.viewBtn": "Proiektua ikusi",
+    "projects.project4.title": "Motxila Optimizazioa",
+    "projects.project4.desc": "Motxilaren arazorako algoritmoen azterketa konparatiboa (Julia/C/AMPL): Indar gordina, programazio dinamikoa eta heuristikoak.",
+    "projects.project5.title": "Impostor FC",
+    "projects.project5.desc": "Among Us estiloko jokalari anitzeko jokoa denbora errealean, txiletar futbol gaiarekin. Socket.IO, Node.js eta diseinu modernoa.",
+    "projects.project6.title": "Telecom Churn AI",
+    "projects.project6.desc": "Data Science pipelinea bezeroen ihesa aurreikusteko. ETL, analisi estatistikoa eta Machine Learning ereduak.",
 
     // Work History Section
     "workHistory.title": "Lan Esperientzia",
@@ -731,6 +769,16 @@ const translations = {
     "websites.fpereiradev.desc": "Software garapenerako eta soluzio teknologikoetarako portfolio profesionala.",
     "websites.manuel.title": "Manuel Pereira - Argazkigintza",
     "websites.manuel.desc": "Marka pertsonaleko webgunea, argazkigintza profesionala eta edizio artistikoa. React erabiliz garatua esperientzia bisuala leunago baterako.",
+    "websites.ourtransfer.title": "Our Transfer SSGL",
+    "websites.ourtransfer.desc": "Fitxategiak transferitzeko web aplikazio segurua eta modernoa, ingurune korporatiborako. WeTransfer-en inspiratua.",
+    "websites.centroestetica.title": "Fernando Gonzalez Estetika Zentroa",
+    "websites.centroestetica.desc": "Hitzorduak kudeatzeko eta albisteetarako web plataforma moldagarria. React, GCP eta Shadcn UI-rekin garatua.",
+    "websites.mrcomputer.title": "MRComputer Enterprise",
+    "websites.mrcomputer.desc": "Inbentario kudeaketa sistema eta enpresa orria. Dashboard modernoa eta SQL datu-basea ditu.",
+    "websites.jody.title": "Jody Carrillo - Prestatzaile Fisikoa",
+    "websites.jody.desc": "Kirol zerbitzuetarako landing page-a eta hitzordu sistema. API lokalekin eta GCP-rekin integratua.",
+    "websites.smartcare.title": "SmartCare Mediku Zentroa",
+    "websites.smartcare.desc": "Cecilia Salinas Dr.-aren orri profesionala. Mapa interaktiboak eta zerbitzu medikuen aurkezpena Txileko hegoaldean.",
 
     // Duration/Time translations
     "duration.present": "orain",

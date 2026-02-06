@@ -20,6 +20,8 @@ import {
   Zap,
   LogIn,
   GraduationCap,
+  Search,
+  ChevronUp,
   Award,
   Globe,
   Github
@@ -1352,115 +1354,92 @@ export default function Portfolio() {
             <div className="w-16 h-1 bg-purple-600 mx-auto"></div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Análisis de Tachas */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <div className="h-48 bg-gradient-to-br from-blue-100 to-purple-100 p-4">
-                <Image
-                  // src="/img/1.png"
-                  src="/tachas.webp"
-                  alt={t("projects.project1.title")}
-                  width={300}
-                  height={200}
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <Code className="w-5 h-5 text-purple-600" />
-                  <h3 className="text-xl font-bold">{t("projects.project1.title")}</h3>
-                </div>
-                <p className="text-gray-600 mb-4">{t("projects.project1.desc")}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Python</span>
-                  <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Computer Vision</span>
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">IA</span>
-                </div>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-purple-600 text-purple-600 hover:bg-purple-50"
-                >
-                  <a href="https://github.com/GaztelakoFelipeI/tatxas/" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    {t("projects.viewBtn")}
-                  </a>
-                </Button>
-              </div>
-            </div>
+          {/* Projects Data Definition - internal for now to keep it simple */}
+          {(() => {
+            const projectsData = [
+              {
+                slug: "project1",
+                imageSrc: "/tachas.webp",
+                tags: ["Python", "Computer Vision", "IA"],
+                link: "https://github.com/GaztelakoFelipeI/tatxas/"
+              },
+              {
+                slug: "project2",
+                imageSrc: "/background.webp",
+                tags: ["Python", "FastApi", "React"],
+                link: "https://github.com/fpereira22/End-to-End-Housing-Price-API"
+              },
+              {
+                slug: "project3",
+                imageSrc: "/nlp.webp",
+                tags: ["Python", "IA", "Machine Learning"],
+                link: "https://github.com/fpereira22/Product-Review-Sentiment-Topic-Analysis"
+              },
+              {
+                slug: "project4",
+                imageSrc: "/knapsack_project.png",
+                tags: ["Julia", "C", "AMPL", "Optimization"],
+                link: "https://github.com/fpereira22/knapsack-optimization-research"
+              },
+              {
+                slug: "project5",
+                imageSrc: "/impostor_fc.png",
+                tags: ["Node.js", "Socket.IO", "JavaScript"],
+                link: "https://github.com/fpereira22/Impostor-FC"
+              },
+              {
+                slug: "project6",
+                imageSrc: "/telecom_churn.png",
+                tags: ["Python", "Pandas", "Scikit-Learn"],
+                link: "https://github.com/fpereira22/2nd-Challenge-TelecomX-AluraLatam"
+              }
+            ];
 
-            {/* Proyecto Web*/}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <div className="h-48 bg-gradient-to-br from-yellow-100 to-red-100 p-4">
-                <Image
-                  // src="/img/2.jpg"
-                  src="/background.webp"
-                  alt={t("projects.project2.title")}
-                  width={300}
-                  height={200}
-                  className="w-full h-full object-cover rounded-lg"
-                />
+            return (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {projectsData.map((project, index) => (
+                  <div key={index} className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl flex flex-col">
+                    <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 p-4 relative overflow-hidden group">
+                      <Image
+                        src={project.imageSrc}
+                        alt={t(`projects.${project.slug}.title`)}
+                        width={300}
+                        height={200}
+                        className="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Code className="w-5 h-5 text-purple-600 flex-shrink-0" />
+                        <h3 className="text-xl font-bold leading-tight">{t(`projects.${project.slug}.title`)}</h3>
+                      </div>
+                      <p className="text-gray-600 mb-4 flex-grow text-sm">{t(`projects.${project.slug}.desc`)}</p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag, i) => (
+                          <span key={i} className={`px-3 py-1 rounded-full text-xs font-medium 
+                            ${i % 3 === 0 ? 'bg-purple-100 text-purple-800' :
+                              i % 3 === 1 ? 'bg-blue-100 text-blue-800' :
+                                'bg-green-100 text-green-800'}`}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="w-full border-purple-600 text-purple-600 hover:bg-purple-50 mt-auto"
+                      >
+                        <a href={project.link} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          {t("projects.viewBtn")}
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <Code className="w-5 h-5 text-purple-600" />
-                  <h3 className="text-xl font-bold">{t("projects.project2.title")}</h3>
-                </div>
-                <p className="text-gray-600 mb-4">{t("projects.project2.desc")}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Python</span>
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">FastApi</span>
-                  <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm">React</span>
-                </div>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-purple-600 text-purple-600 hover:bg-purple-50"
-                >
-                  <a href="https://github.com/fpereira22/End-to-End-Housing-Price-API" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    {t("projects.viewBtn")}
-                  </a>
-                </Button>
-              </div>
-            </div>
-
-            {/* Pulmonar */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <div className="h-48 bg-gradient-to-br from-green-100 to-blue-100 p-4">
-                <Image
-                  // src="/img/3.png"
-                  src="/nlp.webp"
-                  alt={t("projects.project3.title")}
-                  width={300}
-                  height={200}
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <Code className="w-5 h-5 text-purple-600" />
-                  <h3 className="text-xl font-bold">{t("projects.project3.title")}</h3>
-                </div>
-                <p className="text-gray-600 mb-4">{t("projects.project3.desc")}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Python</span>
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">IA</span>
-                  <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Machine Learning</span>
-                </div>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-purple-600 text-purple-600 hover:bg-purple-50"
-                >
-                  <a href="https://github.com/fpereira22/Product-Review-Sentiment-Topic-Analysis" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    {t("projects.viewBtn")}
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
+            );
+          })()}
 
           <div className="mt-12 text-center">
             <a
@@ -1548,153 +1527,264 @@ export default function Portfolio() {
           </div>
 
           {/* Other Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* SSGL */}
-            <a href="https://www.ssgl.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-green-500 hover:border-green-400 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-green-500/30 cursor-pointer">
-              <div className="aspect-video relative overflow-hidden">
-                <Image
-                  src="/img/websites/ssgl.png"
-                  alt="SSGL.cl"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-green-900/90 to-transparent"></div>
-                {/* Logo badge */}
-                <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
-                  <Image
-                    src="/img/logos/websites/ssgl.svg"
-                    alt="SSGL Logo"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-              <div className="p-5">
-                <h4 className="text-xl font-bold mb-2 group-hover:text-green-300 transition-colors">{t("websites.ssgl.title")}</h4>
-                <p className="text-green-200 text-sm mb-4 line-clamp-2">
-                  {t("websites.ssgl.desc")}
-                </p>
-                <div className="flex flex-wrap gap-1 mb-4">
-                  <span className="px-2 py-0.5 bg-green-500/20 border border-green-400/30 rounded text-xs">React</span>
-                  <span className="px-2 py-0.5 bg-green-500/20 border border-green-400/30 rounded text-xs">Next.js</span>
-                  <span className="px-2 py-0.5 bg-green-500/20 border border-green-400/30 rounded text-xs">Tailwind</span>
-                </div>
-                <span className="inline-flex items-center gap-1 text-green-300 group-hover:text-white text-sm font-medium transition-colors">
-                  <ExternalLink className="w-3 h-3" />
-                  {t("websites.viewProject")}
-                </span>
-              </div>
-            </a>
+          {/* Websites Grid with Show More */}
+          {/* Websites Grid with Show More */}
+          {(() => {
+            const websitesData = [
+              {
+                slug: "ssgl",
+                url: "https://www.ssgl.cl/",
+                imageSrc: "/img/websites/ssgl.png",
+                logoSrc: "/img/logos/websites/ssgl.svg",
+                borderClass: "border-green-500 hover:border-green-400",
+                shadowClass: "hover:shadow-green-500/30",
+                gradientClass: "from-green-900/90",
+                textClass: "text-green-300",
+                descColorClass: "text-green-200",
+                tags: ["React", "Next.js", "Tailwind"],
+                tagBgClass: "bg-green-500/20 border-green-400/30"
+              },
+              {
+                slug: "sppa",
+                url: "https://sppa.cl/",
+                imageSrc: "/img/websites/previews/sppa-preview.webp",
+                logoSrc: "/img/logos/websites/sppa.png",
+                borderClass: "border-cyan-500 hover:border-cyan-400",
+                shadowClass: "hover:shadow-cyan-500/30",
+                gradientClass: "from-cyan-900/90",
+                textClass: "text-cyan-300",
+                descColorClass: "text-cyan-200",
+                tags: ["HTML5", "CSS3", "JS"],
+                tagBgClass: "bg-cyan-500/20 border-cyan-400/30"
+              },
+              {
+                slug: "fpereiradev",
+                url: "https://fpereiradev.sppa.cl/",
+                imageSrc: "/img/websites/fpereiradev.png",
+                logoSrc: "/img/logos/websites/fpereiradev.ico",
+                borderClass: "border-purple-500 hover:border-purple-400",
+                shadowClass: "hover:shadow-purple-500/30",
+                gradientClass: "from-purple-900/90",
+                textClass: "text-purple-300",
+                descColorClass: "text-purple-200",
+                tags: ["React", "Next.js"],
+                tagBgClass: "bg-purple-500/20 border-purple-400/30"
+              },
+              {
+                slug: "manuel",
+                url: "https://manuel-pereira.sppa.cl/",
+                imageSrc: "/img/websites/previews/manuel-preview.webp",
+                logoSrc: "/img/logos/websites/manuel.svg",
+                borderClass: "border-yellow-500 hover:border-yellow-400",
+                shadowClass: "hover:shadow-yellow-500/30",
+                gradientClass: "from-yellow-900/90",
+                textClass: "text-yellow-300",
+                descColorClass: "text-yellow-200",
+                tags: ["Next.js", "React", "Photography"],
+                tagBgClass: "bg-yellow-500/20 border-yellow-400/30"
+              },
+              // New Websites
+              {
+                slug: "ourtransfer",
+                url: "https://our-transfer.ssgl.cl/",
+                imageSrc: "/img/websites/previews/ourtransfer-preview.webp",
+                logoSrc: "/img/logos/websites/ssgl.svg",
+                borderClass: "border-blue-500 hover:border-blue-400",
+                shadowClass: "hover:shadow-blue-500/30",
+                gradientClass: "from-blue-900/90",
+                textClass: "text-blue-300",
+                descColorClass: "text-blue-200",
+                tags: ["React", "Cloud", "Azure"],
+                tagBgClass: "bg-blue-500/20 border-blue-400/30"
+              },
+              {
+                slug: "centroestetica",
+                url: "https://centro-estetica-fernando-gonzalez.vercel.app/",
+                imageSrc: "/img/websites/previews/centroestetica-preview.webp",
+                logoSrc: "/img/logos/websites/centroestetica.png", // Newly added
+                borderClass: "border-pink-500 hover:border-pink-400",
+                shadowClass: "hover:shadow-pink-500/30",
+                gradientClass: "from-pink-900/90",
+                textClass: "text-pink-300",
+                descColorClass: "text-pink-200",
+                tags: ["React", "GCP", "Shadcn"],
+                tagBgClass: "bg-pink-500/20 border-pink-400/30"
+              },
+              {
+                slug: "mrcomputer",
+                url: "https://mrcomputer-webapp.vercel.app/",
+                imageSrc: "/img/websites/previews/mrcomputer-preview.webp",
+                logoSrc: "/mrcomputer.png", // Placeholder
+                borderClass: "border-indigo-500 hover:border-indigo-400",
+                shadowClass: "hover:shadow-indigo-500/30",
+                gradientClass: "from-indigo-900/90",
+                textClass: "text-indigo-300",
+                descColorClass: "text-indigo-200",
+                tags: ["React", "SQL", "Dashboard"],
+                tagBgClass: "bg-indigo-500/20 border-indigo-400/30"
+              },
+              {
+                slug: "jody",
+                url: "https://jody-webpage.vercel.app/",
+                imageSrc: "/img/websites/previews/jody-preview.webp",
+                logoSrc: "/img/logos/websites/jody.png", // Newly added
+                borderClass: "border-red-500 hover:border-red-400",
+                shadowClass: "hover:shadow-red-500/30",
+                gradientClass: "from-red-900/90",
+                textClass: "text-red-300",
+                descColorClass: "text-red-200",
+                tags: ["React", "SQL", "Fitness"],
+                tagBgClass: "bg-red-500/20 border-red-400/30"
+              },
+              {
+                slug: "smartcare",
+                url: "https://centromedico-smartcare.vercel.app/",
+                imageSrc: "/img/websites/previews/smartcare-preview.webp",
+                logoSrc: "/img/logos/websites/smartcare.png", // Newly added
+                borderClass: "border-teal-500 hover:border-teal-400",
+                shadowClass: "hover:shadow-teal-500/30",
+                gradientClass: "from-teal-900/90",
+                textClass: "text-teal-300",
+                descColorClass: "text-teal-200",
+                tags: ["React", "Medical", "Maps"],
+                tagBgClass: "bg-teal-500/20 border-teal-400/30"
+              }
+            ];
 
-            {/* SPPA Hub */}
-            <a href="https://sppa.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-cyan-500 hover:border-cyan-400 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/30 cursor-pointer">
-              <div className="aspect-video relative overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/img/websites/previews/sppa-preview.webp"
-                  alt="SPPA.cl"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/90 to-transparent"></div>
-                {/* Logo badge */}
-                <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
-                  <Image
-                    src="/img/logos/websites/sppa.png"
-                    alt="SPPA Logo"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-              <div className="p-5">
-                <h4 className="text-xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">{t("websites.sppa.title")}</h4>
-                <p className="text-cyan-200 text-sm mb-4 line-clamp-2">
-                  {t("websites.sppa.desc")}
-                </p>
-                <div className="flex flex-wrap gap-1 mb-4">
-                  <span className="px-2 py-0.5 bg-cyan-500/20 border border-cyan-400/30 rounded text-xs">HTML5</span>
-                  <span className="px-2 py-0.5 bg-cyan-500/20 border border-cyan-400/30 rounded text-xs">CSS3</span>
-                  <span className="px-2 py-0.5 bg-cyan-500/20 border border-cyan-400/30 rounded text-xs">JS</span>
-                </div>
-                <span className="inline-flex items-center gap-1 text-cyan-300 group-hover:text-white text-sm font-medium transition-colors">
-                  <ExternalLink className="w-3 h-3" />
-                  {t("websites.viewProject")}
-                </span>
-              </div>
-            </a>
+            const [showAllWebsites, setShowAllWebsites] = useState(false);
+            const displayedWebsites = showAllWebsites ? websitesData : websitesData.slice(0, 4); // Show 4 + featured = 5 initially
 
-            {/* Felipe Portfolio */}
-            <a href="https://fpereiradev.sppa.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-purple-500 hover:border-purple-400 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 cursor-pointer">
-              <div className="aspect-video relative overflow-hidden">
-                <Image
-                  src="/img/websites/fpereiradev.png"
-                  alt="fpereiradev.sppa.cl"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 to-transparent"></div>
-                {/* Logo badge */}
-                <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
-                  <Image
-                    src="/img/logos/websites/fpereiradev.ico"
-                    alt="fpereiradev Logo"
-                    fill
-                    className="object-contain"
-                  />
+            return (
+              <div className="flex flex-col gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {websitesData.slice(0, 4).map((site) => (
+                    <a
+                      key={site.slug}
+                      href={site.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 ${site.borderClass} transition-all duration-500 hover:scale-105 hover:shadow-xl ${site.shadowClass} cursor-pointer`}
+                    >
+                      <div className="aspect-video relative overflow-hidden">
+                        <Image
+                          src={site.imageSrc}
+                          alt={t(`websites.${site.slug}.title`)}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className={`absolute inset-0 bg-gradient-to-t ${site.gradientClass} to-transparent`}></div>
+                        <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
+                          <Image
+                            src={site.logoSrc}
+                            alt="Logo"
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+                      <div className="p-5">
+                        <h4 className={`text-xl font-bold mb-2 transition-colors ${site.textClass.replace('text-', 'group-hover:text-')}`}>{t(`websites.${site.slug}.title`)}</h4>
+                        <p className={`${site.descColorClass} text-sm mb-4 line-clamp-2`}>
+                          {t(`websites.${site.slug}.desc`)}
+                        </p>
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {site.tags.map(tag => (
+                            <span key={tag} className={`px-2 py-0.5 ${site.tagBgClass} rounded text-xs`}>{tag}</span>
+                          ))}
+                        </div>
+                        <span className={`inline-flex items-center gap-1 ${site.textClass} group-hover:text-white text-sm font-medium transition-colors`}>
+                          <ExternalLink className="w-3 h-3" />
+                          {t("websites.viewProject")}
+                        </span>
+                      </div>
+                    </a>
+                  ))}
                 </div>
-              </div>
-              <div className="p-5">
-                <h4 className="text-xl font-bold mb-2 group-hover:text-purple-300 transition-colors">{t("websites.fpereiradev.title")}</h4>
-                <p className="text-purple-200 text-sm mb-4 line-clamp-2">
-                  {t("websites.fpereiradev.desc")}
-                </p>
-                <div className="flex flex-wrap gap-1 mb-4">
-                  <span className="px-2 py-0.5 bg-purple-500/20 border border-purple-400/30 rounded text-xs">React</span>
-                  <span className="px-2 py-0.5 bg-purple-500/20 border border-purple-400/30 rounded text-xs">Next.js</span>
-                </div>
-                <span className="inline-flex items-center gap-1 text-purple-300 group-hover:text-white text-sm font-medium transition-colors">
-                  <ExternalLink className="w-3 h-3" />
-                  {t("websites.viewProject")}
-                </span>
-              </div>
-            </a>
 
-            {/* Manuel Photography */}
-            <a href="https://manuel-pereira.sppa.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 border-yellow-500 hover:border-yellow-400 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-yellow-500/30 cursor-pointer">
-              <div className="aspect-video relative overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/img/websites/previews/manuel-preview.webp"
-                  alt="manuel-pereira.sppa.cl"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-yellow-900/90 to-transparent"></div>
-                {/* Logo badge */}
-                <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
-                  <Image
-                    src="/img/logos/websites/manuel.svg"
-                    alt="Manuel Logo"
-                    fill
-                    className="object-contain"
-                  />
+                {/* Extra Websites (Conditional Rendering) */}
+                {showAllWebsites && (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-up">
+                    {websitesData.slice(4).map((site) => (
+                      <a
+                        key={site.slug}
+                        href={site.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 ${site.borderClass} transition-all duration-500 hover:scale-105 hover:shadow-xl ${site.shadowClass} cursor-pointer`}
+                      >
+                        <div className="aspect-video relative overflow-hidden">
+                          <Image
+                            src={site.imageSrc}
+                            alt={t(`websites.${site.slug}.title`)}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          <div className={`absolute inset-0 bg-gradient-to-t ${site.gradientClass} to-transparent`}></div>
+                          <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
+                            <Image
+                              src={site.logoSrc}
+                              alt="Logo"
+                              fill
+                              className="object-contain"
+                            />
+                          </div>
+                        </div>
+                        <div className="p-5">
+                          <h4 className={`text-xl font-bold mb-2 transition-colors ${site.textClass.replace('text-', 'group-hover:text-')}`}>{t(`websites.${site.slug}.title`)}</h4>
+                          <p className={`${site.descColorClass} text-sm mb-4 line-clamp-2`}>
+                            {t(`websites.${site.slug}.desc`)}
+                          </p>
+                          <div className="flex flex-wrap gap-1 mb-4">
+                            {site.tags.map(tag => (
+                              <span key={tag} className={`px-2 py-0.5 ${site.tagBgClass} rounded text-xs`}>{tag}</span>
+                            ))}
+                          </div>
+                          <span className={`inline-flex items-center gap-1 ${site.textClass} group-hover:text-white text-sm font-medium transition-colors`}>
+                            <ExternalLink className="w-3 h-3" />
+                            {t("websites.viewProject")}
+                          </span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                )}
+
+                {/* Show More/Less Button with Modern Animation */}
+                <div className="mt-12 text-center flex justify-center">
+                  <Button
+                    onClick={() => setShowAllWebsites(!showAllWebsites)}
+                    className={`
+                      relative overflow-hidden rounded-full font-bold tracking-wider uppercase transition-all duration-500 ease-out
+                      ${showAllWebsites
+                        ? "bg-red-500 hover:bg-red-600 px-8 py-6 ring-4 ring-red-500/30"
+                        : "bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 px-10 py-8 ring-4 ring-violet-500/30 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_50px_rgba(124,58,237,0.8)]"
+                      }
+                    `}
+                  >
+                    <span className="relative z-10 flex items-center gap-3 text-lg">
+                      {showAllWebsites
+                        ? (
+                          <>
+                            Ver menos proyectos
+                            <ChevronUp className="w-6 h-6 animate-bounce" />
+                          </>
+                        )
+                        : (
+                          <>
+                            Ver más proyectos
+                            <ChevronDown className="w-6 h-6 animate-bounce" />
+                          </>
+                        )
+                      }
+                    </span>
+
+                    {/* Background Shine Animation */}
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out w-full h-full"></div>
+                  </Button>
                 </div>
               </div>
-              <div className="p-5">
-                <h4 className="text-xl font-bold mb-2 group-hover:text-yellow-300 transition-colors">{t("websites.manuel.title")}</h4>
-                <p className="text-yellow-200 text-sm mb-4 line-clamp-2">
-                  {t("websites.manuel.desc")}
-                </p>
-                <div className="flex flex-wrap gap-1 mb-4">
-                  <span className="px-2 py-0.5 bg-yellow-500/20 border border-yellow-400/30 rounded text-xs">React</span>
-                  <span className="px-2 py-0.5 bg-yellow-500/20 border border-yellow-400/30 rounded text-xs">Next.js</span>
-                </div>
-                <span className="inline-flex items-center gap-1 text-yellow-300 group-hover:text-white text-sm font-medium transition-colors">
-                  <ExternalLink className="w-3 h-3" />
-                  {t("websites.viewProject")}
-                </span>
-              </div>
-            </a>
-          </div>
+            );
+          })()}
         </div>
       </section>
 
