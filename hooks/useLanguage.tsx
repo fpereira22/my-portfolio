@@ -77,13 +77,18 @@ const translations = {
 
     // Experience Section
     "experience.title": "Experiencia",
-    "experience.intro": "Durante mi formación en",
+    "experience.intro": "Combinando mi",
+    "experience.professionalExp": "experiencia profesional",
+    "experience.con": "con mi",
+    "experience.formation": "formación",
+    "experience.prepIn": "en",
     "experience.faculty": "la facultad de Ingeniería",
+    "experience.prepOf": "de la",
     "experience.university": "Universidad Andres Bello",
-    "experience.developing": ", he estado desarrollando tanto proyectos",
-    "experience.personal": "personales",
+    "experience.developing": ", he estado desarrollando tanto",
+    "experience.personal": "proyectos personales",
     "experience.and": "como",
-    "experience.professional": "profesionales",
+    "experience.professional": "proyectos profesionales",
     "experience.consolidated": ". Esto me ha permitido consolidar mis",
     "experience.skills": "habilidades técnicas",
     "experience.comma1": " en",
@@ -107,7 +112,8 @@ const translations = {
     "experience.period2": ".",
     "experience.diversity": "Esta diversidad de experiencias me ha proporcionado una",
     "experience.widerVision": "visión más amplia",
-    "experience.improve": " del desarrollo de software, lo que me permite mejorar continuamente mi",
+    "experience.softwareDev": "del desarrollo de software",
+    "experience.improve": ", lo que me permite mejorar continuamente mi",
     "experience.professionalCapacity": "capacidad profesional",
     "experience.maintain": " y mantener una mentalidad de",
     "experience.alwaysLearning": "aprendizaje constante",
@@ -246,6 +252,7 @@ const translations = {
     "websites.jody.desc": "Landing page y sistema de agendamiento para servicios deportivos. Integración con APIs locales y GCP para gestión de citas personalizada.",
     "websites.smartcare.title": "Centro Médico SmartCare",
     "websites.smartcare.desc": "Landing page profesional para la Dra. Cecilia Salinas. Incluye mapas interactivos y presentación de servicios médicos en el sur de Chile.",
+    "websites.otherProjects.title": "Más Proyectos y Colaboraciones",
 
     // Duration/Time translations
     "duration.present": "actualidad",
@@ -312,7 +319,7 @@ const translations = {
 
     // Hero Section
     "hero.name": "Felipe Pereira A.",
-    "hero.title": "Software Engineer",
+    "hero.title": "Computer Science",
     "hero.description": "Software Engineer & Academic Researcher. Specialized in Full Stack Web and Mobile Development, Artificial Intelligence, Computer Vision, and Operations Research.",
     "hero.contactBtn": "Contact",
 
@@ -334,14 +341,19 @@ const translations = {
 
     // Experience Section
     "experience.title": "Experience",
-    "experience.intro": "During my studies at",
+    "experience.intro": "Combining my",
+    "experience.professionalExp": "professional experience",
+    "experience.con": "with my",
+    "experience.formation": "studies",
+    "experience.prepIn": "at",
     "experience.faculty": "the Faculty of Engineering",
+    "experience.prepOf": "of",
     "experience.university": "Andres Bello University",
     "experience.developing": ", I have been developing both",
-    "experience.personal": "personal",
+    "experience.personal": "personal projects",
     "experience.and": "and",
-    "experience.professional": "professional",
-    "experience.consolidated": " projects. This has allowed me to consolidate my",
+    "experience.professional": "professional projects",
+    "experience.consolidated": ". This has allowed me to consolidate my",
     "experience.skills": "technical skills",
     "experience.comma1": " in",
     "experience.dataAnalysis": "data analysis",
@@ -364,7 +376,8 @@ const translations = {
     "experience.period2": ".",
     "experience.diversity": "This diversity of experiences has provided me with a",
     "experience.widerVision": "broader vision",
-    "experience.improve": " of software development, which allows me to continuously improve my",
+    "experience.softwareDev": "of software development",
+    "experience.improve": ", which allows me to continuously improve my",
     "experience.professionalCapacity": "professional capacity",
     "experience.maintain": " and maintain a mindset of",
     "experience.alwaysLearning": "constant learning",
@@ -512,6 +525,7 @@ const translations = {
     "websites.jody.desc": "Landing page and scheduling system for fitness services. Integrated with local APIs and GCP for custom appointment management.",
     "websites.smartcare.title": "SmartCare Medical Center",
     "websites.smartcare.desc": "Professional landing page for Dr. Cecilia Salinas. Includes interactive maps and medical service showcase in southern Chile.",
+    "websites.otherProjects.title": "More Projects and Collaborations",
 
     // Duration/Time translations
     "duration.present": "present",
@@ -601,13 +615,18 @@ const translations = {
 
     // Experience Section
     "experience.title": "Esperientzia",
-    "experience.intro": "Nire ikasketetan",
+    "experience.intro": "Nire",
+    "experience.professionalExp": "esperientzia profesionala",
+    "experience.con": "eta",
+    "experience.formation": "ikasketetan",
+    "experience.prepIn": "",
     "experience.faculty": "Ingeniaritza Fakultatean",
+    "experience.prepOf": "",
     "experience.university": "Andres Bello Unibertsitatea",
-    "experience.developing": ", proiektu",
-    "experience.personal": "pertsonalak",
+    "experience.developing": ", ",
+    "experience.personal": "proiektu pertsonalak",
     "experience.and": "eta",
-    "experience.professional": "profesionalak",
+    "experience.professional": "proiektu profesionalak",
     "experience.consolidated": " garatzen egon naiz. Honek nire",
     "experience.skills": "trebetasun teknikoak",
     "experience.comma1": " sendotzea ahalbidetu dit",
@@ -631,8 +650,9 @@ const translations = {
     "experience.period2": " aplikatuz.",
     "experience.diversity": "Esperientzia aniztasun honek",
     "experience.widerVision": "ikuspegi zabalagoa",
-    "experience.improve": " eman dit software garapenari buruz, eta honek nire",
-    "experience.professionalCapacity": "gaitasun profesionala",
+    "experience.softwareDev": "software garapenari buruz",
+    "experience.improve": " eman dit,",
+    "experience.professionalCapacity": "eta honek nire gaitasun profesionala",
     "experience.maintain": " etengabe hobetzea eta",
     "experience.alwaysLearning": "ikasketa etengabeko",
     "experience.period3": " pentsamoldea mantentzea ahalbidetzen dit.",
@@ -779,6 +799,7 @@ const translations = {
     "websites.jody.desc": "Kirol zerbitzuetarako landing page-a eta hitzordu sistema. API lokalekin eta GCP-rekin integratua.",
     "websites.smartcare.title": "SmartCare Mediku Zentroa",
     "websites.smartcare.desc": "Cecilia Salinas Dr.-aren orri profesionala. Mapa interaktiboak eta zerbitzu medikuen aurkezpena Txileko hegoaldean.",
+    "websites.otherProjects.title": "Proiektu eta Elkarlan Gehiago",
 
     // Duration/Time translations
     "duration.present": "orain",
@@ -884,7 +905,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     //if (!mounted) return key // Return key during SSR
 
     try {
-      return translations[language][key as keyof (typeof translations)[typeof language]] || key
+      const translation = translations[language][key as keyof (typeof translations)[typeof language]]
+      return translation !== undefined ? translation : key
     } catch (error) {
       console.error(`Translation error for key "${key}" in language "${language}":`, error)
       return key

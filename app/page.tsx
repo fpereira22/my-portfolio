@@ -11,6 +11,7 @@ import {
   User,
   Briefcase,
   Mail,
+
   ChevronDown,
   ExternalLink,
   Download,
@@ -21,7 +22,6 @@ import {
   LogIn,
   GraduationCap,
   Search,
-  ChevronUp,
   Award,
   Globe,
   Github
@@ -37,6 +37,7 @@ import { LinuxTerminal } from "../components/linux-terminal"
 import { TechGrid } from "../components/tech-grid"
 import { useLanguage } from "../hooks/useLanguage"
 import { useRouter } from "next/navigation"
+import { WebsiteCarousel } from "@/components/website-carousel"
 
 
 interface ExperienceCardProps {
@@ -169,7 +170,7 @@ const educationData: Education[] = [
       "Objetivo: Profundizar en el diseño y despliegue de arquitecturas de software complejas y soluciones empresariales basadas en datos y modelos predictivos."
     ],
     grade: "En curso",
-    imageSrc: "/unab.png",
+    imageSrc: "/img/logos/unab.png",
     skills: ["Ingeniería de Software", "Ciencia de Datos", "Inteligencia Artificial"]
   },
   {
@@ -187,7 +188,7 @@ const educationData: Education[] = [
       "Data Science e IA: Entrenamiento de modelos de Machine Learning, procesos ETL y desarrollo de soluciones de Visión por Computadora."
     ],
     grade: "Distinción Máxima",
-    imageSrc: "/unab.png",
+    imageSrc: "/img/logos/unab.png",
     skills: ["Inteligencia artificial", "Análisis de datos"]
   },
   {
@@ -206,7 +207,7 @@ const educationData: Education[] = [
       "Control de Calidad de Software: Aplicación de metodologías para asegurar la calidad en el desarrollo de software.",
       "Actividades y grupos: Participé activamente en la vida universitaria para potenciar el intercambio cultural y lingüístico."
     ],
-    imageSrc: "/puj.png",
+    imageSrc: "/img/logos/puj.png",
     skills: ["Optimización de procesos", "Desarrollo de software"]
   },
   {
@@ -217,7 +218,8 @@ const educationData: Education[] = [
     dates: "2024",
     location: "Santiago, Chile",
     description: "Formación en Ingeniería Civil Informática.",
-    imageSrc: "/unab.png"
+    imageSrc: "/img/logos/unab.png",
+    skills: ["Ingeniería de Software", "Gestión de Proyectos", "Arquitectura de Sistemas"]
   },
   {
     id: 5,
@@ -229,7 +231,7 @@ const educationData: Education[] = [
     description: "Estudiante. nivel alto Matemáticas, Química, Artes visuales y Música. Nota: Egresado de Cuarto Medio con Promedio 6.0.",
     bullets: [],
     grade: "6.0",
-    imageSrc: "/colegio.png",
+    imageSrc: "/img/logos/colegio.png",
     skills: ["Matemáticas", "Formación"]
   }
 ];
@@ -249,7 +251,7 @@ const scholarshipsData: Scholarship[] = [
       "Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.",
       "Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio."
     ],
-    imageSrc: "/alura.png",
+    imageSrc: "/img/logos/alura.png",
     skills: ["Data Science", "Python", "Machine Learning", "EDA", "Matplotlib", "Seaborn"]
   },
   {
@@ -263,7 +265,7 @@ const scholarshipsData: Scholarship[] = [
       "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.",
       "Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos."
     ],
-    imageSrc: "/coursera.png",
+    imageSrc: "/img/logos/coursera.png",
     skills: ["Soft Skills", "Liderazgo", "Agile", "Business Intelligence", "Comunicación"]
   },
   {
@@ -277,7 +279,7 @@ const scholarshipsData: Scholarship[] = [
       "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.",
       "Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender."
     ],
-    imageSrc: "/alura.png",
+    imageSrc: "/img/logos/alura.png",
     skills: ["Lógica de Programación", "Algoritmos", "Productividad", "Aprendizaje Continuo"]
   },
   {
@@ -294,7 +296,7 @@ const scholarshipsData: Scholarship[] = [
       "Networking Global: Construcción de una red profesional internacional.",
       "Investigación Aplicada: Colaboración en proyectos con profesorado internacional."
     ],
-    imageSrc: "/puj.png",
+    imageSrc: "/img/logos/puj.png",
     skills: ["Adaptabilidad", "Networking Internacional", "Investigación", "Intercambio Cultural"]
   }
 ];
@@ -310,7 +312,7 @@ const experiencesData: ExperienceData[] = [
     endYear: null, // actualidad
     endMonth: null,
     location: "Gran Santiago, Región Metropolitana de Santiago, Chile",
-    imageSrc: "/sociedad-servicios.png",
+    imageSrc: "/img/logos/sociedad-servicios.png",
     description: 'Ascendido a "Experto en Programación y Desarrollo". Tras mi ascenso, mi rol se centra en diseñar, desarrollar e implementar soluciones avanzadas de Inteligencia Artificial y software para la optimización de infraestructura vial y proyectos de automatización a gran escala. Actualmente, mis principales focos son:',
     bullets: [
       "IA Visual para Infraestructura Crítica: Desarrollo de modelos de Computer Vision (Python, PyTorch, YOLO) para la detección detallada de fisuras en barreras New Jersey y la medición por imágenes de fisuras y baches en pavimento.",
@@ -331,7 +333,7 @@ const experiencesData: ExperienceData[] = [
     endYear: 2025,
     endMonth: 7, // julio
     location: "Gran Santiago, Región Metropolitana de Santiago, Chile",
-    imageSrc: "/sociedad-servicios.png",
+    imageSrc: "/img/logos/sociedad-servicios.png",
     description: "Durante mis prácticas profesionales, contribuí al desarrollo de soluciones tecnológicas avanzadas, enfocándome en la mejora de procesos internos y el análisis de infraestructura vial mediante Inteligencia Artificial.",
     bullets: [
       "Desarrollo Full Stack: Lideré el diseño y la implementación de una intranet corporativa segura desde cero, utilizando Angular y Bootstrap. La plataforma centralizó recursos clave y mejoró la comunicación interna, integrando un sistema de autenticación robusto basado en JWT.",
@@ -351,7 +353,7 @@ const experiencesData: ExperienceData[] = [
     endYear: 2025,
     endMonth: 4, // abril
     location: "Área metropolitana de Santiago · Presencial",
-    imageSrc: "/mrcomputer.png",
+    imageSrc: "/img/logos/mrcomputer.png",
     description: "Inicié como Practicante y fui promovido gracias al rápido desarrollo de habilidades y contribuciones clave en proyectos de seguridad y software.",
     bullets: [
       "Gestioné la ciberseguridad del entorno empresarial (ESET, Kali Linux) y lideré procesos de compliance y accountability para clientes clave como la Fundación San Vicente de Paul.",
@@ -371,7 +373,7 @@ const experiencesData: ExperienceData[] = [
     endYear: 2025,
     endMonth: 1, // enero
     location: "Paine, Región Metropolitana de Santiago, Chile · Presencial",
-    imageSrc: "/lapica-pipeno.png",
+    imageSrc: "/img/logos/lapica-pipeno.png",
     description: "Fundé y lideré un emprendimiento de e-commerce especializado en la importación y comercialización de ropa deportiva. Fui responsable de la gestión integral del negocio, desde la estrategia de sourcing global hasta la ejecución de ventas y el análisis financiero.",
     bullets: [
       "Gestión de Proveedores y Comercio Internacional: Desarrollé y gestioné una red global de proveedores en Asia, Europa y América (China, Inglaterra, EE. UU., Colombia y Tailandia).",
@@ -391,7 +393,7 @@ const experiencesData: ExperienceData[] = [
     endYear: 2023,
     endMonth: 12, // diciembre
     location: "Gran Santiago, Región Metropolitana de Santiago, Chile · En remoto",
-    imageSrc: "/freelance.png",
+    imageSrc: "/img/logos/freelance.png",
     description: "Capitalicé mi especialización en desarrollo y las habilidades de mi intercambio para construir aplicaciones web a medida para pequeñas empresas y startups.",
     bullets: [
       "Diseñé y construí interfaces de usuario (UI) interactivas y responsivas, utilizando React y Angular para consumir APIs RESTful.",
@@ -411,7 +413,7 @@ const experiencesData: ExperienceData[] = [
     endYear: 2023,
     endMonth: 3, // marzo
     location: "Talagante, Región Metropolitana de Santiago, Chile · Presencial",
-    imageSrc: "/saez.png",
+    imageSrc: "/img/logos/saez.png",
     description: "Lideré el proyecto de rediseño de la red local de la empresa, utilizando Cisco Packet Tracer y GSN3 para planificar y simular una topología más segura y eficiente.",
     bullets: [
       "Brindé soporte técnico integral a usuarios (hardware, software y redes), diagnosticando y resolviendo incidencias para asegurar la continuidad operativa.",
@@ -432,14 +434,15 @@ const experiencesData: ExperienceData[] = [
     endYear: 2020,
     endMonth: 7, // julio
     location: "Providencia, Región Metropolitana de Santiago, Chile · En remoto",
-    imageSrc: "/unab.png",
+    imageSrc: "/img/logos/unab.png",
     description: "Durante mi rol como asistente académico, colaboré activamente con el cuerpo docente y brindé apoyo directo a estudiantes de ciencias e ingeniería. Mi objetivo fue fortalecer su comprensión de conceptos fundamentales y desarrollar sus habilidades analíticas para asegurar una base académica sólida.",
     bullets: [
       "Apoyo Académico y Mentoría: Guié a estudiantes en las asignaturas de Física General e Introducción a las Matemáticas, simplificando temas complejos y resolviendo dudas.",
       "Colaboración Docente en Programación: Como Ayudante de Cátedra para Introducción a la Programación y Análisis de Algoritmos, asistí al profesor en la preparación de material didáctico, la corrección de proyectos y la conducción de laboratorios prácticos.",
       "Desarrollo de Habilidades Técnicas: Proporcioné retroalimentación constructiva sobre código y algoritmos, ayudando a los estudiantes a depurar sus soluciones y a comprender principios clave de eficiencia y buenas prácticas de programación.",
       "Fomento del Pensamiento Crítico: Fomenté un ambiente de aprendizaje proactivo donde los estudiantes desarrollaron habilidades de resolución de problemas, aplicando la teoría a desafíos prácticos y preparándolos para cursos más avanzados."
-    ]
+    ],
+    skills: ["Docencia", "Mentoria", "Física", "Matemáticas", "Algoritmos"]
   }
 ];
 
@@ -599,10 +602,10 @@ const ExperienceCard = ({
         6. Añadimos 'overflow-hidden' para que el contenido no se vea cuando está colapsado.
       */}
       <div
-        className="bg-purple-900 text-white 
-                   max-h-0 group-hover:max-h-[500px] 
-                   transition-all duration-500 ease-in-out 
-                   overflow-hidden"
+        className="bg-purple-900 text-white
+      max-h-0 group-hover:max-h-[2000px] md:group-hover:max-h-[500px]
+      transition-all duration-500 ease-in-out
+      overflow-hidden group-hover:overflow-y-auto md:group-hover:overflow-hidden"
       >
         {/* Es buena práctica poner el padding en un div INTERNO.
           Si pones 'p-6' en el mismo div que 'max-h-0', el padding 
@@ -635,7 +638,7 @@ const ExperienceCard = ({
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
@@ -936,12 +939,12 @@ export default function Portfolio() {
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col items-center justify-center relative px-4 pt-16">
         {/* Fondo con imagen y degradado */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
-            src="/img/background.jpg"
+            src="/img/backgrounds/background.jpg"
             alt="Fondo Hero"
             fill
-            className="object-cover opacity-60"
+            className="object-cover opacity-60 animate-slow-zoom-blur"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-purple-900/80 via-violet-800/70 to-indigo-900/90"></div>
@@ -965,7 +968,7 @@ export default function Portfolio() {
               onMouseLeave={handleMouseLeave}
             >
               <Image
-                src="/img/profile.jpg"
+                src="/img/profile/profile.jpg"
                 alt="Profile"
                 width={200}
                 height={200}
@@ -979,8 +982,8 @@ export default function Portfolio() {
           <h2 className="text-xl md:text-2xl mb-4">{t("hero.title")}</h2>
           <p className="max-w-2xl text-center mb-8">{t("hero.description")}</p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button asChild className="bg-white text-purple-900 hover:bg-purple-100">
+          <div className="grid grid-cols-2 gap-4 w-full max-w-sm sm:max-w-none sm:flex sm:flex-row sm:justify-center mb-12 sm:mb-0">
+            <Button asChild className="w-full sm:w-auto bg-white text-purple-900 hover:bg-purple-100">
               <a
                 href="https://www.linkedin.com/in/felipe-pereira-alarc%C3%B3n/"
                 target="_blank"
@@ -989,7 +992,16 @@ export default function Portfolio() {
                 <User className="mr-2 h-4 w-4" /> Linkedin
               </a>
             </Button>
-            <Button asChild className="bg-white text-purple-900 hover:bg-purple-100">
+            <Button asChild className="w-full sm:w-auto bg-white text-purple-900 hover:bg-purple-100">
+              <a
+                href="https://github.com/fpereira22"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="mr-2 h-4 w-4" /> GitHub
+              </a>
+            </Button>
+            <Button asChild className="col-span-2 w-full sm:w-auto bg-white text-purple-900 hover:bg-purple-100">
               <a href="mailto:f.pereiraalarcn@gmail.com">
                 <Mail className="mr-2 h-4 w-4" /> {t("hero.contactBtn")}
               </a>
@@ -1037,7 +1049,7 @@ export default function Portfolio() {
               <div className="relative">
                 <div className="w-64 h-80 sm:w-80 sm:h-[28rem] rounded-3xl border-4 border-purple-500 overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-105 mx-auto">
                   <Image
-                    src="/video.webp" // Ruta del archivo WebP
+                    src="/img/profile/video.webp" // Ruta del archivo WebP
                     alt="Felipe Pereira A."
                     width={320}
                     height={400}
@@ -1117,7 +1129,7 @@ export default function Portfolio() {
                   asChild
                   className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  <a href="/CVFelipePereiraAlarcon.pdf" download target="_blank" rel="noopener noreferrer">
+                  <a href="/docs/CVFelipePereiraAlarcon.pdf" download target="_blank" rel="noopener noreferrer">
                     <Download className="w-5 h-5" />
                     {t("about.downloadCV")}
                   </a>
@@ -1142,7 +1154,12 @@ export default function Portfolio() {
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
                   {t("experience.intro")}{" "}
+                  <span className="text-emerald-400 font-bold tracking-wide">{t("experience.professionalExp")}</span>{" "}
+                  {t("experience.con")}{" "}
+                  <span className="text-yellow-400 font-bold tracking-wide">{t("experience.formation")}</span>{" "}
+                  {t("experience.prepIn")}{" "}
                   <span className="text-black-400 font-semibold">{t("experience.faculty")}</span>{" "}
+                  {t("experience.prepOf")}{" "}
                   {t("experience.university") && (
                     <span className="text-red-400 font-semibold">{t("experience.university")}</span>
                   )}
@@ -1173,6 +1190,8 @@ export default function Portfolio() {
                   <br />
                   {t("experience.diversity")}{" "}
                   <span className="text-blue-400 font-semibold">{t("experience.widerVision")}</span>
+                  {" "}
+                  <span className="text-blue-400 font-semibold">{t("experience.softwareDev")}</span>
                   {t("experience.improve")}{" "}
                   <span className="text-purple-400 font-semibold">{t("experience.professionalCapacity")}</span>{" "}
                   {t("experience.maintain")}{" "}
@@ -1359,37 +1378,37 @@ export default function Portfolio() {
             const projectsData = [
               {
                 slug: "project1",
-                imageSrc: "/tachas.webp",
+                imageSrc: "/img/projects/tachas.webp",
                 tags: ["Python", "Computer Vision", "IA"],
                 link: "https://github.com/GaztelakoFelipeI/tatxas/"
               },
               {
                 slug: "project2",
-                imageSrc: "/background.webp",
+                imageSrc: "/img/projects/background.webp",
                 tags: ["Python", "FastApi", "React"],
                 link: "https://github.com/fpereira22/End-to-End-Housing-Price-API"
               },
               {
                 slug: "project3",
-                imageSrc: "/nlp.webp",
+                imageSrc: "/img/projects/nlp.webp",
                 tags: ["Python", "IA", "Machine Learning"],
                 link: "https://github.com/fpereira22/Product-Review-Sentiment-Topic-Analysis"
               },
               {
                 slug: "project4",
-                imageSrc: "/knapsack_project.png",
+                imageSrc: "/img/projects/knapsack_project.png",
                 tags: ["Julia", "C", "AMPL", "Optimization"],
                 link: "https://github.com/fpereira22/knapsack-optimization-research"
               },
               {
                 slug: "project5",
-                imageSrc: "/impostor_fc.png",
+                imageSrc: "/img/projects/impostor_fc.png",
                 tags: ["Node.js", "Socket.IO", "JavaScript"],
                 link: "https://github.com/fpereira22/Impostor-FC"
               },
               {
                 slug: "project6",
-                imageSrc: "/telecom_churn.png",
+                imageSrc: "/img/projects/telecom_churn.png",
                 tags: ["Python", "Pandas", "Scikit-Learn"],
                 link: "https://github.com/fpereira22/2nd-Challenge-TelecomX-AluraLatam"
               }
@@ -1529,262 +1548,8 @@ export default function Portfolio() {
           {/* Other Projects Grid */}
           {/* Websites Grid with Show More */}
           {/* Websites Grid with Show More */}
-          {(() => {
-            const websitesData = [
-              {
-                slug: "ssgl",
-                url: "https://www.ssgl.cl/",
-                imageSrc: "/img/websites/ssgl.png",
-                logoSrc: "/img/logos/websites/ssgl.svg",
-                borderClass: "border-green-500 hover:border-green-400",
-                shadowClass: "hover:shadow-green-500/30",
-                gradientClass: "from-green-900/90",
-                textClass: "text-green-300",
-                descColorClass: "text-green-200",
-                tags: ["React", "Next.js", "Tailwind"],
-                tagBgClass: "bg-green-500/20 border-green-400/30"
-              },
-              {
-                slug: "sppa",
-                url: "https://sppa.cl/",
-                imageSrc: "/img/websites/previews/sppa-preview.webp",
-                logoSrc: "/img/logos/websites/sppa.png",
-                borderClass: "border-cyan-500 hover:border-cyan-400",
-                shadowClass: "hover:shadow-cyan-500/30",
-                gradientClass: "from-cyan-900/90",
-                textClass: "text-cyan-300",
-                descColorClass: "text-cyan-200",
-                tags: ["HTML5", "CSS3", "JS"],
-                tagBgClass: "bg-cyan-500/20 border-cyan-400/30"
-              },
-              {
-                slug: "fpereiradev",
-                url: "https://fpereiradev.sppa.cl/",
-                imageSrc: "/img/websites/fpereiradev.png",
-                logoSrc: "/img/logos/websites/fpereiradev.ico",
-                borderClass: "border-purple-500 hover:border-purple-400",
-                shadowClass: "hover:shadow-purple-500/30",
-                gradientClass: "from-purple-900/90",
-                textClass: "text-purple-300",
-                descColorClass: "text-purple-200",
-                tags: ["React", "Next.js"],
-                tagBgClass: "bg-purple-500/20 border-purple-400/30"
-              },
-              {
-                slug: "manuel",
-                url: "https://manuel-pereira.sppa.cl/",
-                imageSrc: "/img/websites/previews/manuel-preview.webp",
-                logoSrc: "/img/logos/websites/manuel.svg",
-                borderClass: "border-yellow-500 hover:border-yellow-400",
-                shadowClass: "hover:shadow-yellow-500/30",
-                gradientClass: "from-yellow-900/90",
-                textClass: "text-yellow-300",
-                descColorClass: "text-yellow-200",
-                tags: ["Next.js", "React", "Photography"],
-                tagBgClass: "bg-yellow-500/20 border-yellow-400/30"
-              },
-              // New Websites
-              {
-                slug: "ourtransfer",
-                url: "https://our-transfer.ssgl.cl/",
-                imageSrc: "/img/websites/previews/ourtransfer-preview.webp",
-                logoSrc: "/img/logos/websites/ssgl.svg",
-                borderClass: "border-blue-500 hover:border-blue-400",
-                shadowClass: "hover:shadow-blue-500/30",
-                gradientClass: "from-blue-900/90",
-                textClass: "text-blue-300",
-                descColorClass: "text-blue-200",
-                tags: ["React", "Cloud", "Azure"],
-                tagBgClass: "bg-blue-500/20 border-blue-400/30"
-              },
-              {
-                slug: "centroestetica",
-                url: "https://centro-estetica-fernando-gonzalez.vercel.app/",
-                imageSrc: "/img/websites/previews/centroestetica-preview.webp",
-                logoSrc: "/img/logos/websites/centroestetica.png", // Newly added
-                borderClass: "border-pink-500 hover:border-pink-400",
-                shadowClass: "hover:shadow-pink-500/30",
-                gradientClass: "from-pink-900/90",
-                textClass: "text-pink-300",
-                descColorClass: "text-pink-200",
-                tags: ["React", "GCP", "Shadcn"],
-                tagBgClass: "bg-pink-500/20 border-pink-400/30"
-              },
-              {
-                slug: "mrcomputer",
-                url: "https://mrcomputer-webapp.vercel.app/",
-                imageSrc: "/img/websites/previews/mrcomputer-preview.webp",
-                logoSrc: "/mrcomputer.png", // Placeholder
-                borderClass: "border-indigo-500 hover:border-indigo-400",
-                shadowClass: "hover:shadow-indigo-500/30",
-                gradientClass: "from-indigo-900/90",
-                textClass: "text-indigo-300",
-                descColorClass: "text-indigo-200",
-                tags: ["React", "SQL", "Dashboard"],
-                tagBgClass: "bg-indigo-500/20 border-indigo-400/30"
-              },
-              {
-                slug: "jody",
-                url: "https://jody-webpage.vercel.app/",
-                imageSrc: "/img/websites/previews/jody-preview.webp",
-                logoSrc: "/img/logos/websites/jody.png", // Newly added
-                borderClass: "border-red-500 hover:border-red-400",
-                shadowClass: "hover:shadow-red-500/30",
-                gradientClass: "from-red-900/90",
-                textClass: "text-red-300",
-                descColorClass: "text-red-200",
-                tags: ["React", "SQL", "Fitness"],
-                tagBgClass: "bg-red-500/20 border-red-400/30"
-              },
-              {
-                slug: "smartcare",
-                url: "https://centromedico-smartcare.vercel.app/",
-                imageSrc: "/img/websites/previews/smartcare-preview.webp",
-                logoSrc: "/img/logos/websites/smartcare.png", // Newly added
-                borderClass: "border-teal-500 hover:border-teal-400",
-                shadowClass: "hover:shadow-teal-500/30",
-                gradientClass: "from-teal-900/90",
-                textClass: "text-teal-300",
-                descColorClass: "text-teal-200",
-                tags: ["React", "Medical", "Maps"],
-                tagBgClass: "bg-teal-500/20 border-teal-400/30"
-              }
-            ];
-
-            const [showAllWebsites, setShowAllWebsites] = useState(false);
-            const displayedWebsites = showAllWebsites ? websitesData : websitesData.slice(0, 4); // Show 4 + featured = 5 initially
-
-            return (
-              <div className="flex flex-col gap-6">
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {websitesData.slice(0, 4).map((site) => (
-                    <a
-                      key={site.slug}
-                      href={site.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 ${site.borderClass} transition-all duration-500 hover:scale-105 hover:shadow-xl ${site.shadowClass} cursor-pointer`}
-                    >
-                      <div className="aspect-video relative overflow-hidden">
-                        <Image
-                          src={site.imageSrc}
-                          alt={t(`websites.${site.slug}.title`)}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className={`absolute inset-0 bg-gradient-to-t ${site.gradientClass} to-transparent`}></div>
-                        <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
-                          <Image
-                            src={site.logoSrc}
-                            alt="Logo"
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                      </div>
-                      <div className="p-5">
-                        <h4 className={`text-xl font-bold mb-2 transition-colors ${site.textClass.replace('text-', 'group-hover:text-')}`}>{t(`websites.${site.slug}.title`)}</h4>
-                        <p className={`${site.descColorClass} text-sm mb-4 line-clamp-2`}>
-                          {t(`websites.${site.slug}.desc`)}
-                        </p>
-                        <div className="flex flex-wrap gap-1 mb-4">
-                          {site.tags.map(tag => (
-                            <span key={tag} className={`px-2 py-0.5 ${site.tagBgClass} rounded text-xs`}>{tag}</span>
-                          ))}
-                        </div>
-                        <span className={`inline-flex items-center gap-1 ${site.textClass} group-hover:text-white text-sm font-medium transition-colors`}>
-                          <ExternalLink className="w-3 h-3" />
-                          {t("websites.viewProject")}
-                        </span>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-
-                {/* Extra Websites (Conditional Rendering) */}
-                {showAllWebsites && (
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-up">
-                    {websitesData.slice(4).map((site) => (
-                      <a
-                        key={site.slug}
-                        href={site.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`block group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border-2 ${site.borderClass} transition-all duration-500 hover:scale-105 hover:shadow-xl ${site.shadowClass} cursor-pointer`}
-                      >
-                        <div className="aspect-video relative overflow-hidden">
-                          <Image
-                            src={site.imageSrc}
-                            alt={t(`websites.${site.slug}.title`)}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                          <div className={`absolute inset-0 bg-gradient-to-t ${site.gradientClass} to-transparent`}></div>
-                          <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
-                            <Image
-                              src={site.logoSrc}
-                              alt="Logo"
-                              fill
-                              className="object-contain"
-                            />
-                          </div>
-                        </div>
-                        <div className="p-5">
-                          <h4 className={`text-xl font-bold mb-2 transition-colors ${site.textClass.replace('text-', 'group-hover:text-')}`}>{t(`websites.${site.slug}.title`)}</h4>
-                          <p className={`${site.descColorClass} text-sm mb-4 line-clamp-2`}>
-                            {t(`websites.${site.slug}.desc`)}
-                          </p>
-                          <div className="flex flex-wrap gap-1 mb-4">
-                            {site.tags.map(tag => (
-                              <span key={tag} className={`px-2 py-0.5 ${site.tagBgClass} rounded text-xs`}>{tag}</span>
-                            ))}
-                          </div>
-                          <span className={`inline-flex items-center gap-1 ${site.textClass} group-hover:text-white text-sm font-medium transition-colors`}>
-                            <ExternalLink className="w-3 h-3" />
-                            {t("websites.viewProject")}
-                          </span>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                )}
-
-                {/* Show More/Less Button with Modern Animation */}
-                <div className="mt-12 text-center flex justify-center">
-                  <Button
-                    onClick={() => setShowAllWebsites(!showAllWebsites)}
-                    className={`
-                      relative overflow-hidden rounded-full font-bold tracking-wider uppercase transition-all duration-500 ease-out
-                      ${showAllWebsites
-                        ? "bg-red-500 hover:bg-red-600 px-8 py-6 ring-4 ring-red-500/30"
-                        : "bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 px-10 py-8 ring-4 ring-violet-500/30 shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:shadow-[0_0_50px_rgba(124,58,237,0.8)]"
-                      }
-                    `}
-                  >
-                    <span className="relative z-10 flex items-center gap-3 text-lg">
-                      {showAllWebsites
-                        ? (
-                          <>
-                            Ver menos proyectos
-                            <ChevronUp className="w-6 h-6 animate-bounce" />
-                          </>
-                        )
-                        : (
-                          <>
-                            Ver más proyectos
-                            <ChevronDown className="w-6 h-6 animate-bounce" />
-                          </>
-                        )
-                      }
-                    </span>
-
-                    {/* Background Shine Animation */}
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out w-full h-full"></div>
-                  </Button>
-                </div>
-              </div>
-            );
-          })()}
+          {/* Infinite Carousel of Other Projects */}
+          <WebsiteCarousel />
         </div>
       </section>
 
@@ -1826,7 +1591,7 @@ export default function Portfolio() {
             <div className="bg-purple-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform">
               <div className="w-16 h-16 mb-4 flex items-center justify-center">
                 <Image
-                  src="/uc.png"
+                  src="/img/logos/uc.png"
                   alt="IBM"
                   width={64}
                   height={64}

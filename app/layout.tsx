@@ -3,6 +3,7 @@ import "./globals.css"
 import { Inter } from "next/font/google"
 // IMPORTANTE: Mantenemos las llaves { } porque tu archivo useLanguage tiene "export function"
 import { LanguageProvider } from "@/hooks/useLanguage"
+import SmoothScroll from "@/components/smooth-scroll"
 import type { Metadata } from "next"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -16,12 +17,12 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   generator: 'v0.dev',
-  
+
   // SOLUCIÓN AL ERROR DE GOOGLE (URL CANÓNICA)
   alternates: {
     canonical: "https://fpereiradev.sppa.cl",
   },
-  
+
   // MEJORA RECOMENDADA (OPEN GRAPH)
   openGraph: {
     title: "Felipe Pereira - Portfolio",
@@ -51,7 +52,9 @@ export default function RootLayout({
       {/* suppressHydrationWarning ayuda a evitar errores de coincidencia HTML/React */}
       <body className={inter.className} suppressHydrationWarning={true}>
         <LanguageProvider>
-          {children}
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
         </LanguageProvider>
       </body>
     </html>

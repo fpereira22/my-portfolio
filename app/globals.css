@@ -147,3 +147,103 @@ nav {
     font-size: 0.75rem;
   }
 }
+
+/* Infinite Scroll Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+/* Aurora Background Blob Animation */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 8s infinite ease-in-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Slow Zoom with Blur Animation */
+@keyframes slow-zoom-blur {
+  0% {
+    transform: scale(1);
+    filter: blur(0px);
+  }
+
+  50% {
+    transform: scale(1.1);
+    filter: blur(2px);
+  }
+
+  100% {
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+.animate-slow-zoom-blur {
+  animation: slow-zoom-blur 20s infinite ease-in-out;
+}
+
+/* Lenis Smooth Scroll Configuration */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
