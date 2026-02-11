@@ -12,11 +12,12 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Felipe Pereira A. | Ingeniero de Software & Portfolio",
   description: "Portafolio profesional de Felipe Pereira Alarcón. Experto en Desarrollo Web, Ciberseguridad e IA.",
+  keywords: ["Felipe Pereira", "Felipe Pereira Dev", "Ingeniero de Software", "Desarrollador Full Stack", "Portafolio", "Chile", "Desarrollo Web", "Inteligencia Artificial"],
   icons: {
     icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
   },
   manifest: "/site.webmanifest",
-  generator: 'v0.dev',
+  metadataBase: new URL('https://fpereiradev.sppa.cl'),
 
   // SOLUCIÓN AL ERROR DE GOOGLE (URL CANÓNICA)
   alternates: {
