@@ -113,7 +113,7 @@ export function WebsiteCarousel() {
         },
         {
             slug: "jody",
-            url: "https://jody-webpage.vercel.app/",
+            url: "https://www.rendimientointegral.cl/",
             imageSrc: "/img/websites/previews/jody-preview.webp",
             logoSrc: "/img/logos/websites/jody.png",
             borderClass: "border-red-500 hover:border-red-400",
