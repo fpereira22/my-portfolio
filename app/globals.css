@@ -4,6 +4,7 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  overscroll-behavior-y: none;
 }
 
 @layer utilities {
@@ -208,17 +209,14 @@ nav {
 @keyframes slow-zoom-blur {
   0% {
     transform: scale(1);
-    filter: blur(0px);
   }
 
   50% {
     transform: scale(1.1);
-    filter: blur(2px);
   }
 
   100% {
     transform: scale(1);
-    filter: blur(0px);
   }
 }
 

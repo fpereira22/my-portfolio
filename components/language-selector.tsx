@@ -11,9 +11,9 @@ export function LanguageSelector() {
   const [isOpen, setIsOpen] = useState(false)
 
   const languages = [
-    { code: "es", label: "Español", flag: "/flags/es.png" },
-    { code: "en", label: "English", flag: "/flags/en.png" },
-    { code: "eu", label: "Euskera", flag: "/flags/eu.png" },
+    { code: "es", label: "Español", flag: "/flags/es.webp" },
+    { code: "en", label: "English", flag: "/flags/en.webp" },
+    { code: "eu", label: "Euskera", flag: "/flags/eu.webp" },
   ]
 
   const currentLanguage = languages.find((lang) => lang.code === language)

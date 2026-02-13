@@ -50,6 +50,10 @@ interface ExperienceCardProps {
   bullets: string[];
   imageSrc: string;
   skills?: string[]; // Added skills prop
+  isOpen: boolean;
+  onClick: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 interface CardComponentProps extends ExperienceCardProps {
   index: number;
@@ -161,6 +165,43 @@ const educationData: Education[] = [
   {
     id: 1,
     institution: "Universidad Andrés Bello",
+    slug: "unab_civil",
+    degree: "Ingeniería Civil Informática",
+    dates: "2025",
+    location: "Santiago, Chile",
+    description: "Etapa cúlmine de mi formación integra la ingeniería de software avanzada con la ciencia de datos estratégica, validada mediante mi tesis sobre optimización combinatoria. Título profesional de Ingeniero Civil Informático, aprobado con distinción.",
+    bullets: [
+      "Desarrollo Full Stack Moderno: Arquitectura y construcción de aplicaciones escalables utilizando React, Next.js y Angular. Integración de servicios backend robustos y APIs eficientes.",
+      "Cloud Data Engineering & Analytics: Gestión de ecosistemas de datos en GCP (BigQuery) y Azure. Implementación de pipelines ETL, análisis profundo con Python y estrategias corporativas de Gobernanza de Datos.",
+      "Ciberseguridad Aplicada: Desarrollo bajo principios de Security by Design, asegurando la integridad de la infraestructura y el código en entornos productivos.",
+      "Innovación y Simulación: Desarrollo de videojuegos y entornos interactivos complejos con Unity, aplicando lógica matemática y física avanzada.",
+      "Investigación: Resolución de problemas complejos mediante algoritmos de optimización e Inteligencia Artificial."
+    ],
+    imageSrc: "/img/logos/unab.png",
+    skills: ["Desarrollo Full Stack", "Cloud Data", "Ciberseguridad", "Unity", "IA"]
+  },
+  {
+    id: 2,
+    institution: "Universidad Andrés Bello",
+    slug: "unab_licenciatura",
+    degree: "Licenciatura en Ciencias de la Ingeniería, Computer Science",
+    dates: "2020 - 2024",
+    location: "Santiago, Chile",
+    description: "Obtención del grado de Licenciado en Ciencias de la Ingeniería, aprobado con distinción. Este hito consolida mi base científica y tecnológica, certificando la capacidad analítica para resolver desafíos complejos en la industria TI.",
+    bullets: [
+      "Actividades y grupos: Delegado académico y participación activa en proyectos de investigación aplicada. Enfoque en el desarrollo de soluciones tecnológicas innovadoras mediante metodologías ágiles y análisis de datos.",
+      "Investigación de Operaciones: Resolución de problemas de optimización combinatoria y complejidad NP, enfocada en eficiencia algorítmica y toma de decisiones.",
+      "Desarrollo de Software Avanzado: Diseño de arquitecturas escalables (Next.js, React, Angular, TypeScript) y gestión eficiente de bases de datos SQL y NoSQL.",
+      "Infraestructura y Seguridad: Despliegue de servicios en la nube (Azure, AWS) e implementación de principios de Ciberseguridad en aplicaciones.",
+      "Data Science e IA: Entrenamiento de modelos de Machine Learning, procesos ETL y desarrollo de soluciones de Visión por Computadora."
+    ],
+    grade: "Distinción Máxima",
+    imageSrc: "/img/logos/unab.png",
+    skills: ["Inteligencia artificial", "Análisis de datos", "Optimización"]
+  },
+  {
+    id: 3,
+    institution: "Universidad Andrés Bello",
     slug: "unab_postgrado",
     degree: "Postgrado, Máster en Ingeniería Informática",
     dates: "dic. 2025 – mar. 2027",
@@ -174,55 +215,74 @@ const educationData: Education[] = [
     skills: ["Ingeniería de Software", "Ciencia de Datos", "Inteligencia Artificial"]
   },
   {
-    id: 2,
-    institution: "Universidad Andrés Bello",
-    slug: "unab_licenciatura",
-    degree: "Licenciatura en Ciencias de la Ingeniería, Computer Science",
-    dates: "2020 - 2024",
-    location: "Santiago, Chile",
-    description: "Obtención del grado de Licenciado en Ciencias de la Ingeniería, aprobado con distinción. Este hito consolida mi base científica y tecnológica, certificando la capacidad analítica para resolver desafíos complejos en la industria TI.",
-    bullets: [
-      "Investigación de Operaciones: Resolución de problemas de optimización combinatoria y complejidad NP, enfocada en eficiencia algorítmica y toma de decisiones.",
-      "Desarrollo de Software Avanzado: Diseño de arquitecturas escalables (Next.js, React, Angular, TypeScript) y gestión eficiente de bases de datos SQL y NoSQL.",
-      "Infraestructura y Seguridad: Despliegue de servicios en la nube (Azure, AWS) e implementación de principios de Ciberseguridad en aplicaciones.",
-      "Data Science e IA: Entrenamiento de modelos de Machine Learning, procesos ETL y desarrollo de soluciones de Visión por Computadora."
-    ],
-    grade: "Distinción Máxima",
-    imageSrc: "/img/logos/unab.png",
-    skills: ["Inteligencia artificial", "Análisis de datos"]
-  },
-  {
-    id: 3,
+    id: 4,
     institution: "Pontificia Universidad Javeriana Cali",
-    slug: "puj_cali",
+    slug: "puj_exchange",
     degree: "Ingeniería de Sistemas y Computación e Industrial",
     dates: "jul. 2023 – dic. 2023",
     location: "Cali, Colombia",
-    description: "Programa de intercambio académico internacional enfocado en la profundización de conocimientos en áreas avanzadas de Ingeniería Industrial e Ingeniería de Sistemas. La experiencia combinó un riguroso plan de estudios con una inmersión cultural completa. Durante el semestre, cursé asignaturas de alto nivel, incluyendo tópicos de magíster.",
+    description: "Programa de intercambio académico internacional enfocado en la profundización de conocimientos en áreas avanzadas de Ingeniería Industrial e Ingeniería de Sistemas. La experiencia combinó un riguroso plan de estudios con una inmersión cultural completa. Durante el semestre, cursé asignaturas de alto nivel, incluyendo tópicos de magíster, para complementar mi formación de pregrado.",
     bullets: [
       "Magíster en Ing. Industrial: Participé en cursos de especialización en optimización de logística, cadenas de suministro y control de calidad.",
       "Optimización Avanzada: Estudio de modelos y algoritmos complejos a nivel de postgrado.",
       "Ciberseguridad: Formación práctica basada en Cisco.",
       "Modelación Logística y Procesos Industriales: Análisis y diseño de sistemas productivos y logísticos.",
       "Control de Calidad de Software: Aplicación de metodologías para asegurar la calidad en el desarrollo de software.",
-      "Actividades y grupos: Participé activamente en la vida universitaria para potenciar el intercambio cultural y lingüístico."
+      "Actividades y grupos: Participé activamente en la vida universitaria para potenciar el intercambio cultural y lingüístico; incluyendo grupos deportivos y eventos culturales."
     ],
     imageSrc: "/img/logos/puj.png",
-    skills: ["Optimización de procesos", "Desarrollo de software"]
-  },
-  {
-    id: 4,
-    institution: "Universidad Andrés Bello",
-    slug: "unab_civil",
-    degree: "Ingenieria Civil Informática",
-    dates: "2024",
-    location: "Santiago, Chile",
-    description: "Formación en Ingeniería Civil Informática.",
-    imageSrc: "/img/logos/unab.png",
-    skills: ["Ingeniería de Software", "Gestión de Proyectos", "Arquitectura de Sistemas"]
+    skills: ["Optimización de procesos", "Desarrollo de software", "Intercambio Cultural"]
   },
   {
     id: 5,
+    institution: "Alura Latam",
+    slug: "alura_one_bg",
+    degree: "Becado: Data Science - Oracle Next Education (ONE) G9",
+    dates: "ago. 2025 – mar. 2026",
+    location: "Online",
+    description: "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico. Nota: En proceso.",
+    bullets: [
+      "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).",
+      "Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.",
+      "Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.",
+      "Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio."
+    ],
+    imageSrc: "/img/logos/alura.png",
+    skills: ["Data Science", "Python", "Machine Learning", "EDA", "Matplotlib"]
+  },
+  {
+    id: 6,
+    institution: "Coursera",
+    slug: "coursera_skills_work",
+    degree: "Beca Skills for Work - Banco Santander España",
+    dates: "2025 – Actualidad",
+    location: "Online",
+    description: "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
+    bullets: [
+      "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.",
+      "Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.",
+      "Estoy comprometido a aprovechar al máximo esta oportunidad para mejorar mi empleabilidad y estar preparado para los nuevos desafíos del sector."
+    ],
+    imageSrc: "/img/logos/coursera.png",
+    skills: ["Soft Skills", "Liderazgo", "Agile", "Gestión de Proyectos"]
+  },
+  {
+    id: 7,
+    institution: "Alura Latam",
+    slug: "alura_selection_phase",
+    degree: "Fase de Selección y Formación Inicial - Beca ONE",
+    dates: "jun. 2025 – ago. 2025",
+    location: "Online",
+    description: "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
+    bullets: [
+      "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.",
+      "Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender."
+    ],
+    imageSrc: "/img/logos/alura.png",
+    skills: ["Lógica de Programación", "Algoritmos", "Productividad"]
+  },
+  {
+    id: 8,
     institution: "Colegio Santa María de Paine",
     slug: "colegio_smp",
     degree: "Estudiante",
@@ -237,69 +297,7 @@ const educationData: Education[] = [
 ];
 
 // Datos de Becas
-const scholarshipsData: Scholarship[] = [
-  {
-    id: 1,
-    institution: "Alura Latam",
-    slug: "alura_one_bg",
-    name: "Becado: Data Science - Oracle Next Education (ONE) G9, Ciencia de Datos",
-    dates: "ago. 2025 – mar. 2026",
-    description: "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico",
-    bullets: [
-      "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).",
-      "Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.",
-      "Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.",
-      "Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio."
-    ],
-    imageSrc: "/img/logos/alura.png",
-    skills: ["Data Science", "Python", "Machine Learning", "EDA", "Matplotlib", "Seaborn"]
-  },
-  {
-    id: 2,
-    institution: "Coursera",
-    slug: "coursera_skills_work",
-    name: "Beca Skills for Work - Banco Santander España y Coursera",
-    dates: "2025 – Actualidad",
-    description: "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
-    bullets: [
-      "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.",
-      "Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos."
-    ],
-    imageSrc: "/img/logos/coursera.png",
-    skills: ["Soft Skills", "Liderazgo", "Agile", "Business Intelligence", "Comunicación"]
-  },
-  {
-    id: 3,
-    institution: "Alura Latam",
-    slug: "alura_selection_phase",
-    name: "Fase de Selección y Formación Inicial - Beca Programa Oracle Next Education (ONE)",
-    dates: "jun. 2025 – ago. 2025",
-    description: "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
-    bullets: [
-      "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.",
-      "Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender."
-    ],
-    imageSrc: "/img/logos/alura.png",
-    skills: ["Lógica de Programación", "Algoritmos", "Productividad", "Aprendizaje Continuo"]
-  },
-  {
-    id: 4,
-    institution: "Pontificia Universidad Javeriana Cali",
-    slug: "puj_exchange",
-    name: "Beca de Intercambio Académico - Alianza del Pacífico",
-    dates: "jul. 2023 – dic. 2023",
-    description: "Galardonado con una beca de intercambio académico que cubrió estudios y alojamiento en la Pontificia Universidad Javeriana Cali. Permitió una inmersión académica y cultural que potenció competencias técnicas y blandas, y facilitó la participación en proyectos internacionales.",
-    bullets: [
-      "Excelencia Académica: Seleccionado por mérito académico.",
-      "Formación Internacional: Acceso a cursos avanzados y programas especializados.",
-      "Desarrollo Multicultural: Participación en actividades culturales y académicas.",
-      "Networking Global: Construcción de una red profesional internacional.",
-      "Investigación Aplicada: Colaboración en proyectos con profesorado internacional."
-    ],
-    imageSrc: "/img/logos/puj.png",
-    skills: ["Adaptabilidad", "Networking Internacional", "Investigación", "Intercambio Cultural"]
-  }
-];
+const scholarshipsData: Scholarship[] = [];
 
 const experiencesData: ExperienceData[] = [
   {
@@ -562,16 +560,49 @@ const ExperienceCard = ({
   bullets,
   imageSrc,
   index,
-  skills
+  skills,
+  isOpen,
+  onClick,
+  onMouseEnter,
+  onMouseLeave
 }: CardComponentProps) => {
-  return (
-    // El 'group' y 'relative' están bien.
-    // 'overflow-hidden' en el padre es CLAVE para que las esquinas 
-    // redondeadas se respeten durante la animación.
-    <div className="relative group bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-105">
+  const cardRef = useRef<HTMLDivElement>(null);
 
-      {/* Contenedor principal (Siempre visible) */}
-      <div className="flex flex-col items-center justify-center p-6 space-y-4">
+  useEffect(() => {
+    // Only scroll on mobile (screens smaller than lg/1024px)
+    // This prevents jittery behavior on desktop when hovering
+    const isMobile = window.innerWidth < 1024;
+
+    if (isOpen && cardRef.current && isMobile) {
+      // Pequeño timeout para asegurar que el DOM ha actualizado las clases de altura
+      setTimeout(() => {
+        if (cardRef.current) {
+          const headerOffset = 100; // Ajuste para el header sticky
+          const elementPosition = cardRef.current.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 300); // Esperar un poco a que la transición empiece
+    }
+  }, [isOpen]);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`relative bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-[1.01] ${isOpen ? 'scale-[1.01] ring-2 ring-purple-500/50' : ''}`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+
+      {/* Contenedor principal (Siempre visible) - Clickable para toggle */}
+      <div
+        className="flex flex-col items-center justify-center p-6 space-y-4 cursor-pointer"
+        onClick={onClick}
+      >
         {/* Logo de la empresa */}
         <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
           <Image
@@ -588,24 +619,17 @@ const ExperienceCard = ({
           <h3 className="text-lg font-bold text-gray-800">{company}</h3>
           <p className="text-sm font-medium text-purple-600">{title}</p>
           <p className="text-sm text-gray-500">{dates}</p>
+          {/* Indicador de expansión */}
+          <div className={`mt-2 transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`}>
+            <ChevronDown className="w-5 h-5 text-gray-400 mx-auto" />
+          </div>
         </div>
       </div>
 
-      {/* === CAMBIOS AQUÍ === */}
-      {/* Contenido oculto (ahora se expande hacia abajo) 
-        1. Quitamos 'absolute', 'inset-0', 'opacity-0', 'group-hover:opacity-100'.
-        2. Quitamos 'flex flex-col justify-center'.
-        3. Añadimos 'max-h-0' (oculto por defecto).
-        4. Añadimos 'group-hover:max-h-[500px]' (revelado en hover).
-           (Usa un valor grande, ej. [500px], que sepas que cubrirá tu contenido).
-        5. Añadimos 'transition-all duration-500 ease-in-out' para la animación.
-        6. Añadimos 'overflow-hidden' para que el contenido no se vea cuando está colapsado.
-      */}
+      {/* Contenido oculto (Expandible) */}
       <div
-        className="bg-purple-900 text-white
-      max-h-0 group-hover:max-h-[2000px] md:group-hover:max-h-[500px]
-      transition-all duration-500 ease-in-out
-      overflow-hidden group-hover:overflow-y-auto md:group-hover:overflow-hidden"
+        className={`bg-purple-900 text-white transition-all duration-500 ease-in-out border-t border-purple-800
+        ${isOpen ? 'max-h-[2000px] overflow-visible opacity-100' : 'max-h-0 overflow-hidden opacity-0'}`}
       >
         {/* Es buena práctica poner el padding en un div INTERNO.
           Si pones 'p-6' en el mismo div que 'max-h-0', el padding 
@@ -656,6 +680,30 @@ export default function Portfolio() {
   const [showTerminalEasterEgg, setShowTerminalEasterEgg] = useState(false)
   const profileRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+
+  // Estados para controlar qué tarjeta está abierta en cada sección
+  const [openExperienceId, setOpenExperienceId] = useState<number | null>(null);
+  const [openEducationId, setOpenEducationId] = useState<number | null>(null);
+  const [openScholarshipId, setOpenScholarshipId] = useState<number | null>(null);
+
+  const toggleExperience = (id: number) => {
+    setOpenExperienceId(prev => prev === id ? null : id);
+  };
+
+  const toggleEducation = (id: number) => {
+    setOpenEducationId(prev => prev === id ? null : id);
+  };
+
+  const toggleScholarship = (id: number) => {
+    setOpenScholarshipId(prev => prev === id ? null : id);
+  };
+
+  // Helper para manejar hover solo en desktop
+  const handleHover = (id: number | null, setFn: (id: number | null) => void) => {
+    if (window.innerWidth >= 1024) { // Solo para pantallas lg o mayores (Desktop)
+      setFn(id);
+    }
+  };
 
   useEffect(() => {
     // setMounted(true);
@@ -937,7 +985,7 @@ export default function Portfolio() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col items-center justify-center relative px-4 pt-16">
+      <section className="min-h-[100dvh] flex flex-col items-center justify-center relative px-4 pt-16">
         {/* Fondo con imagen y degradado */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
@@ -1285,6 +1333,10 @@ export default function Portfolio() {
                   imageSrc={exp.imageSrc}
                   index={index}
                   skills={exp.skills}
+                  isOpen={openExperienceId === exp.id}
+                  onClick={() => toggleExperience(exp.id)}
+                  onMouseEnter={() => handleHover(exp.id, setOpenExperienceId)}
+                  onMouseLeave={() => handleHover(null, setOpenExperienceId)}
                 />
               )
             })}
@@ -1322,6 +1374,10 @@ export default function Portfolio() {
                   imageSrc={edu.imageSrc}
                   index={index}
                   skills={edu.skills}
+                  isOpen={openEducationId === edu.id}
+                  onClick={() => toggleEducation(edu.id)}
+                  onMouseEnter={() => handleHover(edu.id, setOpenEducationId)}
+                  onMouseLeave={() => handleHover(null, setOpenEducationId)}
                 />
               )
             })}
@@ -1330,40 +1386,46 @@ export default function Portfolio() {
       </section>
 
       {/* Scholarships Section */}
-      <section id="scholarships" className="py-20 px-4 bg-slate-800 text-white">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-purple-400 mb-12 text-center">{t("scholarships.title")}</h2>
+      {scholarshipsData.length > 0 && (
+        <section id="scholarships" className="py-20 px-4 bg-slate-800 text-white">
+          <div className="container mx-auto max-w-6xl">
+            <h2 className="text-4xl font-bold text-purple-400 mb-12 text-center">{t("scholarships.title")}</h2>
 
-          <div className="space-y-8">
-            {scholarshipsData.map((scholarship, index) => {
-              const descKey = scholarship.slug ? `scholarships.${scholarship.slug}.description` : null
-              const bulletsKey = scholarship.slug ? `scholarships.${scholarship.slug}.bullets` : null
+            <div className="space-y-8">
+              {scholarshipsData.map((scholarship, index) => {
+                const descKey = scholarship.slug ? `scholarships.${scholarship.slug}.description` : null
+                const bulletsKey = scholarship.slug ? `scholarships.${scholarship.slug}.bullets` : null
 
-              const translatedDesc = descKey ? t(descKey) : null
-              const descriptionText = translatedDesc && translatedDesc !== descKey ? translatedDesc : scholarship.description
+                const translatedDesc = descKey ? t(descKey) : null
+                const descriptionText = translatedDesc && translatedDesc !== descKey ? translatedDesc : scholarship.description
 
-              const translatedBullets = bulletsKey ? t(bulletsKey) : null
-              const bulletsText = translatedBullets && translatedBullets !== bulletsKey ? translatedBullets : (scholarship.bullets && scholarship.bullets.length > 0 ? scholarship.bullets.join('||') : '')
-              const bulletsArray = bulletsText ? bulletsText.split('||').map(s => s.trim()).filter(Boolean) : []
+                const translatedBullets = bulletsKey ? t(bulletsKey) : null
+                const bulletsText = translatedBullets && translatedBullets !== bulletsKey ? translatedBullets : (scholarship.bullets && scholarship.bullets.length > 0 ? scholarship.bullets.join('||') : '')
+                const bulletsArray = bulletsText ? bulletsText.split('||').map(s => s.trim()).filter(Boolean) : []
 
-              return (
-                <ExperienceCard
-                  key={scholarship.id}
-                  company={`${t("scholarships.institutionLabel")} ${scholarship.institution}`}
-                  title={scholarship.name}
-                  dates={`${t("scholarships.periodLabel")} ${scholarship.dates}`}
-                  location=""
-                  description={descriptionText}
-                  bullets={bulletsArray}
-                  imageSrc={scholarship.imageSrc}
-                  index={index}
-                  skills={scholarship.skills}
-                />
-              )
-            })}
+                return (
+                  <ExperienceCard
+                    key={scholarship.id}
+                    company={`${t("scholarships.institutionLabel")} ${scholarship.institution}`}
+                    title={scholarship.name}
+                    dates={`${t("scholarships.periodLabel")} ${scholarship.dates}`}
+                    location=""
+                    description={descriptionText}
+                    bullets={bulletsArray}
+                    imageSrc={scholarship.imageSrc}
+                    index={index}
+                    skills={scholarship.skills}
+                    isOpen={openScholarshipId === scholarship.id}
+                    onClick={() => toggleScholarship(scholarship.id)}
+                    onMouseEnter={() => handleHover(scholarship.id, setOpenScholarshipId)}
+                    onMouseLeave={() => handleHover(null, setOpenScholarshipId)}
+                  />
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Featured Projects Section */}
       <section id="projects" className="py-20 px-4 bg-gray-50 text-gray-800">

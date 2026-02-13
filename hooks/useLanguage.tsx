@@ -55,7 +55,7 @@ const translations = {
     "hero.name": "Felipe Pereira A.",
     "hero.title": "Ingeniero Civil Informático",
     "hero.description":
-      "Ingeniero de Software e Investigador Académico. Especializado en Desarrollo Full Stack Web y Móvil, Inteligencia Artificial, Visión por Computadora e Investigación de Operaciones.",
+      "Ingeniero de Software especializado en Desarrollo Full Stack Web y Móvil e Inteligencia Artificial. Con experiencia en Ciencia de Datos, Visión por Computadora e Investigación de Operaciones.",
     "hero.contactBtn": "Contactar",
 
     // About Section
@@ -184,31 +184,39 @@ const translations = {
     "education.datesLabel": "Periodo:",
     "education.currentStatus": "En curso",
 
-    // Scholarships Section
+    // Scholarships Section - Merged into Education, keeping title for potential future use or if section is re-enabled
     "scholarships.title": "Becas y Reconocimientos",
-    // Scholarships content (Spanish)
-    "scholarships.alura_one_bg.description": "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico",
-    "scholarships.alura_one_bg.bullets": "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).||Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.||Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.||Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio.",
-
-    "scholarships.coursera_skills_work.description": "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera.",
-    "scholarships.coursera_skills_work.bullets": "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.||Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.",
-
-    "scholarships.alura_selection_phase.description": "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
-    "scholarships.alura_selection_phase.bullets": "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.||Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender.",
 
     // Education detailed texts (Spanish)
+    // 1. UNAB Civil
+    "education.unab_civil.description": "Etapa cúlmine de mi formación integra la ingeniería de software avanzada con la ciencia de datos estratégica, validada mediante mi tesis sobre optimización combinatoria. Título profesional de Ingeniero Civil Informático, aprobado con distinción.",
+    "education.unab_civil.bullets": "Desarrollo Full Stack Moderno: Arquitectura y construcción de aplicaciones escalables utilizando React, Next.js y Angular. Integración de servicios backend robustos y APIs eficientes.||Cloud Data Engineering & Analytics: Gestión de ecosistemas de datos en GCP (BigQuery) y Azure. Implementación de pipelines ETL, análisis profundo con Python y estrategias corporativas de Gobernanza de Datos.||Ciberseguridad Aplicada: Desarrollo bajo principios de Security by Design, asegurando la integridad de la infraestructura y el código en entornos productivos.||Innovación y Simulación: Desarrollo de videojuegos y entornos interactivos complejos con Unity, aplicando lógica matemática y física avanzada.||Investigación: Resolución de problemas complejos mediante algoritmos de optimización e Inteligencia Artificial.",
+
+    // 2. UNAB Licenciatura
+    "education.unab_licenciatura.description": "Obtención del grado de Licenciado en Ciencias de la Ingeniería, aprobado con distinción. Este hito consolida mi base científica y tecnológica, certificando la capacidad analítica para resolver desafíos complejos en la industria TI.",
+    "education.unab_licenciatura.bullets": "Actividades y grupos: Delegado académico y participación activa en proyectos de investigación aplicada. Enfoque en el desarrollo de soluciones tecnológicas innovadoras mediante metodologías ágiles y análisis de datos.||Investigación de Operaciones: Resolución de problemas de optimización combinatoria y complejidad NP, enfocada en eficiencia algorítmica y toma de decisiones.||Desarrollo de Software Avanzado: Diseño de arquitecturas escalables (Next.js, React, Angular, TypeScript) y gestión eficiente de bases de datos SQL y NoSQL.||Infraestructura y Seguridad: Despliegue de servicios en la nube (Azure, AWS) e implementación de principios de Ciberseguridad en aplicaciones.||Data Science e IA: Entrenamiento de modelos de Machine Learning, procesos ETL y desarrollo de soluciones de Visión por Computadora.",
+
+    // 3. PUJ Exchange
+    "education.puj_exchange.description": "Programa de intercambio académico internacional enfocado en la profundización de conocimientos en áreas avanzadas de Ingeniería Industrial e Ingeniería de Sistemas. La experiencia combinó un riguroso plan de estudios con una inmersión cultural completa. Durante el semestre, cursé asignaturas de alto nivel, incluyendo tópicos de magíster, para complementar mi formación de pregrado.",
+    "education.puj_exchange.bullets": "Magíster en Ing. Industrial: Participé en cursos de especialización en optimización de logística, cadenas de suministro y control de calidad.||Optimización Avanzada: Estudio de modelos y algoritmos complejos a nivel de postgrado.||Ciberseguridad: Formación práctica basada en Cisco.||Modelación Logística y Procesos Industriales: Análisis y diseño de sistemas productivos y logísticos.||Control de Calidad de Software: Aplicación de metodologías para asegurar la calidad en el desarrollo de software.||Actividades y grupos: Participé activamente en la vida universitaria para potenciar el intercambio cultural y lingüístico; incluyendo grupos deportivos y eventos culturales.",
+
+    // 4. Alura ONE BG
+    "education.alura_one_bg.description": "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico. Nota: En proceso.",
+    "education.alura_one_bg.bullets": "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).||Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.||Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.||Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio.",
+
+    // 5. Coursera Skills
+    "education.coursera_skills_work.description": "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
+    "education.coursera_skills_work.bullets": "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.||Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.||Estoy comprometido a aprovechar al máximo esta oportunidad para mejorar mi empleabilidad y estar preparado para los nuevos desafíos del sector.",
+
+    // 6. Alura Selection
+    "education.alura_selection_phase.description": "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
+    "education.alura_selection_phase.bullets": "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.||Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender.",
+
+    // 7. UNAB Postgrado
     "education.unab_postgrado.description": "Cursando programa de postgrado con foco en la especialización avanzada en Ingeniería de Software, Ciencia de Datos e Inteligencia Artificial. El programa integra conocimientos teóricos con aplicación práctica en tecnologías de vanguardia, incluyendo trayectorias formativas desarrolladas y certificadas por IBM en Data Science & AI.",
     "education.unab_postgrado.bullets": "Objetivo: Profundizar en el diseño y despliegue de arquitecturas de software complejas y soluciones empresariales basadas en datos y modelos predictivos.",
 
-    "education.unab_licenciatura.description": "Obtención del grado de Licenciado en Ciencias de la Ingeniería, aprobado con distinción. Este hito consolida mi base científica y tecnológica, certificando la capacidad analítica para resolver desafíos complejos en la industria TI.",
-    "education.unab_licenciatura.bullets": "Investigación de Operaciones: Resolución de problemas de optimización combinatoria y complejidad NP, enfocada en eficiencia algorítmica y toma de decisiones.||Desarrollo de Software Avanzado: Diseño de arquitecturas escalables (Next.js, React, Angular, TypeScript) y gestión eficiente de bases de datos SQL y NoSQL.||Infraestructura y Seguridad: Despliegue de servicios en la nube (Azure, AWS) e implementación de principios de Ciberseguridad en aplicaciones.||Data Science e IA: Entrenamiento de modelos de Machine Learning, procesos ETL y desarrollo de soluciones de Visión por Computadora.",
-
-    "education.puj_cali.description": "Programa de intercambio académico internacional enfocado en la profundización de conocimientos en áreas avanzadas de Ingeniería Industrial e Ingeniería de Sistemas. La experiencia combinó un riguroso plan de estudios con una inmersión cultural completa. Durante el semestre, cursé asignaturas de alto nivel, incluyendo tópicos de magíster.",
-    "education.puj_cali.bullets": "Magíster en Ing. Industrial: Participé en cursos de especialización en optimización de logística, cadenas de suministro y control de calidad.||Optimización Avanzada: Estudio de modelos y algoritmos complejos a nivel de postgrado.||Ciberseguridad: Formación práctica basada en Cisco.||Modelación Logística y Procesos Industriales: Análisis y diseño de sistemas productivos y logísticos.||Control de Calidad de Software: Aplicación de metodologías para asegurar la calidad en el desarrollo de software.||Actividades y grupos: Participé activamente en la vida universitaria para potenciar el intercambio cultural y lingüístico.",
-
-    "education.unab_civil.description": "Formación en Ingeniería Civil Informática.",
-    "education.unab_civil.bullets": "",
-
+    // 8. Colegio SMP
     "education.colegio_smp.description": "Estudiante. nivel alto Matemáticas, Química, Artes visuales y Música. Nota: Egresado de Cuarto Medio con Promedio 6.0.",
     "education.colegio_smp.bullets": "",
 
@@ -320,7 +328,7 @@ const translations = {
     // Hero Section
     "hero.name": "Felipe Pereira A.",
     "hero.title": "Computer Science",
-    "hero.description": "Software Engineer & Academic Researcher. Specialized in Full Stack Web and Mobile Development, Artificial Intelligence, Computer Vision, and Operations Research.",
+    "hero.description": "Software Engineer specialized in Full Stack Web and Mobile Development and Artificial Intelligence. Experienced in Data Science, Computer Vision, and Operations Research.",
     "hero.contactBtn": "Contact",
 
     // About Section
@@ -449,33 +457,11 @@ const translations = {
 
     // Scholarships Section
     "scholarships.title": "Scholarships and Awards",
-    // Scholarships content (English)
-    "scholarships.alura_one.description": "Selected as a beneficiary of the Oracle Next Education (ONE) Generation 9 scholarship — a high-impact program combining advanced technical training and professional development. The program trains Data Science professionals with a 100% practical approach, covering fundamentals to advanced machine learning and data analysis techniques.",
-    "scholarships.alura_one.bullets": "Data Analysis: Advanced Python with Pandas and NumPy for large-scale manipulation||Advanced Visualization: Interactive dashboards with Matplotlib, Seaborn and Plotly||Machine Learning: Predictive models using Scikit-learn and TensorFlow||Practical Projects: Real-world analysis and prediction cases||Big Data: Processing large datasets and performance optimization||Applied Statistics: Advanced statistical analysis for decision making",
-
-    "scholarships.coursera_santander.description": "Recipient of the Santander Skills | Skills for Work scholarship, an intensive program aimed at developing in-demand professional skills and closing the skills gap between academia and industry.",
-    "scholarships.coursera_santander.bullets": "Digital Leadership: Leading teams in digital environments||Agile Project Management: Certification in agile methodologies||Business Data Analysis: Training in business intelligence tools||Communication Skills: Executive presentation techniques||Emotional Intelligence: Team and conflict management||Digital Transformation: Strategies for organizational adaptation",
-
-    "scholarships.puj_exchange.description": "Awarded a full academic exchange scholarship covering study and accommodation at Pontificia Universidad Javeriana Cali. The selective program provided full immersion in an international academic environment, combining academic rigor with cultural enrichment.",
-    "scholarships.puj_exchange.bullets": "Academic Excellence: Selected on academic merit among international students||International Training: Access to advanced and postgraduate-level courses||Multicultural Development: Participation in international projects and cultural events||Global Networking: Building a professional international network||Applied Research: Collaboration on research projects with international faculty",
+    // Scholarships content merged into education and removed to cleanup
 
     // Education detailed texts (English)
-    "education.unab_postgrado.description": "Postgraduate program focused on applying advanced AI and optimization techniques to solve complex computational problems. Includes mathematical modeling, optimization techniques and practical projects applied to real use cases.",
-    "education.unab_postgrado.bullets": "Optimization Modeling: Heuristics and metaheuristics application||AI Implementation in Python: Algorithm development and deployment||Modeling Languages: Advanced use of AMPL and Julia||Applied Projects: Integration of solutions into real environments",
-
-    "education.uc_diplomado.description": "Diploma focused on strategic management of technology projects. Covers agile methodologies, resource planning, risk management and stakeholder communication for successful IT project delivery.",
-    "education.uc_diplomado.bullets": "Agile Project Management: SCRUM and Kanban||Strategic Planning: Roadmaps and resource management||Leadership and Communication: Team and stakeholder management",
-
-    "education.uc_ingelectrica.description": "Comprehensive electrical engineering training with emphasis on control systems, power electronics and software applications for embedded systems and industrial control. Includes labs and hardware-software integration projects.",
-    "education.uc_ingelectrica.bullets": "Control Systems and Automation: Controller design||Power Electronics: Energy conversion and management||Software Applications: Embedded systems integration and databases||R&D Projects: Participation in applied research",
-
-    "education.unab_diseno_algoritmos.description": "Degree oriented to the design, analysis and optimization of algorithms. Curriculum includes complexity theory, advanced data structures and practical applications in optimization and machine learning.",
-    "education.unab_diseno_algoritmos.bullets": "Advanced Algorithms: Design and analysis techniques||Optimization and Complexity: Improving algorithmic efficiency||Machine Learning: Implementing models and pipelines||Big Data: Algorithms for large-scale processing",
-
-    "education.puj_cali.description": "Exchange semester including postgraduate-level courses in logistics optimization, cybersecurity and industrial process modeling. Academic and cultural experience that strengthened technical skills and international adaptability.",
-    "education.puj_cali.bullets": "Advanced Training: Postgraduate courses in optimization||Cybersecurity: Practical training based on industry standards||Logistics Modeling: Supply chain analysis||Intercultural Skills: Competence development in diverse contexts",
-    "education.colegio_smp.description": "Outstanding student in Mathematics, Chemistry, Visual Arts and Music. Actively participated in extracurricular activities such as science clubs and art workshops, demonstrating academic commitment and leadership in school projects.",
-    "education.colegio_smp.bullets": "Academic Excellence: High performance in STEM and humanities subjects||Artistic Participation: Member of visual arts workshops and school choir||Student Leadership: Class representative and events coordinator||Science Projects: Participation in regional fairs and competitions",
+    // Removed old education keys to fallback to Spanish (latest content)
+    // education.unab_postgrado etc.
 
     // Work item translations (English)
     "work.mrcomputer.description": "I started as an intern and was promoted thanks to rapid skill development and key contributions in security and software projects. My responsibilities included:",
@@ -594,7 +580,7 @@ const translations = {
     "hero.name": "Felipe Pereira A.",
     "hero.title": "Informatikako Ingeniari Zibila",
     "hero.description":
-      "Software Ingeniaria eta Ikertzaile Akademikoa. Full Stack Web eta Mugikor Garapenean, Adimen Artifizialean, Ordenagailu Bidezko Ikusmenean eta Eragiketa Ikerketan espezializatua.",
+      "Software Ingeniaria. Full Stack Web, Mugikor Garapenean eta Adimen Artifizialean espezializatua. Datu-zientzian, Ordenagailu Bidezko Ikusmenean eta Eragiketa Ikerketan esperientziarekin.",
     "hero.contactBtn": "Kontaktatu",
 
     // About Section
@@ -723,33 +709,10 @@ const translations = {
 
     // Scholarships Section
     "scholarships.title": "Bekak eta Sariak",
-    // Scholarships content (Basque - eu)
-    "scholarships.alura_one.description": "Oracle Next Education (ONE) 9. belaunaldiko bekaren onuradun aukeratua — programak trebetasun tekniko aurreratuak eta garapen profesionala uztartzen ditu. Programa praktikan oinarrituta prestatzen du Data Science profesionala, oinarrizkoetatik hasi eta machine learning aurreraturaino.",
-    "scholarships.alura_one.bullets": "Datu Analisia: Python aurreratua Pandas eta NumPy-rekin||Bisualizazio Aurreratua: Dashboard interaktiboak Matplotlib, Seaborn eta Plotly erabiliz||Machine Learning: Eredu iragarleak Scikit-learn eta TensorFlow erabiliz||Proiektu Praktikoak: Kasu errealen analisia eta aurreikuspenak||Big Data: Bolumen handiko datuen prozesamendua||Estatistika Aplikatua: Erabakiak hartzeko analisi estatistikoa",
-
-    "scholarships.coursera_santander.description": "Santander Skills | Skills for Work beka jasotakoa, industriak eskatzen dituen gaitasunak garatzeko programa intentsiboa eta enplegagarritasuna bultzatzeko diseinatua.",
-    "scholarships.coursera_santander.bullets": "Digital Lidergoa: Taldeak gidatzea ingurune digitalean||Proiektu Kudeaketa Agilea: Metodologiak eta ziurtagiriak||Enpresa Datu Analitika: Business Intelligence tresnen entrenamendua||Komunikazio Trebetasunak: Aurkezpen teknika aurreratuak||Adimen Emotiboa: Taldeen eta gatazken kudeaketa||Digital Aldaketa: Erakundeen egokitzapenerako estrategiak",
-
-    "scholarships.puj_exchange.description": "Pontificia Universidad Javeriana Cali-ri egindako truke-beka osoa eskuratu; programa selektibo honek immersion akademiko eta kultural osoa eskaintzen du, gaitasun tekniko eta kulturalak garatuz.",
-    "scholarships.puj_exchange.bullets": "Akademiko Goi Mailakoa: Nazioarteko ikasleen artean merituz hautatua||Nazioarteko Prestakuntza: Postgrado mailako ikastaroetara sartzea||Kulturarteko Garapena: Nazioarteko proiektu eta jardueren parte-hartzea||Sare Globalak: Nazioarteko sare profesionalaren eraikuntza||Ikerketa Aplikatua: Nazioarteko irakasleekin lankidetza",
+    // Scholarships content merged/removed
 
     // Education detailed texts (Basque)
-    "education.unab_postgrado.description": "Postgraduondoko programa, AI eta optimizazio teknikak aplikatzera bideratua konputazio arazo konplexuak konpontzeko. Modellaketa matematikoa, optimizazioa eta kasu errealetan aplikatutako proiektu praktikoak barne hartzen ditu.",
-    "education.unab_postgrado.bullets": "Optimizazio Modellaketa: Heuristika eta metaheuristika aplikazioa||AI Python-en: Algoritmoen garapena eta deployment-a||Modelling Hizkuntzak: AMPL eta Julia erabiltze aurreratua||Proiektu Aplikatuak: Soluzioen integrazioa eremu errealetan",
-
-    "education.uc_diplomado.description": "Proiektu teknologikoen kudeaketa estrategikoari buruzko diplomadua. Metodologia agileak, baliabideen plangintza, arrisku kudeaketa eta interes-taldeen komunikazioa hartzen ditu.",
-    "education.uc_diplomado.bullets": "Proiektu Kudeaketa Agile: SCRUM eta Kanban||Planifikazio Estrategikoa: Roadmap-ak eta baliabideen kudeaketa||Lidergoa eta Komunikazioa: Taldeen eta interes-taldeen kudeaketa",
-
-    "education.uc_ingelectrica.description": "Ingeniaritza elektriko integrala, kontrol sistema, potentzia elektronika eta embebatutako sistemetarako aplikazio softwareetan zentratua. Laborategi praktikoak eta hardware-software integrazio proiektuak barne hartzen ditu.",
-    "education.uc_ingelectrica.bullets": "Kontrol Sistemetako Diseinua: Kontroladore diseinua||Potentzia Elektronika: Energiaren kudeaketa||Software Aplikazioak: Sistema enbeded-en integrazioa||I+G Proiektuak: Ikerketa aplikatuan parte hartzea",
-
-    "education.unab_diseno_algoritmos.description": "Algoritmoen diseinuari, analisiari eta optimizazioari zuzendutako gradua. Konplexitatearen teoria, datu-egiturak eta optimizazio eta machine learning aplikazio praktikoak barne hartzen ditu.",
-    "education.unab_diseno_algoritmos.bullets": "Algoritmo Aurreratuak: Diseinu eta analisi teknikak||Optimizazioa eta Konplexitatea: Eraginkortasuna hobetzearen teknikak||Machine Learning: Ereduen inplementazioa||Big Data: Bolumen handiko prozesamendurako algoritmoak",
-
-    "education.puj_cali.description": "Truke-semestrea: optimizazio logistikoa, zibersegurtasuna eta prozesu industrialen modelaketa bezalako postgraduoko ikastaroak barne. Esperientzia akademiko-kultural honek trebetasun teknikoak eta nazioarteko egokitzapena indartu zituen.",
-    "education.puj_cali.bullets": "Prestakuntza Aurreratua: Optimizazio postgraduko ikastaroak||Zibersegurtasuna: Estándar industrialetan oinarritutako prestakuntza||Logistika Modellaketa: Hornidura kateen analisia||Kulturartekotasuna: Ingurune desberdinetan gaitasunen garapena",
-    "education.colegio_smp.description": "Matematika, Kimika, Arte bisualak eta Musikan nabarmentzen zen ikaslea. Kluba eta tailer ugaritan parte hartu nuen, ikaskuntza eta lidergo gaitasunak erakutsiz proiektu eskolaretan.",
-    "education.colegio_smp.bullets": "Ikasketa Erreferentea: Errendimendu ona STEM eta giza-zientzietan||Parte-hartze Artistikoa: Arte tailer eta koru eskolarreko kidea||Ikasleen Lidergoa: Ikasgelen ordezkaria eta ekitaldi koordinatzailea||Zientzia Proiektuak: Ferietako eta lehiaketetako parte-hartzea",
+    // Removed old education keys
 
     // Work item translations (Basque)
     "work.mrcomputer.description": "Praktikante gisa hasi nintzen eta promozionatua izan nintzen gaitasunak azkar garatu eta segurtasun eta software proiektuetan egin nituen ekarpen garrantzitsuei esker. Nire ardura nagusiak izan ziren:",

@@ -6,7 +6,7 @@ import { useLanguage } from "@/hooks/useLanguage"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Play, Pause, ChevronLeft, ChevronRight } from "lucide-react"
 
-export function WebsiteCarousel() {
+function WebsiteCarouselComponent() {
     const { t } = useLanguage()
     const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -14,10 +14,34 @@ export function WebsiteCarousel() {
     const [isManuallyPaused, setIsManuallyPaused] = useState(false)
     const [isHoverPaused, setIsHoverPaused] = useState(false)
     const [isDragging, setIsDragging] = useState(false)
-    const [velocity, setVelocity] = useState(1) // Controls auto-scroll speed and direction
+    const [velocity, setVelocity] = useState(1.4) // Controls auto-scroll speed and direction
     const animationRef = useRef<number>()
     const lastTimeRef = useRef<number>(0)
     const isScrollingRef = useRef(false) // To prevent loop conflict during manual scroll
+    const singleSetWidthRef = useRef(0)
+
+
+    const [isVisible, setIsVisible] = useState(false) // Visibility state
+    const containerRef = useRef<HTMLDivElement>(null) // Ref for Intersection Observer
+
+    // Intersection Observer to pause animation when off-screen
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsVisible(entry.isIntersecting)
+            },
+            { threshold: 0.1 } // Trigger when 10% visible
+        )
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current)
+        }
+
+        return () => {
+            observer.disconnect()
+        }
+    }, [])
+
 
     const websitesData = [
         {
@@ -126,7 +150,7 @@ export function WebsiteCarousel() {
         },
         {
             slug: "smartcare",
-            url: "https://centromedico-smartcare.vercel.app/",
+            url: "https://www.centromedicosmartcare.cl/",
             imageSrc: "/img/websites/previews/smartcare-preview.webp",
             logoSrc: "/img/logos/websites/smartcare.png",
             borderClass: "border-teal-500 hover:border-teal-400",
@@ -139,41 +163,72 @@ export function WebsiteCarousel() {
         }
     ]
 
+    useEffect(() => {
+        const updateWidth = () => {
+            if (scrollRef.current) {
+                singleSetWidthRef.current = scrollRef.current.scrollWidth / 4;
+            }
+        };
+
+        updateWidth();
+
+        const observer = new ResizeObserver(updateWidth);
+        const currentRef = scrollRef.current;
+        if (currentRef) observer.observe(currentRef);
+
+        return () => {
+            if (currentRef) observer.disconnect();
+        }
+    }, [])
+
     // Animation Loop
     const animate = useCallback((time: number) => {
         if (!lastTimeRef.current) lastTimeRef.current = time
         const deltaTime = time - lastTimeRef.current
         lastTimeRef.current = time
 
+        // Cap delta to prevent huge jumps after tab switching/suspension
+        const effectiveDelta = Math.min(deltaTime, 64)
+
+        if (!isVisible) return // Skip animation if not visible
+
         const isPaused = isManuallyPaused || isHoverPaused || isDragging || isScrollingRef.current
 
         if (scrollRef.current) {
             // Auto-scroll loop
             if (!isPaused) {
-                scrollRef.current.scrollLeft += (velocity * deltaTime) / 16
+                scrollRef.current.scrollLeft += (velocity * effectiveDelta) / 16
             }
 
             // Infinite Loop Check - Always Active to prevent getting stuck
             // We have 4 copies. We wrap when we successfully scroll past the first FULL copy set.
-            const singleSetWidth = scrollRef.current.scrollWidth / 4
+            const singleSetWidth = singleSetWidthRef.current
 
             // Allow a small buffer for float precision
-            if (scrollRef.current.scrollLeft >= singleSetWidth) {
-                scrollRef.current.scrollLeft -= singleSetWidth
-            } else if (scrollRef.current.scrollLeft <= 0) {
-                scrollRef.current.scrollLeft += singleSetWidth
+            if (singleSetWidth > 0) {
+                if (scrollRef.current.scrollLeft >= singleSetWidth) {
+                    scrollRef.current.scrollLeft -= singleSetWidth
+                } else if (scrollRef.current.scrollLeft <= 0) {
+                    scrollRef.current.scrollLeft += singleSetWidth
+                }
             }
         }
 
         animationRef.current = requestAnimationFrame(animate)
-    }, [isManuallyPaused, isHoverPaused, isDragging, velocity])
+    }, [isManuallyPaused, isHoverPaused, isDragging, velocity, isVisible])
 
     useEffect(() => {
+        if (!isVisible) {
+            if (animationRef.current) cancelAnimationFrame(animationRef.current)
+            return
+        }
+
+        lastTimeRef.current = 0
         animationRef.current = requestAnimationFrame(animate)
         return () => {
             if (animationRef.current) cancelAnimationFrame(animationRef.current)
         }
-    }, [animate])
+    }, [animate, isVisible])
 
     // Mouse/Touch Handlers
     const lastXRef = useRef(0)
@@ -233,36 +288,38 @@ export function WebsiteCarousel() {
     const scrollManual = (direction: 'left' | 'right') => {
         if (scrollRef.current) {
             const container = scrollRef.current;
+            const singleSetWidth = singleSetWidthRef.current || container.scrollWidth / 4;
 
-            // Pre-check wrap to ensure we have room to scroll
-            const singleSetWidth = container.scrollWidth / 4;
-            // Buffer to ensure we are not too close to edges
-            if (container.scrollLeft >= singleSetWidth * 3) {
-                container.scrollLeft -= singleSetWidth
-            } else if (container.scrollLeft <= singleSetWidth) {
-                container.scrollLeft += singleSetWidth
-            }
-
-            // Get approximate item width + gap from first child if available, or default
+            // Calculate scroll amount based on screen width
             // Default: 350px (card) + 24px (gap-6) = 374px
             // Mobile: 300px + 24px = 324px
-            // Use a dynamic calculation based on screen size could be better, but fixed is smooth enough
             const scrollAmount = window.innerWidth < 768 ? 324 : 374;
+
+            if (singleSetWidth > 0) {
+                // Only jump if we are dangerously close to the edges
+                // This prevents unnecessary position resets that might conflict with smooth scrolling
+                if (direction === 'left' && container.scrollLeft < scrollAmount) {
+                    container.scrollLeft += singleSetWidth
+                } else if (direction === 'right' && container.scrollLeft >= singleSetWidth * 3) {
+                    container.scrollLeft -= singleSetWidth
+                }
+            }
 
             // Conflict prevention: Pause loop during smooth scroll
             isScrollingRef.current = true;
 
             container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' })
 
-            // Resume loop after animation (approx 500ms)
+            // Resume loop after animation (allow enough time for smooth scroll to finish)
+            // 800ms should be sufficient for most smooth transitions
             setTimeout(() => {
                 isScrollingRef.current = false;
-            }, 500)
+            }, 800)
         }
     }
 
     return (
-        <div className="flex flex-col gap-6 w-full">
+        <div ref={containerRef} className="flex flex-col gap-6 w-full">
             <div className="flex flex-col md:flex-row justify-between items-center px-4 gap-4">
                 <div className="text-left">
                     <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-200 to-indigo-200 bg-clip-text text-transparent mb-1">
@@ -389,3 +446,5 @@ export function WebsiteCarousel() {
         </div>
     )
 }
+
+export const WebsiteCarousel = React.memo(WebsiteCarouselComponent)
