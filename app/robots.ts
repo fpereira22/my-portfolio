@@ -1,0 +1,22 @@
+import type { MetadataRoute } from 'next'
+
+export default function robots(): MetadataRoute.Robots {
+    const baseUrl = 'https://fpereiradev.sppa.cl'
+
+    return {
+        rules: [
+            {
+                userAgent: '*',
+                allow: '/',
+                disallow: ['/api/', '/dashboard/'],
+            },
+            {
+                userAgent: 'Googlebot',
+                allow: '/',
+                disallow: ['/api/', '/dashboard/'],
+            },
+        ],
+        sitemap: `${baseUrl}/sitemap.xml`,
+        host: baseUrl,
+    }
+}
