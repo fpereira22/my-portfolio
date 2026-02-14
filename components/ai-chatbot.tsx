@@ -117,7 +117,10 @@ export function AIChatbot() {
       });
 
       if (!response.ok) {
-        throw new Error(`API Error`);
+        if (response.status === 429) {
+          throw new Error("RATE_LIMIT");
+        }
+        throw new Error(`API Error: ${response.status}`);
       }
 
       const data = await response.json();
@@ -129,11 +132,24 @@ export function AIChatbot() {
       };
       setMessages((prev) => [...prev, botMessage]);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error contacting the backend:", error);
+
+      let errorText = "";
+      // Mensajes localizados según el tipo de error
+      if (error.message === "RATE_LIMIT") {
+        if (language === 'en') errorText = "I'm receiving too many requests right now. Please try again in a minute.";
+        else if (language === 'eu') errorText = "Eskaera gehiegi jasotzen ari naiz. Mesedez, saiatu berriro minutu bat barru.";
+        else errorText = "Estoy recibiendo muchas consultas en este momento. Por favor, intenta de nuevo en un minuto.";
+      } else {
+        if (language === 'en') errorText = "Oops, something went wrong. Try again later.";
+        else if (language === 'eu') errorText = "Zerbait gaizki joan da. Saiatu berriro geroago.";
+        else errorText = "Ups, algo salió mal. Intenta de nuevo más tarde.";
+      }
+
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Oops, something went wrong. Try again.",
+        text: errorText,
         isBot: true,
         timestamp: new Date(),
       };

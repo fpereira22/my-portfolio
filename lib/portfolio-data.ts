@@ -12,12 +12,12 @@ export const portfolioData = {
     linkedin: "https://www.linkedin.com/in/felipe-pereira-alarc%C3%B3n/",
     github: "https://github.com/fpereira22",
     instagram: "https://www.instagram.com/_f.pereira14",
-    instructions: "Puedes contactar a Felipe directamente por email (f.pereiraalarcn@gmail.com), a través de su LinkedIn, o usando el formulario de contacto en la sección 'Contacto' de la web.",
+    instructions: "Puedes contactar a Felipe directamente por email (f.pereiraalarcn@gmail.com), a través de su LinkedIn, usando el formulario de contacto en la sección 'Contacto' de la web, o por [WhatsApp](https://wa.me/56989213006?text=Hola,%20me%20interesa%20contactarme%20contigo) para más información.",
   },
   about: {
-    es: "Ingeniero Civil Informático con sólida formación académica y experiencia práctica en desarrollo de aplicaciones. Realicé un intercambio académico en la Pontíficia Universidad Javeriana Cali. Especializado en programación funcional y metodologías ágiles para el desarrollo de software. Mi enfoque se centra en la calidad del código y la implementación de soluciones escalables. Tengo la capacidad de adaptación rápida a nuevas tecnologías y entornos de trabajo.",
-    en: "Software Engineer with solid academic background and practical experience in application development. I did an academic exchange at Pontíficia Universidad Javeriana Cali. Specialized in functional programming and agile methodologies for software development. My focus is on code quality and implementation of scalable solutions. I have the ability for quick adaptation to new technologies and work environments.",
-    eu: "Informatikako Ingeniari Zibila heziketa akademiko sendoa eta aplikazio garapenean esperientzia praktikoa dituena. Truke akademiko bat egin nuen Pontíficia Universidad Javeriana Cali-n. Espezializatua programazio funtzionalean eta software garapenerako metodologia arinak. Nire fokua kode kalitatea eta soluzio eskalagarrien inplementazioan dago. Gaitasuna dut egokitzapen azkarreko teknologia berrietara eta lan inguruneetara.",
+    es: "Ingeniero Civil Informático con sólida formación académica y experiencia práctica en desarrollo de aplicaciones. Realicé un intercambio académico en la Pontíficia Universidad Javeriana Cali. Especializado en programación funcional y metodologías ágiles para el desarrollo de software. Mi enfoque se centra en la calidad del código y la implementación de soluciones escalables. Tengo la capacidad de adaptación rápida a nuevas tecnologías y entornos de trabajo. Además de mi trabajo en SSGL, me desempeño como desarrollador freelancer creando aplicaciones y sitios web a medida.",
+    en: "Software Engineer with solid academic background and practical experience in application development. I did an academic exchange at Pontíficia Universidad Javeriana Cali. Specialized in functional programming and agile methodologies for software development. My focus is on code quality and implementation of scalable solutions. I have the ability for quick adaptation to new technologies and work environments. In addition to my work at SSGL, I work as a freelance developer creating custom applications and websites.",
+    eu: "Informatikako Ingeniari Zibila heziketa akademiko sendoa eta aplikazio garapenean esperientzia praktikoa dituena. Truke akademiko bat egin nuen Pontíficia Universidad Javeriana Cali-n. Espezializatua programazio funtzionalean eta software garapenerako metodologia arinak. Nire fokua kode kalitatea eta soluzio eskalagarrien inplementazioan dago. Gaitasuna dut egokitzapen azkarreko teknologia berrietara eta lan inguruneetara. SSGL-en egiten dudan lanaz gain, garatzaile freelance gisa aritzen naiz aplikazioak eta webguneak neurrira sortuz.",
   },
   experience: {
     es: "Durante mi formación en la facultad de Ingeniería de la Universidad Andres Bello, he estado desarrollando tanto proyectos personales como profesionales. Esto me ha permitido consolidar mis habilidades técnicas en análisis de datos, ciberseguridad, algoritmos, investigación de operaciones y gestión de proyectos. A lo largo de este tiempo, he trabajado con diversos entornos y tecnologías, aplicándolos en múltiples proyectos. Esta diversidad de experiencias me ha proporcionado una visión más amplia del desarrollo de software, lo que me permite mejorar continuamente mi capacidad profesional y mantener una mentalidad de aprendizaje constante. Busco constantemente expandir mis conocimientos y continuar perfeccionando mis habilidades, siempre en busca de nuevas oportunidades para innovar y crear soluciones que no solo sean efectivas, sino también óptimas, eficientes y adaptables a las necesidades del proyecto.",
@@ -82,10 +82,89 @@ export const portfolioData = {
     ],
     link: "https://www.linkedin.com/in/felipe-pereira-alarc%C3%B3n/details/certifications/",
   },
+  services: [
+    {
+      service: "Landing Pages",
+      details: "Desarrollo con tecnologías modernas (Next.js, React, Tailwind).",
+      price: "250.000 CLP"
+    },
+    {
+      service: "Sitios WordPress",
+      details: "Sitios corporativos o blogs autoadministrables.",
+      price: "150.000 CLP"
+    },
+    {
+      service: "Aplicaciones Web",
+      details: "Sistemas a medida, dashboards, gestión de datos.",
+      price: "300.000 CLP - 1.000.000 CLP (dependiendo de la complejidad)"
+    }
+  ],
   site: {
-    usage: "La web está dividida en secciones: Sobre Mí, Experiencia, Proyectos, Certificaciones y Contacto. Puedes navegar usando los enlaces en la barra de navegación superior. El sitio es multi-idioma (Español, Inglés, Euskera).",
+    usage: "La web está dividida en secciones: Sobre Mí, Experiencia (incluyendo tecnologías), Educación, Becas, Proyectos, Sitios Web, Certificaciones y Contacto. Puedes navegar usando los enlaces en la barra de navegación superior. El sitio es multi-idioma (Español, Inglés, Euskera).",
     locations: "Felipe tiene base en Santiago (Chile), Bilbao (España) y Cali (Colombia)."
   },
+  education: [
+    {
+      institution: "Universidad Andres Bello",
+      degree: "Ingeniero Civil Informático",
+      description: "Titulado con distinción. Tesis sobre optimización combinatoria. Formación en desarrollo full stack, cloud data engineering y ciberseguridad."
+    },
+    {
+      institution: "Universidad Andres Bello",
+      degree: "Licenciado en Ciencias de la Ingeniería",
+      description: "Grado académico con distinción. Base científica y tecnológica sólida."
+    },
+    {
+      institution: "Pontificia Universidad Javeriana Cali",
+      degree: "Intercambio Académico",
+      description: "Semestre internacional con foco en Ingeniería Industrial y de Sistemas. Cursos de maestría en logística y calidad."
+    },
+    {
+      institution: "Universidad Andres Bello",
+      degree: "Magíster en Ingeniería Informática (En curso)",
+      description: "Especialización avanzada en Ingeniería de Software, Data Science e Inteligencia Artificial."
+    }
+  ],
+  scholarships: [
+    {
+      title: "Beca Oracle Next Education (ONE) - G9",
+      description: "Especialización en Data Science. Formación práctica en Python, Machine Learning y Análisis de Datos con Oracle y Alura Latam."
+    },
+    {
+      title: "Beca Santander Skills | Skills for Work",
+      description: "Programa de alto rendimiento con Banco Santander y Coursera. Foco en habilidades blandas (liderazgo, comunicación) y digitales (Agile, Data Analysis)."
+    }
+  ],
+  websites: [
+    {
+      name: "ROADWISE.CL",
+      description: "Plataforma corporativa con modelos 3D interactivos (Three.js) para monitoreo vial."
+    },
+    {
+      name: "SSGL.CL",
+      description: "Sitio corporativo para Sociedad de Servicios Generales Ltda. React y diseño moderno."
+    },
+    {
+      name: "SPPA.CL",
+      description: "Hub de servicios profesionales familia Pereira Alarcón."
+    },
+    {
+      name: "Our Transfer SSGL",
+      description: "App web segura para transferencia de archivos corporativos."
+    },
+    {
+      name: "Centro Estética Fernando Gonzalez",
+      description: "Plataforma de gestión de citas y blog."
+    },
+    {
+      name: "MRComputer Enterprise",
+      description: "Sistema de gestión de inventario y landing page."
+    },
+    {
+      name: "SmartCare Medical Center",
+      description: "Landing page médica con mapas interactivos."
+    }
+  ],
   faq: [
     {
       preguntas: [
@@ -140,7 +219,16 @@ export const portfolioData = {
         "How can I contact you?",
         "What is your email?"
       ],
-      respuesta: "Puedes contactarme por email a f.pereiraalarcn@gmail.com"
+      respuesta: "Puedes contactarme por email a f.pereiraalarcn@gmail.com o enviarme un mensaje directo por [WhatsApp](https://wa.me/56984381285?text=Hola,%20me%20interesa%20contactarme%20contigo)."
+    },
+    {
+      preguntas: [
+        "¿Estás graduado?",
+        "¿Ya te titulaste?",
+        "¿Tienes tu título?",
+        "Are you graduated?"
+      ],
+      respuesta: "Sí, estoy graduado con honores. Obtuve mi título de Ingeniero Civil Informático y mi Licenciatura en Ciencias de la Ingeniería, ambos con distinción máxima en la Universidad Andres Bello."
     },
     {
       preguntas: [

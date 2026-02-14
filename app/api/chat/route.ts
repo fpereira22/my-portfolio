@@ -1,5 +1,5 @@
 // Archivo: app/api/chat/route.ts
-import { GoogleGenerativeAI } from "@google/generative-ai"; 
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
 
 import { portfolioData, Language } from "@/lib/portfolio-data";
@@ -9,16 +9,16 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 export async function POST(req: NextRequest) {
   try {
     const { message, language } = (await req.json()) as { message: string; language: Language };
-    
-    const model = genAI.getGenerativeModel({ 
+
+    const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash-lite",
     });
 
     const safeLanguage = ["es", "en", "eu"].includes(language) ? language : "es";
     const langInstruction =
       safeLanguage === 'es' ? 'Responde en español.'
-      : safeLanguage === 'en' ? 'Respond in English.'
-      : 'Erantzun euskaraz.';
+        : safeLanguage === 'en' ? 'Respond in English.'
+          : 'Erantzun euskaraz.';
 
     const localizedContext = {
       name: portfolioData.name,
@@ -30,56 +30,61 @@ export async function POST(req: NextRequest) {
       projects: portfolioData.projects,
       certifications: portfolioData.certifications,
       site: portfolioData.site,
+      services: portfolioData.services,
+      education: portfolioData.education,
+      scholarships: portfolioData.scholarships,
+      websites: portfolioData.websites,
       faq: portfolioData.faq, // Asegúrate de pasar el FAQ al contexto
     };
 
     const portfolioContext = JSON.stringify(localizedContext, null, 2);
 
-    // =============================================================
-    // >> INICIO DEL PROMPT FINAL CORREGIDO <<
-    // =============================================================
     const prompt = `
-      Eres el asistente virtual del portafolio de Felipe Pereira. Tu objetivo es seguir un proceso lógico para responder.
+      Eres el asistente virtual del portafolio de Felipe Pereira.
       Tu tono debe ser amigable y profesional.
-      
-      **PROCESO Y REGLAS A SEGUIR:**
 
-      **TAREA 1: VERIFICAR COINCIDENCIA EN FAQ.**
-      - Tu primera y más importante tarea es analizar la **intención** de la pregunta del usuario.
-      - Compara el significado de la pregunta del usuario con la lista de \`preguntas\` dentro de la sección \`faq\` del contexto.
-      - Para esta tarea, sé flexible. Considera que hay una coincidencia si el significado es el mismo, incluso si las palabras son diferentes, son coloquiales o tienen pequeños errores tipográficos (ej: "gracais" debe coincidir con "Gracias").
-      - Una vez que termines esta tarea, pasa a la Tarea 2.
+      **INSTRUCCIONES DE COMPORTAMIENTO (CRÍTICO):**
+      1. **ANÁLISIS INTERNO:** Determina internamente si la pregunta está en el FAQ o requiere uso del contexto. NO muestres este análisis en la respuesta.
+      2. **RESPUESTA FAQ:** Si coincide con el FAQ, responde EXACTAMENTE con el texto de la 'respuesta' predefinida.
+      3. **RESPUESTA CONTEXTUAL:** Si no es FAQ, responde usando SOLO la información del contexto entregado.
+      4. **FORMATO DE SALIDA:** Entrega ÚNICAMENTE la respuesta final al usuario. **ESTÁ PROHIBIDO** incluir textos como "TAREA 1", "Análisis", o explicar tu proceso.
 
-      **TAREA 2: DECIDIR LA RESPUESTA.**
-      - **SI** en la Tarea 1 encontraste una coincidencia con una pregunta del FAQ: Tu respuesta **DEBE SER** el contenido exacto y literal del campo \`respuesta\` correspondiente a esa pregunta. No añadas, quites ni modifiques nada. Simplemente devuelve ese texto, incluyendo cualquier formato Markdown.
-      - **SI NO** encontraste una coincidencia en la Tarea 1: Procede a formular una respuesta basándote **únicamente en el resto del contexto general** (\`about\`, \`projects\`, etc.). Si la información no está ahí, responde amablemente que no tienes ese detalle específico.
-
-      **REGLAS ADICIONALES DE FORMATO:**
-      - Utiliza siempre formato Markdown para los enlaces: \`[texto](URL)\`.
-      - Responde siempre en el idioma especificado en las instrucciones.
-
-      **INSTRUCCIONES DE IDIOMA:**
-      - ${langInstruction}
+      **REGLAS:**
+      - Usa Markdown para enlaces y estilos.
+      - **IMPORTANTE:** Usa **negrita** para resaltar los nombres de los servicios (ej: **Landing Pages**, **WordPress**, **Aplicaciones Web**) y conceptos clave.
+      - Idioma de respuesta: ${langInstruction}
 
       ---
-      **CONTEXTO DEL PORTAFOLIO (en formato JSON):**
+      **CONTEXTO (JSON):**
       ${portfolioContext}
       ---
 
-      **PREGUNTA DEL USUARIO:**
+      **MENSAJE DEL USUARIO:**
       "${message}"
     `;
-    // =============================================================
-    // >> FIN DEL PROMPT FINAL CORREGIDO <<
-    // =============================================================
 
     const result = await model.generateContent(prompt);
     const text = result.response.text();
 
     return NextResponse.json({ reply: text });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error en la API de chat:", error);
+
+    // Detectar Rate Limit (429) o cuota excedida
+    const isRateLimit = error?.status === 429 ||
+      error?.response?.status === 429 ||
+      error?.message?.includes('429') ||
+      error?.message?.toLowerCase().includes('quota') ||
+      error?.message?.toLowerCase().includes('limit');
+
+    if (isRateLimit) {
+      return NextResponse.json(
+        { error: "Demasiadas peticiones (Rate Limit). Intenta más tarde." },
+        { status: 429 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Hubo un problema al comunicarse con la IA." },
       { status: 500 }
