@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 
-// Firebase imports removed
+// Firebase imports removed and dont use it for now
 import {
   Bell,
   Command,
