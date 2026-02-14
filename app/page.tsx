@@ -985,7 +985,7 @@ export default function Portfolio() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-[100dvh] flex flex-col items-center justify-center relative px-4 pt-16">
+      <section className="h-[100svh] overflow-hidden flex flex-col items-center justify-center relative px-4 pt-16">
         {/* Fondo con imagen y degradado */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
@@ -1057,7 +1057,7 @@ export default function Portfolio() {
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce z-20 will-change-transform">
           <button
             type="button"
             aria-label={t("aria.goToAbout")}
@@ -1098,6 +1098,7 @@ export default function Portfolio() {
                 <div className="w-64 h-80 sm:w-80 sm:h-[28rem] rounded-3xl border-4 border-purple-500 overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-105 mx-auto">
                   <Image
                     src="/img/profile/video.webp" // Ruta del archivo WebP
+                    // src="/img/profile/profile.jpg" // Ruta del archivo WebP
                     alt="Felipe Pereira A."
                     width={320}
                     height={400}
