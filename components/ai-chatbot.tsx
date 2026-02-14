@@ -115,9 +115,8 @@ export function AIChatbot() {
 
   return (
     <div
-      className={`fixed bottom-6 left-6 z-50 bg-white rounded-2xl shadow-2xl border transition-all duration-300 ${
-        isMinimized ? "w-80 h-16" : "w-80 h-96"
-      }`}
+      className={`fixed bottom-6 left-6 z-50 bg-white rounded-2xl shadow-2xl border transition-all duration-300 ${isMinimized ? "w-80 h-16" : "w-80 h-96"
+        }`}
     >
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
@@ -149,16 +148,15 @@ export function AIChatbot() {
       {!isMinimized && (
         <>
           {/* Messages */}
-          <div className="h-64 overflow-y-auto p-4 space-y-3">
+          <div className="h-64 overflow-y-auto overscroll-contain p-4 space-y-3">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.isBot ? "justify-start" : "justify-end"}`}>
                 <div
                   className={`flex items-start gap-2 max-w-[80%] ${message.isBot ? "flex-row" : "flex-row-reverse"}`}
                 >
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      message.isBot ? "bg-blue-100" : "bg-purple-100"
-                    }`}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${message.isBot ? "bg-blue-100" : "bg-purple-100"
+                      }`}
                   >
                     {message.isBot ? (
                       <Bot className="w-4 h-4 text-blue-600" />
@@ -168,11 +166,10 @@ export function AIChatbot() {
 
                   </div>
                   <div
-                    className={`rounded-2xl p-3 ${
-                      message.isBot
+                    className={`rounded-2xl p-3 ${message.isBot
                         ? "bg-gray-100 text-gray-800"
                         : "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                    }`}
+                      }`}
                   >
                     {/* La etiqueta <p> ha sido reemplazada por el componente <ReactMarkdown> */}
                     <div className="text-sm prose">
