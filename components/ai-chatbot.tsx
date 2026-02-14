@@ -22,6 +22,7 @@ export function AIChatbot() {
   const [inputValue, setInputValue] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const chatContainerRef = useRef<HTMLDivElement>(null) // Ref para el contenedor principal
   const { language } = useLanguage()
 
   // Efecto para el mensaje de bienvenida
@@ -50,6 +51,47 @@ export function AIChatbot() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
+
+  // --- BLOQUEO DE SCROLL PARENT (Página) ---
+  // Este efecto evita que el scroll se propague al body cuando el mouse está sobre el chatbot
+  useEffect(() => {
+    const container = chatContainerRef.current
+    if (!container) return
+
+    const handleWheel = (e: WheelEvent) => {
+      // Buscamos si el evento ocurrió dentro del área scrolleable de mensajes
+      const target = e.target as HTMLElement
+      const scrollableArea = target.closest('.overflow-y-auto') as HTMLElement
+
+      if (scrollableArea) {
+        // Estamos sobre los mensajes. Verificamos si podemos scrollear.
+        const { scrollTop, scrollHeight, clientHeight } = scrollableArea
+        const isAtTop = scrollTop === 0
+        const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1
+        const isScrollingUp = e.deltaY < 0
+        const isScrollingDown = e.deltaY > 0
+
+        // Si intenta subir estando arriba, o bajar estando abajo -> BLOQUEAR BODY
+        if ((isAtTop && isScrollingUp) || (isAtBottom && isScrollingDown)) {
+          e.preventDefault()
+        }
+        // Si está en medio, deja que el div scrollee normalmente (no hacemos preventDefault)
+        // pero hacemos stopPropagation para buena medida (aunque el preventDefault suele bastar para el chaining)
+        e.stopPropagation()
+      } else {
+        // Si scrollea sobre el header o el input (zonas no scrolleables) -> BLOQUEAR BODY
+        e.preventDefault()
+      }
+    }
+
+    // passive: false es CRÍTICO para poder usar preventDefault()
+    container.addEventListener('wheel', handleWheel, { passive: false })
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel)
+    }
+  }, [isOpen, isMinimized]) // Recrear listener si cambia el estado de apertura
+
 
   // Función para enviar mensajes a la API
   const handleSendMessage = async () => {
@@ -115,6 +157,7 @@ export function AIChatbot() {
 
   return (
     <div
+      ref={chatContainerRef}
       className={`fixed bottom-6 left-6 z-50 bg-white rounded-2xl shadow-2xl border transition-all duration-300 ${isMinimized ? "w-80 h-16" : "w-80 h-96"
         }`}
     >
@@ -167,8 +210,8 @@ export function AIChatbot() {
                   </div>
                   <div
                     className={`rounded-2xl p-3 ${message.isBot
-                        ? "bg-gray-100 text-gray-800"
-                        : "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                      ? "bg-gray-100 text-gray-800"
+                      : "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
                       }`}
                   >
                     {/* La etiqueta <p> ha sido reemplazada por el componente <ReactMarkdown> */}
