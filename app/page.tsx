@@ -167,7 +167,7 @@ const educationData: Education[] = [
     institution: "Universidad Andrés Bello",
     slug: "unab_civil",
     degree: "Ingeniería Civil Informática",
-    dates: "2025",
+    dates: "Egresado - 2025 ",
     location: "Santiago, Chile",
     description: "Etapa cúlmine de mi formación integra la ingeniería de software avanzada con la ciencia de datos estratégica, validada mediante mi tesis sobre optimización combinatoria. Título profesional de Ingeniero Civil Informático, aprobado con distinción.",
     bullets: [
@@ -233,54 +233,7 @@ const educationData: Education[] = [
     imageSrc: "/img/logos/puj.png",
     skills: ["Optimización de procesos", "Desarrollo de software", "Intercambio Cultural"]
   },
-  {
-    id: 5,
-    institution: "Alura Latam",
-    slug: "alura_one_bg",
-    degree: "Becado: Data Science - Oracle Next Education (ONE) G9",
-    dates: "ago. 2025 – mar. 2026",
-    location: "Online",
-    description: "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico. Nota: En proceso.",
-    bullets: [
-      "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).",
-      "Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.",
-      "Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.",
-      "Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio."
-    ],
-    imageSrc: "/img/logos/alura.png",
-    skills: ["Data Science", "Python", "Machine Learning", "EDA", "Matplotlib"]
-  },
-  {
-    id: 6,
-    institution: "Coursera",
-    slug: "coursera_skills_work",
-    degree: "Beca Skills for Work - Banco Santander España",
-    dates: "2025 – Actualidad",
-    location: "Online",
-    description: "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
-    bullets: [
-      "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.",
-      "Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.",
-      "Estoy comprometido a aprovechar al máximo esta oportunidad para mejorar mi empleabilidad y estar preparado para los nuevos desafíos del sector."
-    ],
-    imageSrc: "/img/logos/coursera.png",
-    skills: ["Soft Skills", "Liderazgo", "Agile", "Gestión de Proyectos"]
-  },
-  {
-    id: 7,
-    institution: "Alura Latam",
-    slug: "alura_selection_phase",
-    degree: "Fase de Selección y Formación Inicial - Beca ONE",
-    dates: "jun. 2025 – ago. 2025",
-    location: "Online",
-    description: "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
-    bullets: [
-      "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.",
-      "Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender."
-    ],
-    imageSrc: "/img/logos/alura.png",
-    skills: ["Lógica de Programación", "Algoritmos", "Productividad"]
-  },
+
   {
     id: 8,
     institution: "Colegio Santa María de Paine",
@@ -297,7 +250,68 @@ const educationData: Education[] = [
 ];
 
 // Datos de Becas
-const scholarshipsData: Scholarship[] = [];
+const scholarshipsData: Scholarship[] = [
+
+  {
+    id: 1,
+    institution: "Alura Latam",
+    slug: "alura_one_bg",
+    name: "Becado: Data Science - Oracle Next Education (ONE) G9",
+    dates: "ago. 2025 – mar. 2026",
+    description: "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico. Nota: En proceso.",
+    bullets: [
+      "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).",
+      "Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.",
+      "Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.",
+      "Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio."
+    ],
+    imageSrc: "/img/logos/alura.png",
+    skills: ["Data Science", "Python", "Machine Learning", "EDA", "Matplotlib"]
+  },
+  {
+    id: 2,
+    institution: "Coursera",
+    slug: "coursera_skills_work",
+    name: "Beca Skills for Work - Banco Santander España",
+    dates: "2025 – Actualidad",
+    description: "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
+    bullets: [
+      "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.",
+      "Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.",
+      "Estoy comprometido a aprovechar al máximo esta oportunidad para mejorar mi empleabilidad y estar preparado para los nuevos desafíos del sector."
+    ],
+    imageSrc: "/img/logos/coursera.png",
+    skills: ["Soft Skills", "Liderazgo", "Agile", "Gestión de Proyectos"]
+  },
+  {
+    id: 3,
+    institution: "Alura Latam",
+    slug: "alura_selection_phase",
+    name: "Fase de Selección y Formación Inicial - Beca ONE",
+    dates: "jun. 2025 – ago. 2025",
+    description: "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
+    bullets: [
+      "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.",
+      "Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender."
+    ],
+    imageSrc: "/img/logos/alura.png",
+    skills: ["Lógica de Programación", "Algoritmos", "Productividad"]
+  },
+  {
+    id: 4,
+    institution: "Pontificia Universidad Javeriana Cali",
+    slug: "beca_alianza_pacifico",
+    name: "Beca Alianza del Pacífico - Movilidad Internacional",
+    dates: "jul. 2023 – dic. 2023",
+    description: "Galardonado con la Beca Alianza del Pacífico por excelencia académica. Este reconocimiento financió integralmente mi estadía, alojamiento y manutención durante mi semestre de intercambio internacional, premiando mi destacado rendimiento universitario.",
+    bullets: [
+      "Movilidad Estudiantil Internacional: Selección basada en mérito académico para representar a Chile y la UNAB en Colombia.",
+      "Excelencia Académica: Reconocimiento otorgado a estudiantes de alto rendimiento para fomentar la integración regional."
+    ],
+    imageSrc: "/img/logos/puj.png",
+    skills: ["Excelencia Académica", "Movilidad Internacional", "Liderazgo"]
+  }
+];
 
 const experiencesData: ExperienceData[] = [
   {
@@ -1138,9 +1152,9 @@ export default function Portfolio() {
                   <User className="w-6 h-6 text-purple-600 mt-1 flex-shrink-0" />
                   <div>
                     <span className="text-gray-700">
-                      {t("about.exchange").split("Pontíficia Universidad Javeriana Cali")[0]}
-                      <span className="font-semibold">Pontíficia Universidad Javeriana Cali</span>
-                      {t("about.exchange").split("Pontíficia Universidad Javeriana Cali")[1]}
+                      {t("about.exchange").split("Pontificia Universidad Javeriana Cali")[0]}
+                      <span className="font-semibold">Pontificia Universidad Javeriana Cali</span>
+                      {t("about.exchange").split("Pontificia Universidad Javeriana Cali")[1]}
                     </span>
                   </div>
                 </div>

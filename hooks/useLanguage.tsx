@@ -201,16 +201,21 @@ const translations = {
     "education.puj_exchange.bullets": "Magíster en Ing. Industrial: Participé en cursos de especialización en optimización de logística, cadenas de suministro y control de calidad.||Optimización Avanzada: Estudio de modelos y algoritmos complejos a nivel de postgrado.||Ciberseguridad: Formación práctica basada en Cisco.||Modelación Logística y Procesos Industriales: Análisis y diseño de sistemas productivos y logísticos.||Control de Calidad de Software: Aplicación de metodologías para asegurar la calidad en el desarrollo de software.||Actividades y grupos: Participé activamente en la vida universitaria para potenciar el intercambio cultural y lingüístico; incluyendo grupos deportivos y eventos culturales.",
 
     // 4. Alura ONE BG
-    "education.alura_one_bg.description": "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico. Nota: En proceso.",
-    "education.alura_one_bg.bullets": "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).||Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.||Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.||Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio.",
+    "scholarships.alura_one_bg.description": "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico. Nota: En proceso.",
+    "scholarships.alura_one_bg.bullets": "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).||Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.||Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.||Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio.",
 
     // 5. Coursera Skills
-    "education.coursera_skills_work.description": "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
-    "education.coursera_skills_work.bullets": "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.||Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.||Estoy comprometido a aprovechar al máximo esta oportunidad para mejorar mi empleabilidad y estar preparado para los nuevos desafíos del sector.",
+    "scholarships.coursera_skills_work.description": "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
+    "scholarships.coursera_skills_work.bullets": "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.||Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.||Estoy comprometido a aprovechar al máximo esta oportunidad para mejorar mi empleabilidad y estar preparado para los nuevos desafíos del sector.",
 
     // 6. Alura Selection
-    "education.alura_selection_phase.description": "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
-    "education.alura_selection_phase.bullets": "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.||Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender.",
+    "scholarships.alura_selection_phase.description": "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
+    "scholarships.alura_selection_phase.bullets": "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.||Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender.",
+
+    // 7. Beca Alianza del Pacífico
+    "scholarships.beca_alianza_pacifico.name": "Beca Alianza del Pacífico - Movilidad Internacional",
+    "scholarships.beca_alianza_pacifico.description": "Galardonado con la Beca Alianza del Pacífico por excelencia académica. Este reconocimiento financió integralmente mi estadía, alojamiento y manutención durante mi semestre de intercambio internacional, premiando mi destacado rendimiento universitario.",
+    "scholarships.beca_alianza_pacifico.bullets": "Movilidad Estudiantil Internacional: Selección basada en mérito académico para representar a Chile y la UNAB en Colombia.||Excelencia Académica: Reconocimiento otorgado a estudiantes de alto rendimiento para fomentar la integración regional.",
 
     // 7. UNAB Postgrado
     "education.unab_postgrado.description": "Cursando programa de postgrado con foco en la especialización avanzada en Ingeniería de Software, Ciencia de Datos e Inteligencia Artificial. El programa integra conocimientos teóricos con aplicación práctica en tecnologías de vanguardia, incluyendo trayectorias formativas desarrolladas y certificadas por IBM en Data Science & AI.",
@@ -356,7 +361,7 @@ const translations = {
     "experience.prepIn": "at",
     "experience.faculty": "the Faculty of Engineering",
     "experience.prepOf": "of",
-    "experience.university": "Andres Bello University",
+    "experience.university": "Universidad Andrés Bello",
     "experience.developing": ", I have been developing both ",
     "experience.personal": "personal projects",
     "experience.and": "and",
@@ -460,8 +465,25 @@ const translations = {
     // Scholarships content merged into education and removed to cleanup
 
     // Education detailed texts (English)
-    // Removed old education keys to fallback to Spanish (latest content)
-    // education.unab_postgrado etc.
+    // Education detailed texts (English)
+
+    // 4. Alura ONE BG
+    "scholarships.alura_one_bg.description": "Currently taking the Data Science specialization as a beneficiary of the Oracle Next Education (ONE) program scholarship, Generation 9. This Oracle and Alura Latam technological training and inclusion initiative is designed to develop professionals with a 100% practical approach. Note: In progress.",
+    "scholarships.alura_one_bg.bullets": "Python for Data Science: Mastery of key libraries like Pandas and NumPy for data manipulation, cleaning, and exploratory data analysis (EDA).||Data Visualization: Creation of impactful dashboards and visual stories using Matplotlib and Seaborn.||Machine Learning: Development and evaluation of predictive models (regression and classification) with Scikit-learn.||Practical Projects (Challenges): Applied everything learned in real-world projects, such as the 'Alura Store Challenge', where I analyzed sales patterns and customer behavior to generate business insights.",
+
+    // 5. Coursera Skills
+    "scholarships.coursera_skills_work.description": "Currently developing my professional competencies as a beneficiary of the Santander Skills | Skills for Work Scholarship. This is a high-performance training program sponsored by Banco Santander and executed on the Coursera platform. The program's objective is to close the skills gap demanded by companies today.",
+    "scholarships.coursera_skills_work.bullets": "Soft Skills: Effective communication, team leadership, emotional intelligence, negotiation, and conflict resolution.||Hard Skills: Agile Methodologies, data analysis fundamentals, critical thinking, and project management.||I am committed to making the most of this opportunity to improve my employability and be prepared for the sector's new challenges.",
+
+    // 6. Alura Selection
+    "scholarships.alura_selection_phase.description": "Selected to participate in the initial training and selection phase of G9 of the prestigious ONE program. This fundamental stage was not just a simple application, but an active filter process designed to identify and prepare candidates with the greatest potential.",
+    "scholarships.alura_selection_phase.bullets": "Programming Fundamentals: Successfully completed the Logic of Programming track, laying the essential foundations of algorithmic thinking, data structures, variables, functions, and good practices.||Personal Development (Soft Skills): Actively absorbed professional development modules, focusing on cultivating a Growth Mindset, self-management techniques, productivity, and the ability to learn to learn.",
+
+    // 7. Pacific Alliance Scholarship
+    "scholarships.beca_alianza_pacifico.name": "Pacific Alliance Scholarship - International Mobility",
+    "scholarships.beca_alianza_pacifico.description": "Awarded the Pacific Alliance Scholarship for academic excellence. This recognition fully funded my stay, accommodation, and living expenses during my international exchange semester, rewarding my outstanding university performance.",
+    "scholarships.beca_alianza_pacifico.bullets": "International Student Mobility: Selection based on academic merit to represent Chile and UNAB in Colombia.||Academic Excellence: Recognition granted to high-performance students to foster regional integration.",
+
 
     // Work item translations (English)
     "work.mrcomputer.description": "I started as an intern and was promoted thanks to rapid skill development and key contributions in security and software projects. My responsibilities included:",
@@ -578,14 +600,14 @@ const translations = {
 
     // Hero Section
     "hero.name": "Felipe Pereira A.",
-    "hero.title": "Informatikako Ingeniari Zibila",
+    "hero.title": "Informatikako Garatzaile Ingeniari",
     "hero.description":
       "Software Ingeniaria. Full Stack Web, Mugikor Garapenean eta Adimen Artifizialean espezializatua. Datu-zientzian, Ordenagailu Bidezko Ikusmenean eta Eragiketa Ikerketan esperientziarekin.",
     "hero.contactBtn": "Kontaktatu",
 
     // About Section
     "about.title": "Niri buruz",
-    "about.engineer": "Informatikako Ingeniari Zibila",
+    "about.engineer": "Informatikako Garatzaile Ingeniari",
     "about.engineerDescription": " heziketa akademiko sendoa eta aplikazio garapenean esperientzia praktikoa dituena.",
     "about.exchange": "Truke akademiko bat egin nuen ",
     "about.specialized": "Espezializatua",
@@ -608,7 +630,7 @@ const translations = {
     "experience.prepIn": "",
     "experience.faculty": "Ingeniaritza Fakultatean",
     "experience.prepOf": "",
-    "experience.university": "Andres Bello Unibertsitatea",
+    "experience.university": "Universidad Andrés Bello",
     "experience.developing": ", ",
     "experience.personal": "proiektu pertsonalak",
     "experience.and": "eta",
@@ -712,7 +734,25 @@ const translations = {
     // Scholarships content merged/removed
 
     // Education detailed texts (Basque)
-    // Removed old education keys
+    // Education detailed texts (Basque)
+
+    // 4. Alura ONE BG
+    "scholarships.alura_one_bg.description": "Gaur egun Data Science espezializazioa egiten ari naiz Oracle Next Education (ONE) programako beka baten onuradun gisa, 9. belaunaldian. Oracle eta Alura Latam-en prestakuntza teknologikorako eta inklusiorako ekimen hau %100 praktikoa den ikuspegiarekin profesionalak garatzeko diseinatuta dago. Oharra: Prozesuan.",
+    "scholarships.alura_one_bg.bullets": "Python Data Sciencerako: Pandas eta NumPy bezalako liburutegi gakoen menperatzea datuen manipulazio, garbiketa eta analisi esploratoriorako (EDA).||Datuen Bisualizazioa: Dashboard eta historia bisual inpaktanteak sortzea Matplotlib eta Seaborn erabiliz.||Machine Learning: Eredu prediktiboen garapena eta ebaluazioa (erregresioa eta klasifikazioa) Scikit-learn erabiliz.||Proiektu Praktikoak (Challenges): Ikasitako guztia mundu errealeko proiektuetan aplikatu nuen, 'Alura Store Challenge' bezalakoetan, non salmenta ereduak eta bezeroen portaera aztertu nituen negozio insights-ak sortzeko.",
+
+    // 5. Coursera Skills
+    "scholarships.coursera_skills_work.description": "Gaur egun nire gaitasun profesionalak garatzen ari naiz Santander Skills | Skills for Work Bekaren onuradun gisa. Hau etekin handiko prestakuntza programa bat da, Banco Santanderrek babestua eta Coursera plataforman gauzatua. Programaren helburua gaur egungo enpresek eskatzen dituzten gaitasunen arrakala ixtea da.",
+    "scholarships.coursera_skills_work.bullets": "Trebetasun Pertsonalak (Soft Skills): Komunikazio eraginkorra, talde lidergoa, adimen emozionala, negoziazioa eta gatazken ebazpena.||Trebetasun Digitalak eta Negoziozkoak (Hard Skills): Metodologia Arinak (Agile), datu-analisiaren oinarriak, pentsamendu kritikoa eta proiektu kudeaketa.||Konprometituta nago aukera hau maximizatzeko nire enpleagarritasuna hobetzeko eta sektorearen erronka berrietarako prestatuta egoteko.",
+
+    // 6. Alura Selection
+    "scholarships.alura_selection_phase.description": "ONE programa ospetsuaren G9ko hasierako prestakuntza eta hautaketa fasean parte hartzeko hautatua izan nintzen. Funtsezko etapa hau ez zen postu soil bat izan, baizik eta potentzial handiena duten hautagaiak identifikatzeko eta prestatzeko diseinatutako iragazte prozesu aktibo bat.",
+    "scholarships.alura_selection_phase.bullets": "Programazioaren Oinarriak: Programazio Logikako bidea arrakastaz osatu nuen, pentsamendu algoritmikoaren, datu-egituren, aldagaien, funtzio eta praktika onen oinarriak ezarriz.||Garapen Pertsonala (Soft Skills): Garapen profesionaleko moduluak aktiboki bereganatu nituen, Hazkunde Pentsamoldea, autokudeaketa teknikak, produktibitatea eta ikasten ikasteko gaitasuna lantzean zentratuz.",
+
+    // 7. Pazifikoko Aliantza Beka
+    "scholarships.beca_alianza_pacifico.name": "Pazifikoko Aliantza Beka - Nazioarteko Mugikortasuna",
+    "scholarships.beca_alianza_pacifico.description": "Pazifikoko Aliantza Beka jaso nuen bikaintasun akademikoagatik. Aitorpen honek nire egonaldia, ostatua eta mantenu gastuak erabat finantzatu zituen nazioarteko truke seihilekoan, unibertsitateko errendimendu bikaina sarituz.",
+    "scholarships.beca_alianza_pacifico.bullets": "Nazioarteko Ikasle Mugikortasuna: Meritu akademikoan oinarritutako hautaketa Txile eta UNAB Kolonbian ordezkatzeko.||Bikaintasun Akademikoa: Errendimendu altuko ikasleei emandako aitorpena eskualdeko integrazioa sustatzeko.",
+
 
     // Work item translations (Basque)
     "work.mrcomputer.description": "Praktikante gisa hasi nintzen eta promozionatua izan nintzen gaitasunak azkar garatu eta segurtasun eta software proiektuetan egin nituen ekarpen garrantzitsuei esker. Nire ardura nagusiak izan ziren:",
