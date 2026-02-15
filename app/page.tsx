@@ -137,6 +137,7 @@ interface EducationCardProps {
   institution: string;
   degree: string;
   slug?: string;
+  degreeKey?: string;
   dates: string;
   location?: string;
   description: string;
@@ -150,6 +151,7 @@ interface ScholarshipCardProps {
   slug?: string;
   institution: string;
   name: string;
+  nameKey?: string;
   dates: string;
   description: string;
   bullets?: string[];
@@ -167,6 +169,7 @@ const educationData: Education[] = [
     institution: "Universidad Andrés Bello",
     slug: "unab_civil",
     degree: "Ingeniería Civil Informática",
+    degreeKey: "education.unab_civil.degree",
     dates: "Egresado - 2025 ",
     location: "Santiago, Chile",
     description: "Etapa cúlmine de mi formación integra la ingeniería de software avanzada con la ciencia de datos estratégica, validada mediante mi tesis sobre optimización combinatoria. Título profesional de Ingeniero Civil Informático, aprobado con distinción.",
@@ -185,6 +188,7 @@ const educationData: Education[] = [
     institution: "Universidad Andrés Bello",
     slug: "unab_licenciatura",
     degree: "Licenciatura en Ciencias de la Ingeniería, Computer Science",
+    degreeKey: "education.unab_licenciatura.degree",
     dates: "2020 - 2024",
     location: "Santiago, Chile",
     description: "Obtención del grado de Licenciado en Ciencias de la Ingeniería, aprobado con distinción. Este hito consolida mi base científica y tecnológica, certificando la capacidad analítica para resolver desafíos complejos en la industria TI.",
@@ -204,6 +208,7 @@ const educationData: Education[] = [
     institution: "Universidad Andrés Bello",
     slug: "unab_postgrado",
     degree: "Postgrado, Máster en Ingeniería Informática",
+    degreeKey: "education.unab_postgrado.degree",
     dates: "dic. 2025 – mar. 2027",
     location: "Santiago, Chile",
     description: "Cursando programa de postgrado con foco en la especialización avanzada en Ingeniería de Software, Ciencia de Datos e Inteligencia Artificial. El programa integra conocimientos teóricos con aplicación práctica en tecnologías de vanguardia, incluyendo trayectorias formativas desarrolladas y certificadas por IBM en Data Science & AI.",
@@ -219,6 +224,7 @@ const educationData: Education[] = [
     institution: "Pontificia Universidad Javeriana Cali",
     slug: "puj_exchange",
     degree: "Ingeniería de Sistemas y Computación e Industrial",
+    degreeKey: "education.puj_exchange.degree",
     dates: "jul. 2023 – dic. 2023",
     location: "Cali, Colombia",
     description: "Programa de intercambio académico internacional enfocado en la profundización de conocimientos en áreas avanzadas de Ingeniería Industrial e Ingeniería de Sistemas. La experiencia combinó un riguroso plan de estudios con una inmersión cultural completa. Durante el semestre, cursé asignaturas de alto nivel, incluyendo tópicos de magíster, para complementar mi formación de pregrado.",
@@ -239,6 +245,7 @@ const educationData: Education[] = [
     institution: "Colegio Santa María de Paine",
     slug: "colegio_smp",
     degree: "Estudiante",
+    degreeKey: "education.colegio_smp.degree",
     dates: "Egresado",
     location: "Paine, Chile",
     description: "Estudiante. nivel alto Matemáticas, Química, Artes visuales y Música. Nota: Egresado de Cuarto Medio con Promedio 6.0.",
@@ -257,6 +264,7 @@ const scholarshipsData: Scholarship[] = [
     institution: "Alura Latam",
     slug: "alura_one_bg",
     name: "Becado: Data Science - Oracle Next Education (ONE) G9",
+    nameKey: "scholarships.alura_one_bg.name",
     dates: "ago. 2025 – mar. 2026",
     description: "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico. Nota: En proceso.",
     bullets: [
@@ -272,7 +280,8 @@ const scholarshipsData: Scholarship[] = [
     id: 2,
     institution: "Coursera",
     slug: "coursera_skills_work",
-    name: "Beca Skills for Work - Banco Santander España",
+    name: "Becado: Skills for Work - Banco Santander España",
+    nameKey: "scholarships.coursera_skills_work.name",
     dates: "2025 – Actualidad",
     description: "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
     bullets: [
@@ -288,6 +297,7 @@ const scholarshipsData: Scholarship[] = [
     institution: "Alura Latam",
     slug: "alura_selection_phase",
     name: "Fase de Selección y Formación Inicial - Beca ONE",
+    nameKey: "scholarships.alura_selection_phase.name",
     dates: "jun. 2025 – ago. 2025",
     description: "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
     bullets: [
@@ -302,6 +312,7 @@ const scholarshipsData: Scholarship[] = [
     institution: "Pontificia Universidad Javeriana Cali",
     slug: "beca_alianza_pacifico",
     name: "Beca Alianza del Pacífico - Movilidad Internacional",
+    nameKey: "scholarships.beca_alianza_pacifico.name",
     dates: "jul. 2023 – dic. 2023",
     description: "Galardonado con la Beca Alianza del Pacífico por excelencia académica. Este reconocimiento financió integralmente mi estadía, alojamiento y manutención durante mi semestre de intercambio internacional, premiando mi destacado rendimiento universitario.",
     bullets: [
@@ -1377,11 +1388,17 @@ export default function Portfolio() {
               const bulletsText = translatedBullets && translatedBullets !== bulletsKey ? translatedBullets : (edu.bullets && edu.bullets.length > 0 ? edu.bullets.join('||') : '')
               const bulletsArray = bulletsText ? bulletsText.split('||').map(s => s.trim()).filter(Boolean) : []
 
+              let titleText = edu.degree
+              if (edu.degreeKey) {
+                const translatedTitle = t(edu.degreeKey)
+                titleText = translatedTitle && translatedTitle !== edu.degreeKey ? translatedTitle : edu.degree
+              }
+
               return (
                 <ExperienceCard
                   key={edu.id}
                   company={edu.institution}
-                  title={edu.degree}
+                  title={titleText}
                   dates={`${t("education.datesLabel")} ${edu.dates}`}
                   location={edu.location ? `${t("education.locationLabel")} ${edu.location}` : ""}
                   description={descriptionText}
@@ -1418,11 +1435,17 @@ export default function Portfolio() {
                 const bulletsText = translatedBullets && translatedBullets !== bulletsKey ? translatedBullets : (scholarship.bullets && scholarship.bullets.length > 0 ? scholarship.bullets.join('||') : '')
                 const bulletsArray = bulletsText ? bulletsText.split('||').map(s => s.trim()).filter(Boolean) : []
 
+                let titleText = scholarship.name
+                if (scholarship.nameKey) {
+                  const translatedTitle = t(scholarship.nameKey)
+                  titleText = translatedTitle && translatedTitle !== scholarship.nameKey ? translatedTitle : scholarship.name
+                }
+
                 return (
                   <ExperienceCard
                     key={scholarship.id}
-                    company={`${t("scholarships.institutionLabel")} ${scholarship.institution}`}
-                    title={scholarship.name}
+                    company={scholarship.institution}
+                    title={titleText}
                     dates={`${t("scholarships.periodLabel")} ${scholarship.dates}`}
                     location=""
                     description={descriptionText}

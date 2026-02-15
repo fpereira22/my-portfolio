@@ -137,20 +137,21 @@ const translations = {
 
     // Projects Section
     "projects.title": "Proyectos Destacados",
-    "projects.project1.title": "Análisis de Tachas",
+    "projects.project1.title": "Análisis de Infraestructura Avanzada",
     "projects.project1.desc":
-      "Sistema de análisis de datos para optimización de rutas y gestión de infraestructura vial.",
+      "IA para detección de tachas, captafaros, balizas, señalética y fisuras en pavimento o barreras New Jersey. Optimiza el mantenimiento vial mediante visión computacional avanzada.",
     "projects.project2.title": "Housing Price API",
-    "projects.project2.desc": "Desarrollo de API para la predicción de precios de viviendas utilizando Machine Learning.",
+    "projects.project2.desc": "Arquitectura escalable de API para la predicción de valores inmobiliarios. Utiliza modelos de regresión avanzados entrenados con Scikit-Learn y desplegados en ecosistemas cloud.",
     "projects.project3.title": "Detector de Sentimientos",
-    "projects.project3.desc": "Sistema de detección de sentimientos en reseñas de productos usando NLP e Inteligencia Artificial.",
+    "projects.project3.desc": "Herramienta de Procesamiento de Lenguaje Natural (NLP) para el análisis de reseñas. Emplea técnicas de tokenización y modelos de clasificación para identificar polaridad y tópicos clave.",
     "projects.viewBtn": "Ver Proyecto",
     "projects.project4.title": "Optimización Mochila",
-    "projects.project4.desc": "Estudio comparativo de algoritmos (Julia/C/AMPL) para el problema de la mochila: Fuerza bruta, dinámica y heurísticas.",
+    "projects.project4.desc":
+      "Tesis de investigación sobre 'Hard Knapsack Problems' (Pissinger). Desarrollada en Julia, C y Python, implementa modelos de fuerza bruta, heurísticas y algoritmos genéticos multihilo.",
     "projects.project5.title": "Impostor Futbolero",
-    "projects.project5.desc": "Juego multijugador en tiempo real tipo Among Us con temática de fútbol chileno. Sockets.IO, Node.js y diseño moderno.",
+    "projects.project5.desc": "Experiencia multijugador en tiempo real con Socket.IO y Node.js. Integra mecánicas de sincronización de estado, diseño UI moderno y una temática inspirada en el fútbol chileno.",
     "projects.project6.title": "Telecom Churn AI",
-    "projects.project6.desc": "Pipeline de Data Science para predicción de fuga de clientes. ETL, análisis estadístico y modelos de Machine Learning.",
+    "projects.project6.desc": "Pipeline integral de Data Science para la retención estratégica de clientes. Incluye procesos ETL complejos, análisis estadístico profundo y modelos predictivos para identificar patrones de fuga.",
 
     // Work History Section
     "workHistory.title": "Experiencia Laboral",
@@ -188,42 +189,48 @@ const translations = {
     "scholarships.title": "Becas y Reconocimientos",
 
     // Education detailed texts (Spanish)
-    // 1. UNAB Civil
+    "education.unab_civil.degree": "Ingeniería Civil Informático",
     "education.unab_civil.description": "Etapa cúlmine de mi formación integra la ingeniería de software avanzada con la ciencia de datos estratégica, validada mediante mi tesis sobre optimización combinatoria. Título profesional de Ingeniero Civil Informático, aprobado con distinción.",
     "education.unab_civil.bullets": "Desarrollo Full Stack Moderno: Arquitectura y construcción de aplicaciones escalables utilizando React, Next.js y Angular. Integración de servicios backend robustos y APIs eficientes.||Cloud Data Engineering & Analytics: Gestión de ecosistemas de datos en GCP (BigQuery) y Azure. Implementación de pipelines ETL, análisis profundo con Python y estrategias corporativas de Gobernanza de Datos.||Ciberseguridad Aplicada: Desarrollo bajo principios de Security by Design, asegurando la integridad de la infraestructura y el código en entornos productivos.||Innovación y Simulación: Desarrollo de videojuegos y entornos interactivos complejos con Unity, aplicando lógica matemática y física avanzada.||Investigación: Resolución de problemas complejos mediante algoritmos de optimización e Inteligencia Artificial.",
 
-    // 2. UNAB Licenciatura
+    "education.unab_licenciatura.degree": "Licenciatura en Ciencias de la Ingeniería, Computer Science",
     "education.unab_licenciatura.description": "Obtención del grado de Licenciado en Ciencias de la Ingeniería, aprobado con distinción. Este hito consolida mi base científica y tecnológica, certificando la capacidad analítica para resolver desafíos complejos en la industria TI.",
     "education.unab_licenciatura.bullets": "Actividades y grupos: Delegado académico y participación activa en proyectos de investigación aplicada. Enfoque en el desarrollo de soluciones tecnológicas innovadoras mediante metodologías ágiles y análisis de datos.||Investigación de Operaciones: Resolución de problemas de optimización combinatoria y complejidad NP, enfocada en eficiencia algorítmica y toma de decisiones.||Desarrollo de Software Avanzado: Diseño de arquitecturas escalables (Next.js, React, Angular, TypeScript) y gestión eficiente de bases de datos SQL y NoSQL.||Infraestructura y Seguridad: Despliegue de servicios en la nube (Azure, AWS) e implementación de principios de Ciberseguridad en aplicaciones.||Data Science e IA: Entrenamiento de modelos de Machine Learning, procesos ETL y desarrollo de soluciones de Visión por Computadora.",
 
-    // 3. PUJ Exchange
+    "education.unab_postgrado.degree": "Postgrado, Máster en Ingeniería Informática",
+    "education.unab_postgrado.description": "Cursando programa de postgrado con foco en la especialización avanzada en Ingeniería de Software, Ciencia de Datos e Inteligencia Artificial. El programa integra conocimientos teóricos con aplicación práctica en tecnologías de vanguardia, incluyendo trayectorias formativas desarrolladas y certificadas por IBM en Data Science & AI.",
+    "education.unab_postgrado.bullets": "Objetivo: Profundizar en el diseño y despliegue de arquitecturas de software complejas y soluciones empresariales basadas en datos y modelos predictivos.",
+
+    "education.puj_exchange.degree": "Ingeniería de Sistemas y Computación e Industrial",
     "education.puj_exchange.description": "Programa de intercambio académico internacional enfocado en la profundización de conocimientos en áreas avanzadas de Ingeniería Industrial e Ingeniería de Sistemas. La experiencia combinó un riguroso plan de estudios con una inmersión cultural completa. Durante el semestre, cursé asignaturas de alto nivel, incluyendo tópicos de magíster, para complementar mi formación de pregrado.",
     "education.puj_exchange.bullets": "Magíster en Ing. Industrial: Participé en cursos de especialización en optimización de logística, cadenas de suministro y control de calidad.||Optimización Avanzada: Estudio de modelos y algoritmos complejos a nivel de postgrado.||Ciberseguridad: Formación práctica basada en Cisco.||Modelación Logística y Procesos Industriales: Análisis y diseño de sistemas productivos y logísticos.||Control de Calidad de Software: Aplicación de metodologías para asegurar la calidad en el desarrollo de software.||Actividades y grupos: Participé activamente en la vida universitaria para potenciar el intercambio cultural y lingüístico; incluyendo grupos deportivos y eventos culturales.",
 
-    // 4. Alura ONE BG
+    "education.colegio_smp.degree": "Estudiante",
+    "education.colegio_smp.description": "Estudiante. nivel alto Matemáticas, Química, Artes visuales y Música. Nota: Egresado de Cuarto Medio con Promedio 6.0.",
+    "education.colegio_smp.bullets": "",
+
+    "scholarships.alura_one_bg.name": "Becado: Data Science - Oracle Next Education (ONE) G9",
     "scholarships.alura_one_bg.description": "Actualmente estoy cursando la especialización en Data Science como beneficiario de la beca del programa Oracle Next Education (ONE), Generación 9. Esta iniciativa de formación e inclusión tecnológica de Oracle y Alura Latam está diseñada para desarrollar profesionales con un enfoque 100% práctico. Nota: En proceso.",
     "scholarships.alura_one_bg.bullets": "Python para Data Science: Dominio de librerías clave como Pandas y NumPy para la manipulación, limpieza y análisis exploratorio de datos (EDA).||Visualización de Datos: Creación de dashboards e historias visuales impactantes usando Matplotlib y Seaborn.||Machine Learning: Desarrollo y evaluación de modelos predictivos (regresión y clasificación) con Scikit-learn.||Proyectos Prácticos (Challenges): Apliqué todo lo aprendido en proyectos del mundo real, como el 'Challenge Alura Store', donde analicé patrones de ventas y comportamiento del cliente para generar insights de negocio.",
 
-    // 5. Coursera Skills
+    "scholarships.coursera_skills_work.name": "Becado: Skills for Work - Banco Santander España",
     "scholarships.coursera_skills_work.description": "Actualmente desarrollo mis competencias profesionales como beneficiario de la Beca Santander Skills | Skills for Work. Este es un programa de formación de alto rendimiento patrocinado por el Banco Santander y ejecutado en la plataforma Coursera. El objetivo del programa es cerrar la brecha de habilidades demandadas por las empresas hoy en día.",
-    "scholarships.coursera_skills_work.bullets": "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.||Habilidades Digitales y de Negocio (Hard Skills): Metodologías Ágiles (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.||Estoy comprometido a aprovechar al máximo esta oportunidad para mejorar mi empleabilidad y estar preparado para los nuevos desafíos del sector.",
+    "scholarships.coursera_skills_work.bullets": "Habilidades Interpersonales (Soft Skills): Comunicación efectiva, liderazgo de equipos, inteligencia emocional, negociación y resolución de conflictos.||Habilidades Digitales y de Negocio (Hard Skills): Metodologías Arinak (Agile), fundamentos de análisis de datos, pensamiento crítico y gestión de proyectos.||Estoy comprometido a aprovechar al máximo esta oportunidad para mejorar mi empleabilidad y estar preparado para los nuevos desafíos del sector.",
 
-    // 6. Alura Selection
+    "scholarships.alura_selection_phase.name": "Fase de Selección y Formación Inicial - Beca ONE",
     "scholarships.alura_selection_phase.description": "Fui seleccionado para participar en la fase inicial de formación y selección de G9 del prestigioso programa ONE. Esta etapa fundamental no consistía en una simple postulación, sino en un proceso de filtro activo diseñado para identificar y preparar a los candidatos con el mayor potencial.",
     "scholarships.alura_selection_phase.bullets": "Fundamentos de la Programación: Completé con éxito la ruta de Lógica de Programación, sentando las bases esenciales del pensamiento algorítmico, estructuras de datos, variables, funciones y buenas prácticas.||Desarrollo Personal (Soft Skills): Absorbí activamente los módulos de desarrollo profesional, enfocándome en cultivar una Mentalidad de Crecimiento, técnicas de autogestión, productividad y la habilidad de aprender a aprender.",
 
-    // 7. Beca Alianza del Pacífico
     "scholarships.beca_alianza_pacifico.name": "Beca Alianza del Pacífico - Movilidad Internacional",
     "scholarships.beca_alianza_pacifico.description": "Galardonado con la Beca Alianza del Pacífico por excelencia académica. Este reconocimiento financió integralmente mi estadía, alojamiento y manutención durante mi semestre de intercambio internacional, premiando mi destacado rendimiento universitario.",
     "scholarships.beca_alianza_pacifico.bullets": "Movilidad Estudiantil Internacional: Selección basada en mérito académico para representar a Chile y la UNAB en Colombia.||Excelencia Académica: Reconocimiento otorgado a estudiantes de alto rendimiento para fomentar la integración regional.",
 
-    // 7. UNAB Postgrado
-    "education.unab_postgrado.description": "Cursando programa de postgrado con foco en la especialización avanzada en Ingeniería de Software, Ciencia de Datos e Inteligencia Artificial. El programa integra conocimientos teóricos con aplicación práctica en tecnologías de vanguardia, incluyendo trayectorias formativas desarrolladas y certificadas por IBM en Data Science & AI.",
-    "education.unab_postgrado.bullets": "Objetivo: Profundizar en el diseño y despliegue de arquitecturas de software complejas y soluciones empresariales basadas en datos y modelos predictivos.",
-
-    // 8. Colegio SMP
-    "education.colegio_smp.description": "Estudiante. nivel alto Matemáticas, Química, Artes visuales y Música. Nota: Egresado de Cuarto Medio con Promedio 6.0.",
-    "education.colegio_smp.bullets": "",
+    "work.sociedad_servicios_expert.title": "MLOps Engineer & Full Stack Dev | Encargado Marketing Digital | Experto en Programación y Desarrollo",
+    "work.sociedad_servicios_practicas.title": "AI Software Developer & Full Stack Dev — Formación Avanzada",
+    "work.mrcomputer.title": "Ingeniero en Ciberseguridad - TI",
+    "work.lapica_pipeeno.title": "Fundador y Director",
+    "work.saez_saez.title": "Ingeniero de Redes y Telecomunicaciones",
+    "work.unab_ayudante.title": "Ayudante y Tutor",
 
     // Work item translations (Spanish)
     "work.mrcomputer.description": "Inicié como Practicante y fui promovido gracias al rápido desarrollo de habilidades y contribuciones clave en proyectos de seguridad y software. Mis responsabilidades incluyeron:",
@@ -414,22 +421,38 @@ const translations = {
 
     // Projects Section
     "projects.title": "Featured Projects",
-    "projects.project1.title": "Road Stud Analysis",
-    "projects.project1.desc": "Data analysis system for route optimization and road infrastructure management.",
+    "projects.project1.title": "Advanced Infrastructure Analysis",
+    "projects.project1.desc": "AI system for detecting road studs, markers, beacons, signage, and cracks in pavement or New Jersey barriers. Optimizes road maintenance through computer vision.",
     "projects.project2.title": "Housing Price API",
-    "projects.project2.desc": "API development for housing price prediction using Machine Learning.",
+    "projects.project2.desc": "Scalable API architecture for predicting real estate values. Utilizes advanced regression models trained with Scikit-Learn and deployed in cloud ecosystems.",
     "projects.project3.title": "Sentiment Detector",
-    "projects.project3.desc": "Sentiment detection system for product reviews using NLP and Artificial Intelligence.",
+    "projects.project3.desc": "Natural Language Processing (NLP) tool for automated review analysis. Employs tokenization techniques and classification models to identify polarity and key topics.",
     "projects.viewBtn": "View Project",
     "projects.project4.title": "Knapsack Optimization",
-    "projects.project4.desc": "Comparative study of algorithms (Julia/C/AMPL) for the Knapsack problem: Brute force, dynamic programming and heuristics.",
+    "projects.project4.desc":
+      "Research thesis on 'Hard Knapsack Problems' (Pissinger). Developed in Julia, C and Python, implementing brute force, heuristics and multi-threaded genetic algorithms.",
     "projects.project5.title": "Impostor FC",
-    "projects.project5.desc": "Real-time multiplayer Among Us-style game with Chilean football theme. Socket.IO, Node.js and modern design.",
+    "projects.project5.desc": "Real-time multiplayer experience with Socket.IO and Node.js. Integrates state synchronization mechanics, modern UI design and a theme inspired by Chilean football culture.",
     "projects.project6.title": "Telecom Churn AI",
-    "projects.project6.desc": "Data Science pipeline for customer churn prediction. ETL, statistical analysis and Machine Learning models.",
+    "projects.project6.desc": "Comprehensive Data Science pipeline for strategic customer retention. Includes complex ETL processes, deep statistical analysis, and predictive models to identify churn patterns.",
 
-    // Work History Section
     "workHistory.title": "Work Experience",
+
+    "education.unab_civil.degree": "B.S. in Computer Science & Civil Engineering",
+    "education.unab_licenciatura.degree": "Bachelor of Engineering Science, Computer Science",
+    "education.unab_postgrado.degree": "Postgraduate, Master's Degree in Software Engineering",
+    "education.puj_exchange.degree": "Systems, Computing & Industrial Engineering",
+    "education.colegio_smp.degree": "Student",
+    "scholarships.alura_one_bg.name": "Scholarship: Data Science - Oracle Next Education (ONE) G9",
+    "scholarships.coursera_skills_work.name": "Scholarship: Skills for Work - Banco Santander Spain",
+    "scholarships.alura_selection_phase.name": "Selection Phase & Initial Training - ONE Scholarship",
+    "work.sociedad_servicios_expert.title": "MLOps Engineer & Full Stack Dev | Digital Marketing Manager | Programming & Development Expert",
+    "work.sociedad_servicios_practicas.title": "AI Software Developer & Full Stack Dev — Advanced Training",
+    "work.mrcomputer.title": "Cybersecurity Engineer - IT",
+    "work.lapica_pipeeno.title": "Founder & Director",
+    "work.freelance_developer.title": "Full Stack Developer",
+    "work.saez_saez.title": "Network & Telecommunications Engineer",
+    "work.unab_ayudante.title": "Teaching Assistant & Tutor",
 
     // Work item translations (English)
     "work.sociedad_servicios_expert.description": "Promoted to \"Expert in Programming and Development\". In this role I design, develop and implement advanced AI and software solutions to optimize road infrastructure and large-scale automation projects.",
@@ -443,7 +466,6 @@ const translations = {
     "work.freelance_developer.description": "I leveraged my development specialization and exchange experience to build custom web applications for small businesses and startups.",
     "work.freelance_developer.bullets": "Designed and built interactive, responsive user interfaces using React and Angular to consume RESTful APIs.||Developed robust backend services and APIs with Django and FastAPI, integrating databases like PostgreSQL, MySQL and MongoDB.||Managed full project lifecycle from requirements to deployment, implementing CI/CD pipelines to automate tests and releases.||Provided software architecture consulting, helping clients choose an optimal technology stack (Front, Back, DB) for their needs.",
     "work.freelance_developer.company": "Independent (Freelance)",
-    "work.freelance_developer.title": "Independent Full Stack Developer (Freelance)",
 
     "work.saez_saez.description": "Responsible for network infrastructure and automation tool development at an automotive company.",
     "work.saez_saez.bullets": "Local Network Redesign: Planned and simulated secure topologies using Cisco Packet Tracer and GNS3.||Automation with Python & VBA: Built custom tools to streamline customer contact processes.||Security Systems: Implemented and managed CCTV and remote access systems (SMARTPSS).",
@@ -479,7 +501,6 @@ const translations = {
     "scholarships.alura_selection_phase.description": "Selected to participate in the initial training and selection phase of G9 of the prestigious ONE program. This fundamental stage was not just a simple application, but an active filter process designed to identify and prepare candidates with the greatest potential.",
     "scholarships.alura_selection_phase.bullets": "Programming Fundamentals: Successfully completed the Logic of Programming track, laying the essential foundations of algorithmic thinking, data structures, variables, functions, and good practices.||Personal Development (Soft Skills): Actively absorbed professional development modules, focusing on cultivating a Growth Mindset, self-management techniques, productivity, and the ability to learn to learn.",
 
-    // 7. Pacific Alliance Scholarship
     "scholarships.beca_alianza_pacifico.name": "Pacific Alliance Scholarship - International Mobility",
     "scholarships.beca_alianza_pacifico.description": "Awarded the Pacific Alliance Scholarship for academic excellence. This recognition fully funded my stay, accommodation, and living expenses during my international exchange semester, rewarding my outstanding university performance.",
     "scholarships.beca_alianza_pacifico.bullets": "International Student Mobility: Selection based on academic merit to represent Chile and UNAB in Colombia.||Academic Excellence: Recognition granted to high-performance students to foster regional integration.",
@@ -683,22 +704,39 @@ const translations = {
 
     // Projects Section
     "projects.title": "Proiektu Nabarmenenak",
-    "projects.project1.title": "Tatxen Analisia",
-    "projects.project1.desc": "Datu-analisi sistema bide optimizaziorako eta bide azpiegituren kudeaketarako.",
+    "projects.project1.title": "Bide-azpiegitura Analisi Aurreratua",
+    "projects.project1.desc": "Tachak, markagailuak, balizak, seinaleak eta zoruaren edo New Jersey barreren arrakalak detektatzeko AI sistema. Bide-mantentzea optimizatzen du ikusmen aurreratuaren bidez.",
     "projects.project2.title": "Housing Price API",
-    "projects.project2.desc": "Etxebizitzen prezioen aurreikuspena egiteko API garapena Machine Learning erabiliz.",
+    "projects.project2.desc": "Higiezinen balioen iragarpenarako API arkitektura. Scikit-Learn-ekin trebatutako erregresio-eredu aurreratuak eta hodeiko ekosistemetan kokatutako soluzioak erabiltzen ditu.",
     "projects.project3.title": "Sentimendua Detektorea",
-    "projects.project3.desc": "Sentimendua detektatzeko sistema produktuen iritzietan NLP eta Adimen Artifiziala erabiliz.",
+    "projects.project3.desc": "Hizkuntzaren Prozesamendu Naturaleko (NLP) tresna iritziak aztertzeko. Polaritatea eta gai nagusiak identifikatzeko tokenizazio-teknikak eta sailkapen-ereduak baliatzen ditu.",
     "projects.viewBtn": "Proiektua ikusi",
     "projects.project4.title": "Motxila Optimizazioa",
-    "projects.project4.desc": "Motxilaren arazorako algoritmoen azterketa konparatiboa (Julia/C/AMPL): Indar gordina, programazio dinamikoa eta heuristikoak.",
+    "projects.project4.desc":
+      "Tesia 'Hard Knapsack Problems' (Pissinger) buruzkoa. Julia, C eta Python-en garatua, indar gordina, heuristikoak eta algoritmo genetiko multiharidunak inplementatuz.",
     "projects.project5.title": "Impostor FC",
-    "projects.project5.desc": "Among Us estiloko jokalari anitzeko jokoa denbora errealean, txiletar futbol gaiarekin. Socket.IO, Node.js eta diseinu modernoa.",
+    "projects.project5.desc": "Socket.IO eta Node.js-ekin garatutako jokalari anitzeko esperientzia. Egoera sinkronizatzeko mekanikak, UI diseinu modernoa eta Txileko futbol-kulturan oinarritutako gaia.",
     "projects.project6.title": "Telecom Churn AI",
-    "projects.project6.desc": "Data Science pipelinea bezeroen ihesa aurreikusteko. ETL, analisi estatistikoa eta Machine Learning ereduak.",
+    "projects.project6.desc": "Bezeroen atxikipen estrategikorako Data Science bide integral bat. ETL prozesu konplexuak, analisi estatistiko sakona eta ihes-patroiak identifikatzeko eredu prediktiboak biltzen ditu.",
 
     // Work History Section
     "workHistory.title": "Lan Esperientzia",
+    "scholarships.beca_alianza_pacifico.name": "Pazifikoko Aliantzako Beka - Nazioarteko Mugikortasuna",
+    "education.unab_civil.degree": "Informatika Ingeniaritza Zibila",
+    "education.unab_licenciatura.degree": "Ingeniaritza Zientzietako lizentziatura, Ordenagailu Zientziak",
+    "education.unab_postgrado.degree": "Graduondokoa, Informatika Ingeniaritzako Masterra",
+    "education.puj_exchange.degree": "Sistema eta Konputazio Ingeniaritza eta Industriala",
+    "education.colegio_smp.degree": "Ikaslea",
+    "scholarships.alura_one_bg.name": "Bekaduna: Data Science - Oracle Next Education (ONE) G9",
+    "scholarships.coursera_skills_work.name": "Bekaduna: Skills for Work - Banco Santander Espainia",
+    "scholarships.alura_selection_phase.name": "Hautaketa Fasea eta Hasierako Prestakuntza - ONE Beka",
+    "work.sociedad_servicios_expert.title": "MLOps Engineer & Full Stack Dev | Marketin Digitaleko Arduraduna | Programazio eta Garapen Aditua",
+    "work.sociedad_servicios_practicas.title": "AI Software Developer & Full Stack Dev — Prestakuntza Aurreratua",
+    "work.mrcomputer.title": "Zibersegurtasun Ingeniaria - IT",
+    "work.lapica_pipeeno.title": "Sortzailea eta Zuzendaria",
+    "work.freelance_developer.title": "Full Stack Garatzailea",
+    "work.saez_saez.title": "Sare eta Telekomunikazio Ingeniaria",
+    "work.unab_ayudante.title": "Laguntzaile eta Tutorea",
 
     // Work item translations (Basque)
     "work.sociedad_servicios_expert.description": "Promovitu nintzen \"Programazio eta Garapen Aditu\" izatera. Nire rola AI eta software soluzio aurreratuak diseinatzea, garatzea eta inplementatzea da, bide azpiegituraren optimizaziorako eta automatizazio proiektu handietarako.",
@@ -712,7 +750,6 @@ const translations = {
     "work.freelance_developer.description": "Nire garapen-espezializazioa eta truke-esperientzia baliatuz, web-aplikazio pertsonalizatuak eraiki nituen enpresa txiki eta startupentzako.",
     "work.freelance_developer.bullets": "UI interaktibo eta erantzunkorrak diseinatu eta eraiki nituen, React eta Angular erabiliz REST API-ak kontsumitzeko.||Django eta FastAPI erabiliz backend eta API sendoak garatu nituen, datu-baseak integratuz (PostgreSQL, MySQL, MongoDB).||Proiektuaren bizitzazko zikloa kudeatu nuen hasieratik deploy-ara arte, CI/CD pipelineak ezarriz testa eta entregak automatizatzeko.||Software arkitektura kontsultoria eskaini nuen, bezeroei stack teknologiko egokia aukeratzen lagunduz (Front, Back, DB).",
     "work.freelance_developer.company": "Autonomoa (Freelance)",
-    "work.freelance_developer.title": "Full Stack Garatzaile Autonomoa (Freelance)",
 
     "work.saez_saez.description": "Sare azpiegitura eta automatizazio tresnen arduraduna enpresa automotriz batean.",
     "work.saez_saez.bullets": "Tokiko Sare Errediseinua: Topologia seguruak planifikatu eta simulatu Cisco Packet Tracer eta GNS3 erabiliz.||Automatizazioa Python eta VBA-rekin: Erreminta pertsonalizatuak garatu bezeroen jarraipena hobetzeko.||Segurtasun Sistemak: CCTV eta sarbide urruneko sistemak ezarri eta kudeatu (SMARTPSS).",
@@ -749,8 +786,7 @@ const translations = {
     "scholarships.alura_selection_phase.bullets": "Programazioaren Oinarriak: Programazio Logikako bidea arrakastaz osatu nuen, pentsamendu algoritmikoaren, datu-egituren, aldagaien, funtzio eta praktika onen oinarriak ezarriz.||Garapen Pertsonala (Soft Skills): Garapen profesionaleko moduluak aktiboki bereganatu nituen, Hazkunde Pentsamoldea, autokudeaketa teknikak, produktibitatea eta ikasten ikasteko gaitasuna lantzean zentratuz.",
 
     // 7. Pazifikoko Aliantza Beka
-    "scholarships.beca_alianza_pacifico.name": "Pazifikoko Aliantza Beka - Nazioarteko Mugikortasuna",
-    "scholarships.beca_alianza_pacifico.description": "Pazifikoko Aliantza Beka jaso nuen bikaintasun akademikoagatik. Aitorpen honek nire egonaldia, ostatua eta mantenu gastuak erabat finantzatu zituen nazioarteko truke seihilekoan, unibertsitateko errendimendu bikaina sarituz.",
+    "scholarships.beca_alianza_pacifico.description": "Pazifikoko Aliantza Beka jaso nuen bikaintasun akademikoagatik. Aitorpen honek nire egonaldia, ostatua eta mantenu gastuah erabat finantzatu zituen nazioarteko truke seihilekoan, unibertsitateko errendimendu bikaina sarituz.",
     "scholarships.beca_alianza_pacifico.bullets": "Nazioarteko Ikasle Mugikortasuna: Meritu akademikoan oinarritutako hautaketa Txile eta UNAB Kolonbian ordezkatzeko.||Bikaintasun Akademikoa: Errendimendu altuko ikasleei emandako aitorpena eskualdeko integrazioa sustatzeko.",
 
 

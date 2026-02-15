@@ -21,7 +21,7 @@ function WebsiteCarouselComponent() {
     const singleSetWidthRef = useRef(0)
 
 
-    const [isVisible, setIsVisible] = useState(false) // Visibility state
+    const [isVisible, setIsVisible] = useState(true) // Default to true for better auto-start
     const containerRef = useRef<HTMLDivElement>(null) // Ref for Intersection Observer
 
     // Intersection Observer to pause animation when off-screen
@@ -30,7 +30,7 @@ function WebsiteCarouselComponent() {
             ([entry]) => {
                 setIsVisible(entry.isIntersecting)
             },
-            { threshold: 0.1 } // Trigger when 10% visible
+            { threshold: 0 } // Trigger as soon as 1px is visible
         )
 
         if (containerRef.current) {
@@ -41,7 +41,6 @@ function WebsiteCarouselComponent() {
             observer.disconnect()
         }
     }, [])
-
 
     const websitesData = [
         {
@@ -183,6 +182,8 @@ function WebsiteCarouselComponent() {
 
     // Animation Loop
     const animate = useCallback((time: number) => {
+        if (!scrollRef.current) return
+
         if (!lastTimeRef.current) lastTimeRef.current = time
         const deltaTime = time - lastTimeRef.current
         lastTimeRef.current = time
@@ -190,27 +191,20 @@ function WebsiteCarouselComponent() {
         // Cap delta to prevent huge jumps after tab switching/suspension
         const effectiveDelta = Math.min(deltaTime, 64)
 
-        if (!isVisible) return // Skip animation if not visible
-
         const isPaused = isManuallyPaused || isHoverPaused || isDragging || isScrollingRef.current
 
-        if (scrollRef.current) {
-            // Auto-scroll loop
-            if (!isPaused) {
-                scrollRef.current.scrollLeft += (velocity * effectiveDelta) / 16
-            }
+        if (!isPaused && isVisible) {
+            scrollRef.current.scrollLeft += (velocity * effectiveDelta) / 16
+        }
 
-            // Infinite Loop Check - Always Active to prevent getting stuck
-            // We have 4 copies. We wrap when we successfully scroll past the first FULL copy set.
-            const singleSetWidth = singleSetWidthRef.current
+        // Infinite Loop Check - Always Active to prevent getting stuck
+        const singleSetWidth = singleSetWidthRef.current || (scrollRef.current ? scrollRef.current.scrollWidth / 4 : 0)
 
-            // Allow a small buffer for float precision
-            if (singleSetWidth > 0) {
-                if (scrollRef.current.scrollLeft >= singleSetWidth) {
-                    scrollRef.current.scrollLeft -= singleSetWidth
-                } else if (scrollRef.current.scrollLeft <= 0) {
-                    scrollRef.current.scrollLeft += singleSetWidth
-                }
+        if (scrollRef.current && singleSetWidth > 0) {
+            if (scrollRef.current.scrollLeft >= singleSetWidth) {
+                scrollRef.current.scrollLeft -= singleSetWidth
+            } else if (scrollRef.current.scrollLeft <= 0) {
+                scrollRef.current.scrollLeft += singleSetWidth
             }
         }
 
@@ -218,15 +212,35 @@ function WebsiteCarouselComponent() {
     }, [isManuallyPaused, isHoverPaused, isDragging, velocity, isVisible])
 
     useEffect(() => {
-        if (!isVisible) {
-            if (animationRef.current) cancelAnimationFrame(animationRef.current)
-            return
+        const startAnimation = () => {
+            lastTimeRef.current = 0
+            animationRef.current = requestAnimationFrame(animate)
         }
 
-        lastTimeRef.current = 0
-        animationRef.current = requestAnimationFrame(animate)
-        return () => {
+        const stopAnimation = () => {
             if (animationRef.current) cancelAnimationFrame(animationRef.current)
+        }
+
+        if (isVisible) {
+            startAnimation()
+        } else {
+            stopAnimation()
+        }
+
+        // Handle tab visibility change
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                stopAnimation()
+            } else {
+                startAnimation()
+            }
+        }
+
+        document.addEventListener("visibilitychange", handleVisibilityChange)
+
+        return () => {
+            stopAnimation()
+            document.removeEventListener("visibilitychange", handleVisibilityChange)
         }
     }, [animate, isVisible])
 
