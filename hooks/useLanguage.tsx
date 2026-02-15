@@ -37,6 +37,21 @@ const translations = {
     "menu.profile": "Perfil",
     "menu.logout": "Cerrar sesión",
 
+    // Tour
+    "tour.welcome.title": "¡Bienvenido a mi Portafolio!",
+    "tour.welcome.desc": "Permíteme darte un rápido recorrido por las funcionalidades.",
+    "tour.header.title": "Navegación",
+    "tour.header.desc": "Usa esta barra para navegar entre secciones como Experiencia, Proyectos y más.",
+    "tour.language.title": "Selector de Idioma",
+    "tour.language.desc": "Puedes cambiar el idioma aquí. Soporta Español, Inglés y Euskera.",
+    "tour.scroll.title": "Comenzar el recorrido",
+    "tour.scroll.desc": "Haz clic aquí para descender y explorar mi experiencia, formación y proyectos.",
+    "tour.next": "Siguiente",
+    "tour.prev": "Anterior",
+    "tour.done": "Finalizar",
+    "tour.confirm_exit": "¿Seguro que quieres salir del tour?",
+    "tour.start": "Iniciar Tour",
+
     // Education Labels
     "education.grade": "Nota",
     "education.skills": "Aptitudes",
@@ -522,6 +537,21 @@ const translations = {
     "menu.profile": "Profile",
     "menu.logout": "Logout",
 
+    // Tour
+    "tour.welcome.title": "Welcome to my Portfolio!",
+    "tour.welcome.desc": "Let me give you a quick tour of the features.",
+    "tour.header.title": "Navigation",
+    "tour.header.desc": "Use this bar to navigate between different sections like Experience, Projects, and more.",
+    "tour.language.title": "Language Selector",
+    "tour.language.desc": "You can change the language here. Supports Spanish, English, and Basque.",
+    "tour.scroll.title": "Start the journey",
+    "tour.scroll.desc": "Click here to scroll down and explore my experience, education, and projects.",
+    "tour.next": "Next",
+    "tour.prev": "Previous",
+    "tour.done": "Done",
+    "tour.confirm_exit": "Are you sure you want to exit the tour?",
+    "tour.start": "Start Tour",
+
     // Certifications Section
     "certifications.title": "Certifications",
     "certifications.intro": "I have more than 130 Professional certifications that support my experience and technical knowledge.",
@@ -618,6 +648,21 @@ const translations = {
     "aria.openMenu": "Menua ireki",
     "aria.goToAbout": "Niri buruz ataleara joan",
     "aria.goToTop": "Hasierara joan",
+
+    // Tour
+    "tour.welcome.title": "Ongi etorri nire Portfoliora!",
+    "tour.welcome.desc": "Utzidazu funtzionalitateen inguruko bira azkar bat ematen.",
+    "tour.header.title": "Nabigazioa",
+    "tour.header.desc": "Erabili barra hau atalen artean mugitzeko: Esperientzia, Proiektuak eta gehiago.",
+    "tour.language.title": "Hizkuntza Aukeratzailea",
+    "tour.language.desc": "Hemen alda dezakezu hizkuntza. Gaztelania, Ingelesa eta Euskara onartzen ditu.",
+    "tour.scroll.title": "Bidaia hasi",
+    "tour.scroll.desc": "Egin klik hemen behera joateko eta nire esperientzia, hezkuntza eta proiektuak esploratzeko.",
+    "tour.next": "Hurrengoa",
+    "tour.prev": "Aurrekoa",
+    "tour.done": "Amaitu",
+    "tour.confirm_exit": "Ziur zaude itzulia utzi nahi duzula?",
+    "tour.start": "Itzulia hasi",
 
     // Hero Section
     "hero.name": "Felipe Pereira A.",

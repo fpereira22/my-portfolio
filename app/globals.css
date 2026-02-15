@@ -245,3 +245,69 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Driver.js Customization for Dark Theme */
+.driver-popover.driverjs-theme {
+  background-color: #1e1b4b;
+  /* indigo-950 */
+  color: #ffffff;
+  border: 1px solid #4c1d95;
+  /* violet-900 */
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  z-index: 100010 !important;
+}
+
+.tour-highlight-header {
+  z-index: 100005 !important;
+}
+
+.driver-popover.driverjs-theme .driver-popover-title {
+  font-size: 1.5rem !important;
+  font-weight: bold;
+  color: #e9d5ff !important;
+  /* purple-200 */
+  display: block !important;
+  margin-bottom: 0.5rem;
+}
+
+.driver-popover.driverjs-theme .driver-popover-description {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  /* slate-300 */
+  margin-bottom: 0px;
+}
+
+.driver-popover.driverjs-theme button {
+  background-color: #5b21b6;
+  /* violet-800 */
+  color: #ffffff;
+  text-shadow: none;
+  border: 1px solid #4c1d95;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s;
+}
+
+.driver-popover.driverjs-theme button:hover {
+  background-color: #4c1d95;
+}
+
+.driver-popover.driverjs-theme .driver-popover-navigation-btns {
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.driver-popover.driverjs-theme .driver-popover-close-btn {
+  color: #a5b4fc;
+  transition: color 0.2s;
+}
+
+.driver-popover.driverjs-theme .driver-popover-close-btn:hover {
+  color: #ffffff;
+}
+
+/* Ensure language dropdown is visible above driver overlay */
+#language-dropdown-menu {
+  z-index: 100002 !important;
+}

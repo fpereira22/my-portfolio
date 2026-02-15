@@ -40,7 +40,7 @@ export function LanguageSelector() {
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black/5 focus:outline-none z-50">
+        <div id="language-dropdown-menu" className="absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black/5 focus:outline-none z-50">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-button">
             {languages.map((lang) => (
               <button

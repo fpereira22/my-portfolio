@@ -24,7 +24,8 @@ import {
   Search,
   Award,
   Globe,
-  Github
+  Github,
+  Lightbulb
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "../components/language-selector"
@@ -38,6 +39,7 @@ import { TechGrid } from "../components/tech-grid"
 import { useLanguage } from "../hooks/useLanguage"
 import { useRouter } from "next/navigation"
 import { WebsiteCarousel } from "@/components/website-carousel"
+import { OnboardingTour, START_TOUR_EVENT } from "@/components/onboarding-tour"
 
 
 interface ExperienceCardProps {
@@ -818,8 +820,10 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-violet-800 to-indigo-900 text-white">
+      <OnboardingTour />
       {/* Header/Navigation */}
       <header
+        id="main-header"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-purple-900/90 backdrop-blur-sm shadow-md" : "bg-transparent"}`}
       >
         <div className="container mx-auto px-4 py-4 flex flex-nowrap items-center justify-between gap-2">
@@ -928,8 +932,19 @@ export default function Portfolio() {
             </div>
             */}
 
-            <div className="order-2">
-              <LanguageSelector />
+            <div className="order-2 flex items-center gap-2">
+              <div id="language-selector-wrapper">
+                <LanguageSelector />
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white hover:text-yellow-400 hover:bg-white/10"
+                onClick={() => window.dispatchEvent(new Event(START_TOUR_EVENT))}
+                title={t("tour.start")}
+              >
+                <Lightbulb className="w-5 h-5" />
+              </Button>
             </div>
 
             <Button
@@ -1010,7 +1025,7 @@ export default function Portfolio() {
       </header>
 
       {/* Hero Section */}
-      <section className="h-[100svh] overflow-hidden flex flex-col items-center justify-center relative px-4 pt-16">
+      <section id="hero-section" className="h-[100svh] overflow-hidden flex flex-col items-center justify-center relative px-4 pt-16">
         {/* Fondo con imagen y degradado */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
@@ -1084,6 +1099,7 @@ export default function Portfolio() {
 
         <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce z-20 will-change-transform">
           <button
+            id="scroll-down-btn"
             type="button"
             aria-label={t("aria.goToAbout")}
             onClick={() => {
