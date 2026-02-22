@@ -9,14 +9,8 @@ export default function robots(): MetadataRoute.Robots {
                 userAgent: '*',
                 allow: '/',
                 disallow: ['/api/', '/dashboard/'],
-            },
-            {
-                userAgent: 'Googlebot',
-                allow: '/',
-                disallow: ['/api/', '/dashboard/'],
-            },
+            }
         ],
         sitemap: `${baseUrl}/sitemap.xml`,
-        host: 'fpereiradev.sppa.cl',
     }
 }
