@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-    const baseUrl = 'https://fpereiradev.sppa.cl/'
+    const baseUrl = 'https://fpereiradev.sppa.cl'
 
     return {
         rules: [
@@ -17,6 +17,6 @@ export default function robots(): MetadataRoute.Robots {
             },
         ],
         sitemap: `${baseUrl}/sitemap.xml`,
-        host: baseUrl,
+        host: 'fpereiradev.sppa.cl',
     }
 }
