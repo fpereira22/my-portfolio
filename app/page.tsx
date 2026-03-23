@@ -1073,7 +1073,7 @@ export default function Portfolio() {
           <div className="grid grid-cols-2 gap-4 w-full max-w-sm sm:max-w-none sm:flex sm:flex-row sm:justify-center mb-12 sm:mb-0">
             <Button asChild className="w-full sm:w-auto bg-white text-purple-900 hover:bg-purple-100">
               <a
-                href="https://www.linkedin.com/in/felipe-pereira-alarc%C3%B3n/"
+                href="https://www.linkedin.com/in/felipe-pereira-alarcon/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1993,7 +1993,7 @@ export default function Portfolio() {
           <div className="flex justify-center gap-4 mt-4">
             <Button asChild variant="ghost" size="icon" className="rounded-full">
               <a
-                href="https://www.linkedin.com/in/felipe-pereira-alarc%C3%B3n/"
+                href="https://www.linkedin.com/in/felipe-pereira-alarcon/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
