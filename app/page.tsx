@@ -1894,7 +1894,7 @@ export default function Portfolio() {
           <div className="flex flex-col items-center mt-10">
             <span className="mb-2 text-gray-700">{t("certifications.more")}:</span>
             <a
-              href="https://www.linkedin.com/in/felipe-pereira-alarc%C3%B3n/details/certifications/"
+              href="https://www.linkedin.com/in/felipe-pereira-alarcon/details/certifications/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-5 py-2 bg-purple-600 text-white rounded-md font-bold hover:bg-purple-700 transition-colors"
