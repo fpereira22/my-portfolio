@@ -328,6 +328,29 @@ const scholarshipsData: Scholarship[] = [
 
 const experiencesData: ExperienceData[] = [
   {
+    id: 0,
+    slug: "roadwise",
+    company: "Roadwise",
+    title: "Ingeniero Informático | Especialista en IA, I+D y Análisis Audiovisual",
+    startYear: 2026,
+    startMonth: 3, // marzo
+    endYear: null, // actualidad
+    endMonth: null,
+    location: "Gran Santiago, Región Metropolitana de Santiago, Chile · En remoto",
+    imageSrc: "/img/logos/roadwise.png",
+    description: "Especialista en la integración de Inteligencia Artificial y análisis de datos aplicados a la gestión de infraestructura vial. Lidero la transformación digital de proyectos de conservación de carreteras, diseñando, desarrollando e implementando soluciones avanzadas que optimizan la toma de decisiones y escalan los procesos de mantenimiento.",
+    bullets: [
+      "Ingeniería y Análisis de Datos Predictivo: Aplico ingeniería de datos y Machine Learning (Python, R, Macros) para predecir daños futuros en infraestructura vial y optimizar la planificación del mantenimiento.",
+      "Despliegue de Modelos de IA: Opero y optimizo algoritmos de aprendizaje automático para el reconocimiento y evaluación del estado de las carreteras a partir de inspecciones masivas.",
+      "Automatización y Escalabilidad: Implemento pipelines inteligentes para procesar grandes volúmenes de datos, integrando dashboards interactivos que facilitan el análisis en tiempo real.",
+      "Gestión de Datos de Terreno y Activos Digitales: Estructuro y administro grandes volúmenes de evidencia audiovisual obtenida en inspecciones viales, asegurando integridad, trazabilidad y accesibilidad del banco de datos corporativo.",
+      "Soporte Estratégico: Genero métricas e informes técnicos derivados de modelos predictivos y análisis de imágenes, fundamentales para nuevas licitaciones y proyectos.",
+      "Desarrollo Web y Presencia Digital: Diseño y desarrollo del sitio oficial roadwise.cl, optimizando UX/UI, junto con la gestión integral de las redes sociales corporativas (LinkedIn e Instagram) para fortalecer la marca.",
+      "Divulgación Técnica: Apoyo la creación de material audiovisual didáctico y corporativo para difundir el trabajo del equipo."
+    ],
+    skills: ["Python", "Machine Learning", "Computer Vision", "Data Engineering", "IA", "Web Development", "UX/UI Design", "Digital Marketing"]
+  },
+  {
     id: 1,
     slug: "sociedad_servicios_expert",
     company: "SOCIEDAD DE SERVICIOS GENERALES LTDA",
