@@ -337,7 +337,7 @@ const experiencesData: ExperienceData[] = [
     endYear: null, // actualidad
     endMonth: null,
     location: "Gran Santiago, Región Metropolitana de Santiago, Chile · En remoto",
-    imageSrc: "/img/logos/roadwise.png",
+    imageSrc: "/img/logos/LogoRedondo.png",
     description: "Especialista en la integración de Inteligencia Artificial y análisis de datos aplicados a la gestión de infraestructura vial. Lidero la transformación digital de proyectos de conservación de carreteras, diseñando, desarrollando e implementando soluciones avanzadas que optimizan la toma de decisiones y escalan los procesos de mantenimiento.",
     bullets: [
       "Ingeniería y Análisis de Datos Predictivo: Aplico ingeniería de datos y Machine Learning (Python, R, Macros) para predecir daños futuros en infraestructura vial y optimizar la planificación del mantenimiento.",
