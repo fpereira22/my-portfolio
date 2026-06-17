@@ -404,9 +404,9 @@ const experiencesData: ExperienceData[] = [
     imageSrc: "/img/logos/mrcomputer.png",
     description: "Inicié como Practicante y fui promovido gracias al rápido desarrollo de habilidades y contribuciones clave en proyectos de seguridad y software.",
     bullets: [
-      "Gestioné la ciberseguridad del entorno empresarial (ESET, Kali Linux) y lideré procesos de compliance y accountability para clientes clave como la Fundación San Vicente de Paul.",
-      "Desarrollé aplicaciones web y software interno utilizando Python con frameworks como Django y Flask, y la pila MERN para proyectos Full Stack.",
-      "Administré infraestructura en AWS/Azure y gestioné servicios TI de alto nivel en Google Workspace y Microsoft 365 para clientes corporativos, incluyendo Fundación San Vicente de Paul (con sus colegios y liceos a nivel nacional, ej. Ozanam) y ALCHI (Alginatos Chile).",
+      "Gestioné la ciberseguridad del entorno empresarial (ESET, Kali Linux), realizando pruebas de seguridad web y aplicando sus protocolos correspondientes (HTTPS, SSL/TLS, SSH), y lideré procesos de compliance y accountability para clientes clave como la Fundación San Vicente de Paul.",
+      "Desarrollé aplicaciones web y software interno utilizando Python con frameworks como Django y Flask, la pila MERN para proyectos Full Stack, y programación en PHP con WordPress y sus herramientas.",
+      "Administré infraestructura en AWS/Azure, manejos web y configuraciones DNS con cPanel y Cloudflare, incluyendo optimizaciones de servidor, y gestioné servicios TI de alto nivel en Google Workspace y Microsoft 365 para clientes corporativos, incluyendo Fundación San Vicente de Paul (con sus colegios y liceos a nivel nacional, ej. Ozanam) y ALCHI (Alginatos Chile).",
       "Automaticé la generación de informes mediante scripts en Python (Pandas, NumPy) y macros de Excel (VBA), reduciendo significativamente el tiempo de análisis manual de datos."
     ],
     skills: ["Ciberseguridad", "Kali Linux", "Python", "MERN Stack", "AWS", "Google Workspace"]
