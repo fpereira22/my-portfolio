@@ -357,11 +357,11 @@ const experiencesData: ExperienceData[] = [
     title: "MLOps Engineer & Full Stack Dev | Encargado Marketing Digital | Experto en Programación y Desarrollo",
     startYear: 2025,
     startMonth: 7, // julio
-    endYear: null, // actualidad
-    endMonth: null,
+    endYear: 2026,
+    endMonth: 4, // abril
     location: "Gran Santiago, Región Metropolitana de Santiago, Chile",
     imageSrc: "/img/logos/sociedad-servicios.png",
-    description: 'Ascendido a "Experto en Programación y Desarrollo". Tras mi ascenso, mi rol se centra en diseñar, desarrollar e implementar soluciones avanzadas de Inteligencia Artificial y software para la optimización de infraestructura vial y proyectos de automatización a gran escala. Actualmente, mis principales focos son:',
+    description: 'Ascendido a "Experto en Programación y Desarrollo". Tras mi ascenso, mi rol se centró en diseñar, desarrollar e implementar soluciones avanzadas de Inteligencia Artificial y software para la optimización de infraestructura vial y proyectos de automatización a gran escala. Mis principales focos fueron:',
     bullets: [
       "IA Visual para Infraestructura Crítica: Desarrollo de modelos de Computer Vision (Python, PyTorch, YOLO) para la detección detallada de fisuras en barreras New Jersey y la medición por imágenes de fisuras y baches en pavimento.",
       "Ingeniería y Análisis de Datos Predictivo: Aplicación de ingeniería de datos y modelos de Machine Learning (Python, R, Macros) para el análisis y predicción de futuros daños en infraestructura vial, optimizando el manejo de datos para mantenimiento.",
