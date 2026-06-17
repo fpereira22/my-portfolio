@@ -245,7 +245,7 @@ const translations = {
 
     "work.sociedad_servicios_expert.title": "MLOps Engineer & Full Stack Dev | Encargado Marketing Digital | Experto en Programación y Desarrollo",
     "work.sociedad_servicios_practicas.title": "AI Software Developer & Full Stack Dev — Formación Avanzada",
-    "work.mrcomputer.title": "Ingeniero en Ciberseguridad - TI",
+    "work.mrcomputer.title": "Ingeniero en Ciberseguridad - TI | Soporte Técnico",
     "work.lapica_pipeeno.title": "Fundador y Director",
     "work.saez_saez.title": "Ingeniero de Redes y Telecomunicaciones",
     "work.unab_ayudante.title": "Ayudante y Tutor",
@@ -253,7 +253,7 @@ const translations = {
 
     // Work item translations (Spanish)
     "work.mrcomputer.description": "Inicié como Practicante y fui promovido gracias al rápido desarrollo de habilidades y contribuciones clave en proyectos de seguridad y software. Mis responsabilidades incluyeron:",
-    "work.mrcomputer.bullets": "Gestioné la ciberseguridad del entorno empresarial, implementando políticas de protección (ESET) y realizando análisis proactivos de vulnerabilidades con Kali Linux.||Desarrollé aplicaciones web y software interno utilizando Python (Django, Flask) y la pila MERN para proyectos Full Stack.||Administré infraestructura en AWS/Azure y gestioné servicios TI de alto nivel en Google Workspace y Microsoft 365 para clientes corporativos.||Automaticé la generación de informes mediante scripts en Python (Pandas, NumPy) y macros de Excel (VBA).",
+    "work.mrcomputer.bullets": "Gestioné la ciberseguridad del entorno empresarial (ESET, Kali Linux) y lideré procesos de compliance y accountability para clientes clave como la Fundación San Vicente de Paul.||Desarrollé aplicaciones web y software interno utilizando Python con frameworks como Django y Flask, y la pila MERN para proyectos Full Stack.||Administré infraestructura en AWS/Azure y gestioné servicios TI de alto nivel en Google Workspace y Microsoft 365 para clientes corporativos, incluyendo Fundación San Vicente de Paul (con sus colegios y liceos a nivel nacional, ej. Ozanam) y ALCHI (Alginatos Chile).||Automaticé la generación de informes mediante scripts en Python (Pandas, NumPy) y macros de Excel (VBA), reduciendo significativamente el tiempo de análisis manual de datos.",
     "scholarships.periodLabel": "Periodo:",
     "scholarships.detailsLabel": "Detalles:",
     "scholarships.achievementsLabel": "Logros alcanzados:",
@@ -531,7 +531,7 @@ const translations = {
 
     // Work item translations (English)
     "work.mrcomputer.description": "I started as an intern and was promoted thanks to rapid skill development and key contributions in security and software projects. My responsibilities included:",
-    "work.mrcomputer.bullets": "Managed enterprise cybersecurity, implementing protection policies (ESET) and conducting proactive vulnerability analysis with Kali Linux||Developed web applications and internal software using Python (Django, Flask) and the MERN stack for full-stack projects||Managed cloud infrastructure (AWS, Azure) and handled user lifecycle and permissions in Google Workspace and Microsoft 365||Automated report generation using Python scripts (Pandas, NumPy) and Excel macros (VBA).",
+    "work.mrcomputer.bullets": "Managed enterprise cybersecurity (ESET, Kali Linux) and led compliance and accountability processes for key clients such as Fundación San Vicente de Paul.||Developed web applications and internal software using Python with frameworks such as Django and Flask, and the MERN stack for Full Stack projects.||Managed cloud infrastructure (AWS, Azure) and handled high-level IT services in Google Workspace and Microsoft 365 for corporate clients, including Fundación San Vicente de Paul (with schools and high schools nationwide, e.g. Ozanam) and ALCHI (Alginatos Chile).||Automated report generation using Python scripts (Pandas, NumPy) and Excel macros (VBA), significantly reducing manual data analysis time.",
     "scholarships.periodLabel": "Period:",
     "scholarships.detailsLabel": "Details:",
     "scholarships.achievementsLabel": "Achievements:",

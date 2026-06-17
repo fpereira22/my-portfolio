@@ -395,10 +395,10 @@ const experiencesData: ExperienceData[] = [
     id: 3,
     slug: "mrcomputer",
     company: "MRComputer Chile SPA",
-    title: "Ingeniero en Ciberseguridad - TI",
+    title: "Ingeniero en Ciberseguridad - TI | Soporte Técnico",
     startYear: 2024,
     startMonth: 1, // enero
-    endYear: 2025,
+    endYear: 2026,
     endMonth: 4, // abril
     location: "Área metropolitana de Santiago · Presencial",
     imageSrc: "/img/logos/mrcomputer.png",
@@ -406,7 +406,7 @@ const experiencesData: ExperienceData[] = [
     bullets: [
       "Gestioné la ciberseguridad del entorno empresarial (ESET, Kali Linux) y lideré procesos de compliance y accountability para clientes clave como la Fundación San Vicente de Paul.",
       "Desarrollé aplicaciones web y software interno utilizando Python con frameworks como Django y Flask, y la pila MERN para proyectos Full Stack.",
-      "Administré infraestructura en AWS/Azure y gestioné servicios TI de alto nivel en Google Workspace y Microsoft 365 para clientes corporativos.",
+      "Administré infraestructura en AWS/Azure y gestioné servicios TI de alto nivel en Google Workspace y Microsoft 365 para clientes corporativos, incluyendo Fundación San Vicente de Paul (con sus colegios y liceos a nivel nacional, ej. Ozanam) y ALCHI (Alginatos Chile).",
       "Automaticé la generación de informes mediante scripts en Python (Pandas, NumPy) y macros de Excel (VBA), reduciendo significativamente el tiempo de análisis manual de datos."
     ],
     skills: ["Ciberseguridad", "Kali Linux", "Python", "MERN Stack", "AWS", "Google Workspace"]
