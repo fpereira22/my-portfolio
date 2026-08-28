@@ -19,7 +19,6 @@ import {
   Palette,
   Target,
   Zap,
-  LogIn,
   GraduationCap,
   Search,
   Award,
@@ -29,15 +28,12 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "../components/language-selector"
-import { AuthModal } from "../components/auth-modal"
 import { SocialMediaPanel } from "../components/social-media-panel"
 import { AIChatbot } from "../components/ai-chatbot"
-import { UserMenu } from "../components/user-menu"
 import { ProfileModal } from "../components/profile-modal"
 import { LinuxTerminal } from "../components/linux-terminal"
 import { TechGrid } from "../components/tech-grid"
 import { useLanguage } from "../hooks/useLanguage"
-import { useRouter } from "next/navigation"
 import { WebsiteCarousel } from "@/components/website-carousel"
 import { OnboardingTour, START_TOUR_EVENT } from "@/components/onboarding-tour"
 
@@ -328,14 +324,55 @@ const scholarshipsData: Scholarship[] = [
 
 const experiencesData: ExperienceData[] = [
   {
+    id: 8,
+    slug: "bancoestado",
+    company: "BancoEstado",
+    title: "Ingeniero de Procesos – Sistemas",
+    startYear: 2026,
+    startMonth: 8, // agosto
+    endYear: null, // actualidad
+    endMonth: null,
+    location: "Gran Santiago, Región Metropolitana de Santiago, Chile",
+    imageSrc: "/img/logos/bancoestado.png",
+    description: "Diseño, optimización y gestión de reportería, análisis de datos y soluciones orientadas al negocio financiero sobre Salesforce Financial Services Cloud.",
+    bullets: [
+      "Gestión en Salesforce (Financial Services Cloud): Creación, administración y mantenimiento de reportes y dashboards avanzados para respaldar la gestión comercial.",
+      "Reportería Comercial y Gerencial: Desarrollo de reportes estratégicos para sucursales y áreas centrales, facilitando la toma de decisiones gerenciales basadas en datos consistentes y de calidad.",
+      "Levantamiento de Requerimientos: Interacción con usuarios internos para la captura de necesidades de información, validando la consistencia y calidad de los datos.",
+      "Coordinación Tecnológica: Gestión, seguimiento y resolución de requerimientos e incidencias técnicas en conjunto con las áreas de Tecnología."
+    ],
+    skills: ["Salesforce FSC", "Reportería", "Análisis de Datos", "SQL", "Power BI", "Levantamiento de Requerimientos"]
+  },
+  {
+    id: 9,
+    slug: "grupo_forum_bbva",
+    company: "Grupo Forum – BBVA",
+    title: "Desarrollador Full Stack | Programa de Formación y Desarrollo",
+    startYear: 2026,
+    startMonth: 7, // julio
+    endYear: 2026,
+    endMonth: 8, // agosto
+    location: "Gran Santiago, Región Metropolitana de Santiago, Chile · En remoto",
+    imageSrc: "/img/logos/grupo-forum-bbva.png",
+    description: "Programa intensivo de formación y desarrollo full stack orientado a plataformas financieras de leasing, renting y ecosistemas P2P, combinando capacitación técnica avanzada con la construcción de soluciones escalables, seguras y de alto rendimiento en Frontend y Backend.",
+    bullets: [
+      "Arquitectura Backend y Microservicios: Diseño e implementación de APIs RESTful con Java, Spring Boot y Quarkus, gestionando dependencias con Maven para asegurar la integridad transaccional del core financiero.",
+      "Despliegue y Orquestación (DevOps): Contenerización de aplicaciones con Docker y despliegues sobre clusters de Kubernetes, buscando alta disponibilidad y resiliencia de los servicios.",
+      "Desarrollo Front-End y UX/UI: Construcción de interfaces dinámicas y eficientes para los productos de financiamiento, con foco en tiempos de respuesta óptimos y una experiencia de usuario fluida.",
+      "Ecosistema P2P End-to-End: Implementación de flujos de trabajo en plataformas Peer-to-Peer, conectando el frontend con arquitecturas backend complejas para transacciones financieras seguras.",
+      "Cultura y Metodologías Ágiles: Trabajo colaborativo en células de desarrollo bajo marcos Scrum y Kanban, participando en el ciclo de vida completo del software."
+    ],
+    skills: ["Java", "Spring Boot", "Quarkus", "Maven", "Docker", "Kubernetes", "React", "Scrum"]
+  },
+  {
     id: 0,
     slug: "roadwise",
     company: "Roadwise",
     title: "Ingeniero Informático | Especialista en IA, I+D y Análisis Audiovisual",
     startYear: 2026,
-    startMonth: 3, // marzo
-    endYear: null, // actualidad
-    endMonth: null,
+    startMonth: 4, // abril
+    endYear: 2026,
+    endMonth: 6, // junio
     location: "Gran Santiago, Región Metropolitana de Santiago, Chile · En remoto",
     imageSrc: "/img/logos/LogoRedondo.png",
     description: "Especialista en la integración de Inteligencia Artificial y análisis de datos aplicados a la gestión de infraestructura vial. Lidero la transformación digital de proyectos de conservación de carreteras, diseñando, desarrollando e implementando soluciones avanzadas que optimizan la toma de decisiones y escalan los procesos de mantenimiento.",
@@ -398,8 +435,8 @@ const experiencesData: ExperienceData[] = [
     title: "Ingeniero en Ciberseguridad - TI | Soporte Técnico",
     startYear: 2024,
     startMonth: 1, // enero
-    endYear: 2026,
-    endMonth: 4, // abril
+    endYear: 2025,
+    endMonth: 2, // febrero
     location: "Área metropolitana de Santiago · Presencial",
     imageSrc: "/img/logos/mrcomputer.png",
     description: "Inicié como Practicante y fui promovido gracias al rápido desarrollo de habilidades y contribuciones clave en proyectos de seguridad y software.",
@@ -480,7 +517,7 @@ const experiencesData: ExperienceData[] = [
     startYear: 2020,
     startMonth: 3, // marzo
     endYear: 2020,
-    endMonth: 7, // julio
+    endMonth: 12, // diciembre
     location: "Providencia, Región Metropolitana de Santiago, Chile · En remoto",
     imageSrc: "/img/logos/unab.png",
     description: "Durante mi rol como asistente académico, colaboré activamente con el cuerpo docente y brindé apoyo directo a estudiantes de ciencias e ingeniería. Mi objetivo fue fortalecer su comprensión de conceptos fundamentales y desarrollar sus habilidades analíticas para asegurar una base académica sólida.",
@@ -720,16 +757,13 @@ export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false)
   // const [mounted, setMounted] = useState(false)
   const [profileImage, setProfileImage] = useState<string | null>(null)
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState<{ name: string; email: string } | null>(null)
   const { t } = useLanguage()
   const [rotation, setRotation] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showTerminalEasterEgg, setShowTerminalEasterEgg] = useState(false)
   const profileRef = useRef<HTMLDivElement>(null)
-  const router = useRouter()
 
   // Estados para controlar qué tarjeta está abierta en cada sección
   const [openExperienceId, setOpenExperienceId] = useState<number | null>(null);
@@ -763,7 +797,6 @@ export default function Portfolio() {
     if (savedUser) {
       try {
         const userData = JSON.parse(savedUser);
-        setIsLoggedIn(true);
         setUser(userData);
       } catch {
         localStorage.removeItem("portfolioUser");
@@ -779,29 +812,6 @@ export default function Portfolio() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const handleLogin = async (userData: { name: string; email: string; isNewUser?: boolean }) => {
-    const userInfo = {
-      name: userData.name,
-      email: userData.email,
-      loginTime: new Date().toISOString(),
-    }
-
-    localStorage.setItem("portfolioUser", JSON.stringify(userInfo))
-    setIsLoggedIn(true)
-    setUser(userInfo)
-    setIsAuthModalOpen(false)
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem("portfolioUser");
-    setIsLoggedIn(false);
-    setUser(null);
-  };
-
-  const handleOpenDashboard = () => {
-    router.push("/dashboard")
-  }
 
   const handleOpenProfile = () => {
     setIsProfileModalOpen(true)
@@ -925,36 +935,8 @@ export default function Portfolio() {
             </a>
           </nav>
 
-          {/* Auth, Language Selector y menú móvil */}
+          {/* Language Selector y menú móvil */}
           <div className="flex items-center gap-2 flex-shrink-0 ml-auto lg:ml-0 lg:order-2">
-            {/* Auth Button / User Menu - OCULTO TEMPORALMENTE */}
-            {/* TODO: Habilitar cuando se necesite el sistema de login */}
-            {isLoggedIn && user && (
-              <div className="order-1">
-                <UserMenu
-                  user={user}
-                  isLoggedIn={isLoggedIn}
-                  onLogout={handleLogout}
-                  onOpenDashboard={handleOpenDashboard}
-                  onOpenProfile={handleOpenProfile}
-                  profileImage={profileImage} // <-- pásala como prop
-                />
-              </div>
-            )}
-            {/* Botón de login oculto para uso futuro
-            <div className="order-1">
-              <Button
-                onClick={() => setIsAuthModalOpen(true)}
-                variant="ghost"
-                size="sm"
-                className="text-white hover:text-purple-300 hover:bg-white/10"
-              >
-                <LogIn className="w-4 h-4 mr-1" />
-                <span className="hidden sm:inline">{t("menu.login")}</span>
-              </Button>
-            </div>
-            */}
-
             <div className="order-2 flex items-center gap-2">
               <div id="language-selector-wrapper">
                 <LanguageSelector />
@@ -1514,7 +1496,21 @@ export default function Portfolio() {
 
           {/* Projects Data Definition - internal for now to keep it simple */}
           {(() => {
-            const projectsData = [
+            const projectsData: { slug: string; imageSrc: string; fit?: string; tags: string[]; link: string }[] = [
+              {
+                slug: "project7",
+                imageSrc: "/img/projects/finsightai.png",
+                fit: "contain",
+                tags: ["React", "Spring Boot", "Java", "LLM local", "OCI"],
+                link: "https://github.com/No-Country-simulation/G9-FinanceAI-Team29"
+              },
+              {
+                slug: "project8",
+                imageSrc: "/img/projects/world_cup_predict.png",
+                fit: "contain",
+                tags: ["Python", "LightGBM", "Monte Carlo"],
+                link: "https://github.com/fpereira22/World-Cup-Predicts"
+              },
               {
                 slug: "project1",
                 imageSrc: "/img/projects/tachas.webp",
@@ -1563,7 +1559,7 @@ export default function Portfolio() {
                         alt={t(`projects.${project.slug}.title`)}
                         width={300}
                         height={200}
-                        className="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500"
+                        className={`w-full h-full rounded-lg group-hover:scale-110 transition-transform duration-500 ${project.fit === "contain" ? "object-contain p-2" : "object-cover"}`}
                       />
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
@@ -1632,20 +1628,24 @@ export default function Portfolio() {
             <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-indigo-400 mx-auto mt-6 rounded-full"></div>
           </div>
 
-          {/* Featured Project - Roadwise */}
+          {/* Featured Project - FinSightAI */}
           <div className="mb-12">
-            <a href="https://roadwise.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-orange-500 shadow-2xl shadow-orange-500/20 hover:shadow-orange-500/40 transition-all duration-500 hover:scale-[1.02] cursor-pointer">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-amber-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <a href="https://finsight.ai.sppa.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-teal-400 shadow-2xl shadow-teal-500/20 hover:shadow-teal-500/40 transition-all duration-500 hover:scale-[1.02] cursor-pointer">
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/20 to-cyan-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="flex flex-col lg:flex-row">
                 <div className="lg:w-1/2 relative overflow-hidden">
-                  <div className="aspect-video lg:aspect-auto lg:h-full relative">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/img/websites/previews/roadwise-preview.webp"
-                      alt="Roadwise.cl"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  <div className="h-52 sm:h-64 lg:h-auto lg:aspect-auto lg:min-h-full relative bg-gradient-to-br from-slate-900 via-teal-950 to-cyan-950">
+                    <video
+                      src="/img/websites/previews/finsight-preview.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      aria-hidden="true"
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-orange-900/80 via-transparent to-transparent lg:bg-gradient-to-r"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-teal-900/80 via-transparent to-transparent lg:bg-gradient-to-r"></div>
                   </div>
                   <div className="absolute top-4 left-4">
                     <span className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-bold rounded-full shadow-lg animate-pulse">
@@ -1655,27 +1655,38 @@ export default function Portfolio() {
                   {/* Logo badge */}
                   <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl p-2 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
                     <Image
-                      // src="/img/logos/websites/roadwise.jpeg"
-                      src="/img/logos/websites/icon.svg"
-                      alt="Roadwise Logo"
+                      src="/img/logos/websites/finsight.png"
+                      alt="FinSightAI Logo"
                       fill
                       className="object-contain rounded-lg"
                     />
                   </div>
                 </div>
-                <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-                  <h3 className="text-3xl font-bold mb-4 group-hover:text-orange-300 transition-colors">{t("websites.roadwise.title")}</h3>
-                  <p className="text-orange-200 text-lg mb-6 leading-relaxed">
-                    {t("websites.roadwise.desc")}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    <span className="px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-full text-sm">React</span>
-                    <span className="px-3 py-1 bg-purple-500/30 border border-purple-400/50 rounded-full text-sm">Three.js / 3D</span>
-                    <span className="px-3 py-1 bg-orange-500/30 border border-orange-400/50 rounded-full text-sm">Next.js</span>
-                    <span className="px-3 py-1 bg-green-500/30 border border-green-400/50 rounded-full text-sm">Python</span>
-                    <span className="px-3 py-1 bg-yellow-500/30 border border-yellow-400/50 rounded-full text-sm">IA/CV</span>
+                <div className="lg:w-1/2 p-6 lg:p-10 flex flex-col justify-center">
+                  <div className="flex items-center gap-4 mb-3 group-hover:opacity-90 transition-opacity">
+                    <img
+                      src="/img/logos/finsightai.png"
+                      alt={t("websites.finsight.title")}
+                      className="h-12 lg:h-16 w-auto object-contain"
+                    />
+                    <img
+                      src="https://finsight.ai.sppa.cl/images/mascot/finsight-bird-auth-lean-light-compact.png"
+                      alt="FinSightAI mascota"
+                      className="h-12 lg:h-16 w-auto object-contain"
+                    />
                   </div>
-                  <div className="w-fit bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold shadow-lg shadow-orange-500/25 px-4 py-2 rounded-lg flex items-center gap-2">
+                  <p className="text-teal-100 text-base lg:text-lg mb-4 leading-relaxed">
+                    {t("websites.finsight.desc")}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-full text-sm">Vite + React</span>
+                    <span className="px-3 py-1 bg-orange-500/30 border border-orange-400/50 rounded-full text-sm">Next.js</span>
+                    <span className="px-3 py-1 bg-green-500/30 border border-green-400/50 rounded-full text-sm">Spring Boot / Java</span>
+                    <span className="px-3 py-1 bg-cyan-500/30 border border-cyan-400/50 rounded-full text-sm">PostgreSQL</span>
+                    <span className="px-3 py-1 bg-purple-500/30 border border-purple-400/50 rounded-full text-sm">LLM local</span>
+                    <span className="px-3 py-1 bg-red-500/30 border border-red-400/50 rounded-full text-sm">OCI</span>
+                  </div>
+                  <div className="w-fit bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-semibold shadow-lg shadow-teal-500/25 px-4 py-2 rounded-lg flex items-center gap-2">
                     <ExternalLink className="w-4 h-4" />
                     {t("websites.visitBtn")}
                   </div>
@@ -2097,30 +2108,6 @@ export default function Portfolio() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
         </svg>
       </a>
-
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        onLogin={async (userData) => {
-          // Si el usuario es nuevo, pasamos isNewUser=true
-          await handleLogin({ ...userData, isNewUser: userData.isNewUser });
-        }}
-        onGoogleLogin={async () => {
-          // Simulación de login con Google para demo local
-          // const { GoogleAuthProvider, signInWithPopup } = await import("firebase/auth");
-          setTimeout(() => {
-            const mockGoogleUser = {
-              name: "Usuario Demo Google",
-              email: "demo.google@example.com",
-              isNewUser: true
-            };
-            handleLogin(mockGoogleUser);
-            setIsAuthModalOpen(false);
-            // alert("Google login simulado (Firebase removido para despliegue sin errores)");
-          }, 1000);
-        }}
-      />
 
       {/* Profile Modal */}
       <ProfileModal

@@ -44,6 +44,19 @@ function WebsiteCarouselComponent() {
 
     const websitesData = [
         {
+            slug: "roadwise",
+            url: "https://roadwise.cl/",
+            imageSrc: "/img/websites/previews/roadwise-preview.webp",
+            logoSrc: "/img/logos/websites/icon.svg",
+            borderClass: "border-orange-500 hover:border-orange-400",
+            shadowClass: "hover:shadow-orange-500/30",
+            gradientClass: "from-orange-900/90",
+            textClass: "text-orange-300",
+            descColorClass: "text-orange-200",
+            tags: ["React", "Three.js", "Next.js"],
+            tagBgClass: "bg-orange-500/20 border-orange-400/30"
+        },
+        {
             slug: "jody",
             url: "https://www.rendimientointegral.cl/",
             imageSrc: "/img/websites/previews/jody-preview.webp",
@@ -353,7 +366,7 @@ function WebsiteCarouselComponent() {
                         {t("websites.otherProjects.title") || "Más Proyectos y Colaboraciones"}
                     </h3>
                     <p className="text-purple-300/80 text-sm max-w-lg">
-                        Explora una variedad de sitios web desarrollados para diferentes industrias.
+                        {t("websites.otherProjects.subtitle") || "Explora una variedad de sitios web desarrollados para diferentes industrias."}
                     </p>
                 </div>
 

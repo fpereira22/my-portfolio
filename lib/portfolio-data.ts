@@ -2,6 +2,7 @@ export type Language = "es" | "en" | "eu";
 
 export const portfolioData = {
   name: "Felipe Pereira A.",
+  age: 26,
   title: {
     es: "Ingeniero Civil Informático",
     en: "Software Engineer",
@@ -9,6 +10,7 @@ export const portfolioData = {
   },
   contact: {
     email: "f.pereiraalarcn@gmail.com",
+    whatsapp: "56989213006",
     linkedin: "https://www.linkedin.com/in/felipe-pereira-alarc%C3%B3n/",
     github: "https://github.com/fpereira22",
     instagram: "https://www.instagram.com/_f.pereira14",
@@ -20,31 +22,61 @@ export const portfolioData = {
     eu: "Informatikako Ingeniari Zibila heziketa akademiko sendoa eta aplikazio garapenean esperientzia praktikoa dituena. Truke akademiko bat egin nuen Pontíficia Universidad Javeriana Cali-n. Espezializatua programazio funtzionalean eta software garapenerako metodologia arinak. Nire fokua kode kalitatea eta soluzio eskalagarrien inplementazioan dago. Gaitasuna dut egokitzapen azkarreko teknologia berrietara eta lan inguruneetara. SSGL-en egiten dudan lanaz gain, garatzaile freelance gisa aritzen naiz aplikazioak eta webguneak neurrira sortuz.",
   },
   experience: {
-    es: "Durante mi formación en la facultad de Ingeniería de la Universidad Andres Bello, he estado desarrollando tanto proyectos personales como profesionales. Esto me ha permitido consolidar mis habilidades técnicas en análisis de datos, ciberseguridad, algoritmos, investigación de operaciones y gestión de proyectos. A lo largo de este tiempo, he trabajado con diversos entornos y tecnologías, aplicándolos en múltiples proyectos. Esta diversidad de experiencias me ha proporcionado una visión más amplia del desarrollo de software, lo que me permite mejorar continuamente mi capacidad profesional y mantener una mentalidad de aprendizaje constante. Busco constantemente expandir mis conocimientos y continuar perfeccionando mis habilidades, siempre en busca de nuevas oportunidades para innovar y crear soluciones que no solo sean efectivas, sino también óptimas, eficientes y adaptables a las necesidades del proyecto.",
-    en: "During my studies at the Faculty of Engineering at Universidad Andrés Bello, I have been developing both personal and professional projects. This has allowed me to consolidate my technical skills in data analysis, cybersecurity, algorithms, operations research and project management. Throughout this time, I have worked with various environments and technologies, applying them in multiple projects. This diversity of experiences has provided me with a broader vision of software development, which allows me to continuously improve my professional capacity and maintain a mindset of constant learning. I constantly seek to expand my knowledge and continue perfecting my skills, always looking for new opportunities to innovate and create solutions that are not only effective, but also optimal, efficient, and adaptable to project needs.",
-    eu: "Nire ikasketetan Ingeniaritza Fakultatean Universidad Andrés Bello, proiektu pertsonalak eta profesionalak garatzen egon naiz. Honek nire trebetasun teknikoak sendotzea ahalbidetu dit datu-analisian, ziberseguritasunean, algoritmoetan, eragiketa ikerketan eta proiektu kudeaketan. Denbora honetan zehar, hainbat inguru eta teknologiekin lan egin dut, hauek proiektu anitzetan aplikatuz. Esperientzia aniztasun honek ikuspegi zabalagoa eman dit software garapenari buruz, eta honek nire gaitasun profesionala etengabe hobetzea eta ikasketa etengabeko pentsamoldea mantentzea ahalbidetzen dit. Etengabe bilatzen dut nire ezagutzak zabaltzea eta nire trebetasunak perfekzionatzen jarraitzea, beti aukera berriak bilatuz berrikuntza egiteko eta soluzioak sortzeko, ez bakarrik eraginkorrak direnak, baita optimalak, eraginkorrak eta egokigarriak ere proiektuaren beharretara.",
+    es: "Actualmente soy Ingeniero de Procesos – Sistemas en BancoEstado (desde agosto de 2026), trabajando en reportería y dashboards avanzados sobre Salesforce Financial Services Cloud. Antes fui Desarrollador Full Stack en un programa de formación y desarrollo para Grupo Forum – BBVA (Java, Spring Boot, Quarkus, Docker, Kubernetes) e Ingeniero Informático especialista en IA e I+D en Roadwise, además de MLOps Engineer & Full Stack Dev en Sociedad de Servicios Generales e Ingeniero en Ciberseguridad en MRComputer. Durante mi formación en la facultad de Ingeniería de la Universidad Andres Bello, he estado desarrollando tanto proyectos personales como profesionales. Esto me ha permitido consolidar mis habilidades técnicas en análisis de datos, ciberseguridad, algoritmos, investigación de operaciones y gestión de proyectos. A lo largo de este tiempo, he trabajado con diversos entornos y tecnologías, aplicándolos en múltiples proyectos. Esta diversidad de experiencias me ha proporcionado una visión más amplia del desarrollo de software, lo que me permite mejorar continuamente mi capacidad profesional y mantener una mentalidad de aprendizaje constante. Busco constantemente expandir mis conocimientos y continuar perfeccionando mis habilidades, siempre en busca de nuevas oportunidades para innovar y crear soluciones que no solo sean efectivas, sino también óptimas, eficientes y adaptables a las necesidades del proyecto.",
+    en: "I am currently a Process Engineer – Systems at BancoEstado (since August 2026), working on advanced reporting and dashboards on Salesforce Financial Services Cloud. Previously I was a Full Stack Developer in a training and development program for Grupo Forum – BBVA (Java, Spring Boot, Quarkus, Docker, Kubernetes) and a Software Engineer specialized in AI and R&D at Roadwise, as well as MLOps Engineer & Full Stack Dev at Sociedad de Servicios Generales and Cybersecurity Engineer at MRComputer. During my studies at the Faculty of Engineering at Universidad Andrés Bello, I have been developing both personal and professional projects. This has allowed me to consolidate my technical skills in data analysis, cybersecurity, algorithms, operations research and project management. Throughout this time, I have worked with various environments and technologies, applying them in multiple projects. This diversity of experiences has provided me with a broader vision of software development, which allows me to continuously improve my professional capacity and maintain a mindset of constant learning. I constantly seek to expand my knowledge and continue perfecting my skills, always looking for new opportunities to innovate and create solutions that are not only effective, but also optimal, efficient, and adaptable to project needs.",
+    eu: "Gaur egun Prozesu Ingeniaria – Sistemak naiz BancoEstado-n (2026ko abuztutik), Salesforce Financial Services Cloud gainean txosten eta dashboard aurreratuetan lanean. Lehenago Full Stack Garatzailea izan nintzen Grupo Forum – BBVA-rentzako prestakuntza eta garapen programa batean (Java, Spring Boot, Quarkus, Docker, Kubernetes) eta AI eta I+G espezialista Roadwise-n, baita MLOps Engineer & Full Stack Dev Sociedad de Servicios Generales-en eta Zibersegurtasun Ingeniaria MRComputer-en ere. Nire ikasketetan Ingeniaritza Fakultatean Universidad Andrés Bello, proiektu pertsonalak eta profesionalak garatzen egon naiz. Honek nire trebetasun teknikoak sendotzea ahalbidetu dit datu-analisian, ziberseguritasunean, algoritmoetan, eragiketa ikerketan eta proiektu kudeaketan. Denbora honetan zehar, hainbat inguru eta teknologiekin lan egin dut, hauek proiektu anitzetan aplikatuz. Esperientzia aniztasun honek ikuspegi zabalagoa eman dit software garapenari buruz, eta honek nire gaitasun profesionala etengabe hobetzea eta ikasketa etengabeko pentsamoldea mantentzea ahalbidetzen dit. Etengabe bilatzen dut nire ezagutzak zabaltzea eta nire trebetasunak perfekzionatzen jarraitzea, beti aukera berriak bilatuz berrikuntza egiteko eta soluzioak sortzeko, ez bakarrik eraginkorrak direnak, baita optimalak, eraginkorrak eta egokigarriak ere proiektuaren beharretara.",
   },
   technologies: [
     "Python", "AWS", "AMPL", "Node.js", "Express", "C", "C++", "Java", "PHP", "HTML5", "CSS3", "TypeScript", "JavaScript", "PostgreSQL", "Angular", "React", "Vue.js", "Next.js", "PowerBI", "GitHub"
   ],
   projects: [
     {
-      title: "Análisis de Tachas",
-      description: "Sistema de análisis de datos para optimización de rutas y gestión de infraestructura vial.",
-      technologies: ["Python", "Node.js", "Tailwind"],
+      title: "FinSightAI",
+      description: "Plataforma de salud financiera creada en el hackathon Oracle Next Education (ONE) × No Country. Categorización automática de gastos, Score Financiero personalizado, evaluación de riesgo y explicaciones/recomendaciones generadas con un LLM local personalizado. Frontend en Vite + React + Next.js; backend en Java, Spring Boot y Maven; PostgreSQL en OCI sobre Docker (Supabase como respaldo). Infraestructura híbrida: OCI como principal, Render + Vercel de respaldo. Sitio en vivo: https://finsight.ai.sppa.cl/",
+      technologies: ["Vite", "React", "Next.js", "TypeScript", "Java", "Spring Boot", "Maven", "PostgreSQL", "Docker", "OCI", "LLM local"],
+      link: "https://github.com/No-Country-simulation/G9-FinanceAI-Team29",
+    },
+    {
+      title: "Predictor Mundial 2026",
+      description: "Pipeline end-to-end de Machine Learning y simulación Monte Carlo que estima probabilidades de campeón bien calibradas a partir de más de 46.000 partidos internacionales desde 1950. Rating Elo dinámico sin fuga de datos, clasificador multiclase LightGBM (1X2), modelo de goles Poisson + Gradient Boosting y simulación Monte Carlo de miles de torneos.",
+      technologies: ["Python", "LightGBM", "Poisson Regression", "Monte Carlo", "Pandas", "Matplotlib"],
+      link: "https://github.com/fpereira22/World-Cup-Predicts",
+    },
+    {
+      title: "Road Infrastructure AI / Análisis de Tachas",
+      description: "Computer Vision para inspección de activos viales: detección de tachas, captafaros, balizas y señalética, más análisis de fisuras en pavimento y barreras New Jersey para optimizar la planificación del mantenimiento.",
+      technologies: ["Python", "PyTorch", "YOLO", "OpenCV"],
       link: "https://github.com/GaztelakoFelipeI/tatxas/",
     },
     {
-      title: "Proyecto Web",
-      description: "Desarrollo de aplicación web completa con backend robusto y frontend moderno.",
-      technologies: ["PHP", "Node.js", "HTML"],
-      link: "https://github.com/fpereira22",
+      title: "Knapsack Optimization Research",
+      description: "Investigación de tesis sobre 'Hard Knapsack Problems' (Pisinger): fuerza bruta, heurísticas y algoritmos genéticos multihilo, comparados entre implementaciones.",
+      technologies: ["Julia", "C", "Python", "AMPL"],
+      link: "https://github.com/fpereira22/knapsack-optimization-research",
     },
     {
-      title: "Detector de Neumonía",
-      description: "Sistema de detección de neumonía usando Computer Vision e Inteligencia Artificial.",
-      technologies: ["Python", "ComputerVision", "IA"],
-      link: "https://github.com/fpereira22/PneumoniaDetectorCV",
+      title: "Housing Price API",
+      description: "API escalable end-to-end para predicción de precios inmobiliarios, con modelos de regresión entrenados en Scikit-Learn y desplegados en la nube.",
+      technologies: ["Python", "FastAPI", "React", "Scikit-Learn"],
+      link: "https://github.com/fpereira22/End-to-End-Housing-Price-API",
+    },
+    {
+      title: "Telecom Churn AI",
+      description: "Pipeline completo de Data Science para retención de clientes: ETL complejo, análisis estadístico profundo y modelos predictivos para identificar patrones de fuga.",
+      technologies: ["Python", "Pandas", "Scikit-Learn"],
+      link: "https://github.com/fpereira22/2nd-Challenge-TelecomX-AluraLatam",
+    },
+    {
+      title: "Sentiment & Topic Analysis",
+      description: "Herramienta de NLP para análisis de reseñas: tokenización y modelos de clasificación que identifican polaridad y extraen los tópicos clave del feedback de clientes.",
+      technologies: ["Python", "NLP", "Machine Learning"],
+      link: "https://github.com/fpereira22/Product-Review-Sentiment-Topic-Analysis",
+    },
+    {
+      title: "Impostor FC",
+      description: "Experiencia multijugador en tiempo real construida sobre sincronización de estado con Socket.IO, con UI moderna y temática de fútbol chileno.",
+      technologies: ["Node.js", "Socket.IO", "JavaScript"],
+      link: "https://github.com/fpereira22/Impostor-FC",
     },
   ],
   certifications: {
@@ -137,6 +169,10 @@ export const portfolioData = {
   ],
   websites: [
     {
+      name: "FinSightAI (finsight.ai.sppa.cl)",
+      description: "Sitio más reciente. Tu copiloto financiero con IA. Transforma tus datos en decisiones inteligentes: clasifica gastos automáticamente, calcula tu Financial Score y te dice exactamente cómo mejorar con Machine Learning explicable. React · Spring Boot · FastAPI · Supabase · OCI."
+    },
+    {
       name: "ROADWISE.CL",
       description: "Plataforma corporativa con modelos 3D interactivos (Three.js) para monitoreo vial."
     },
@@ -165,79 +201,6 @@ export const portfolioData = {
       description: "Landing page médica con mapas interactivos."
     }
   ],
-  faq: [
-    {
-      preguntas: [
-        "¿Estás disponible para trabajar?",
-        "¿Buscas trabajo?",
-        "¿Cuál es tu disponibilidad laboral?",
-        "Are you available for work?",
-        "Are you looking for a job?"
-      ],
-      respuesta: "Actualmente, estoy abierto a explorar nuevas oportunidades laborales y proyectos tantos como de empresa y freelance que se alineen con mis habilidades en desarrollo full-stack, AI Development y análisis de datos. Si tienes una propuesta, no dudes en contactarme por email o LinkedIn. Igual, a tu izquierda, tienes un botón para contactarme por mis diferentes redes sociales"
-    },
-    {
-      preguntas: [
-        "¿Cuál es tu sueldo esperado?",
-        "¿Cuáles son tus expectativas salariales?",
-        "What are your salary expectations?"
-      ],
-      respuesta: "Prefiero discutir las expectativas salariales durante el proceso de entrevista, ya que depende mucho del rol, las responsabilidades y los beneficios. Estoy seguro de que podemos llegar a un acuerdo justo."
-    },
-    {
-      preguntas: [
-        "Gracias",
-        "Muchas gracias",
-        "Thank you",
-        "Eskerrik asko"
-      ],
-      // Respuesta que ahora incluye texto y una imagen en formato Markdown
-      respuesta: "¡De nada! Si tienes alguna otra pregunta, aquí estoy para ayudarte. ![You're welcome GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW5mdWJmZ3R4MnNpdHFxNGVsbWJyYmd0bDRzOHRzZ2k1ZzB6eGcyaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o85xwxr06YNoFdSbm/giphy.gif)"
-    },
-    {
-      preguntas: [
-        "¿Que edad tiene?",
-        "¿Cuántos años tiene?",
-        "How old are you?",
-        "What is your age?"
-      ],
-      // Respuesta que ahora incluye texto y una imagen en formato Markdown
-      respuesta: "Tengo 25 años. "
-    },
-    {
-      preguntas: [
-        "ola carlita",
-        "Hola Carlita?",
-      ],
-      // Respuesta que ahora incluye texto y una imagen en formato Markdown
-      respuesta: "![carlita PNG](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoGc6zztxFvwRKGEbyXIzRiGY-pzy10cuvqQ&s) No te acordai ná?"
-    },
-    {
-      preguntas: [
-        "¿Cómo puedo contactarte?",
-        "¿Cuál es tu email?",
-        "How can I contact you?",
-        "What is your email?"
-      ],
-      respuesta: "Puedes contactarme por email a f.pereiraalarcn@gmail.com o enviarme un mensaje directo por [WhatsApp](https://wa.me/56984381285?text=Hola,%20me%20interesa%20contactarme%20contigo)."
-    },
-    {
-      preguntas: [
-        "¿Estás graduado?",
-        "¿Ya te titulaste?",
-        "¿Tienes tu título?",
-        "Are you graduated?"
-      ],
-      respuesta: "Sí, estoy graduado con honores. Obtuve mi título de Ingeniero Civil Informático y mi Licenciatura en Ciencias de la Ingeniería, ambos con distinción máxima en la Universidad Andres Bello."
-    },
-    {
-      preguntas: [
-        "¿Dónde puedo ver tus proyectos?",
-        "Where can I see your projects?",
-        "nire proiektuak non ikus ditzaket?",
-      ],
-      respuesta: "Puedes ver mis proyectos en la sección 'Proyectos' de mi portafolio. Allí encontrarás una lista de los proyectos en los que he trabajado, junto con descripciones y enlaces a sus repositorios."
-    },
-
-  ]
+  // NOTA: El antiguo `faq` se migró a `lib/assistant/knowledge.ts` (respuestas
+  // pregrabadas multi-idioma que se sirven sin llamar al modelo).
 };

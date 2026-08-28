@@ -167,9 +167,21 @@ const translations = {
     "projects.project5.desc": "Experiencia multijugador en tiempo real con Socket.IO y Node.js. Integra mecánicas de sincronización de estado, diseño UI moderno y una temática inspirada en el fútbol chileno.",
     "projects.project6.title": "Telecom Churn AI",
     "projects.project6.desc": "Pipeline integral de Data Science para la retención estratégica de clientes. Incluye procesos ETL complejos, análisis estadístico profundo y modelos predictivos para identificar patrones de fuga.",
+    "projects.project7.title": "FinSightAI",
+    "projects.project7.desc": "Plataforma de salud financiera creada en el hackathon Oracle Next Education × No Country. Convierte ingresos y deudas en un Score Financiero, evaluación de riesgo y recomendaciones de un LLM.",
+    "projects.project8.title": "Predictor Mundial 2026",
+    "projects.project8.desc": "Pipeline de Machine Learning y Monte Carlo que estima probabilidades de campeón a partir de 46.000+ partidos internacionales desde 1950, combinando Elo dinámico y un clasificador LightGBM.",
 
     // Work History Section
     "workHistory.title": "Experiencia Laboral",
+
+    "work.bancoestado.title": "Ingeniero de Procesos – Sistemas",
+    "work.bancoestado.description": "Diseño, optimización y gestión de reportería, análisis de datos y soluciones orientadas al negocio financiero sobre Salesforce Financial Services Cloud.",
+    "work.bancoestado.bullets": "Gestión en Salesforce (Financial Services Cloud): Creación, administración y mantenimiento de reportes y dashboards avanzados para respaldar la gestión comercial.||Reportería Comercial y Gerencial: Desarrollo de reportes estratégicos para sucursales y áreas centrales, facilitando la toma de decisiones gerenciales basadas en datos consistentes y de calidad.||Levantamiento de Requerimientos: Interacción con usuarios internos para la captura de necesidades de información, validando la consistencia y calidad de los datos.||Coordinación Tecnológica: Gestión, seguimiento y resolución de requerimientos e incidencias técnicas en conjunto con las áreas de Tecnología.",
+
+    "work.grupo_forum_bbva.title": "Desarrollador Full Stack | Programa de Formación y Desarrollo",
+    "work.grupo_forum_bbva.description": "Programa intensivo de formación y desarrollo full stack orientado a plataformas financieras de leasing, renting y ecosistemas P2P, combinando capacitación técnica avanzada con la construcción de soluciones escalables, seguras y de alto rendimiento en Frontend y Backend.",
+    "work.grupo_forum_bbva.bullets": "Arquitectura Backend y Microservicios: Diseño e implementación de APIs RESTful con Java, Spring Boot y Quarkus, gestionando dependencias con Maven para asegurar la integridad transaccional del core financiero.||Despliegue y Orquestación (DevOps): Contenerización de aplicaciones con Docker y despliegues sobre clusters de Kubernetes, buscando alta disponibilidad y resiliencia de los servicios.||Desarrollo Front-End y UX/UI: Construcción de interfaces dinámicas y eficientes para los productos de financiamiento, con foco en tiempos de respuesta óptimos y una experiencia de usuario fluida.||Ecosistema P2P End-to-End: Implementación de flujos de trabajo en plataformas Peer-to-Peer, conectando el frontend con arquitecturas backend complejas para transacciones financieras seguras.||Cultura y Metodologías Ágiles: Trabajo colaborativo en células de desarrollo bajo marcos Scrum y Kanban, participando en el ciclo de vida completo del software.",
 
     "work.roadwise.description": "Especialista en la integración de Inteligencia Artificial y análisis de datos aplicados a la gestión de infraestructura vial. Lidero la transformación digital de proyectos de conservación de carreteras, diseñando, desarrollando e implementando soluciones avanzadas que optimizan la toma de decisiones y escalan los procesos de mantenimiento.",
     "work.roadwise.bullets": "Ingeniería y Análisis de Datos Predictivo: Aplico ingeniería de datos y Machine Learning (Python, R, Macros) para predecir daños futuros en infraestructura vial y optimizar la planificación del mantenimiento.||Despliegue de Modelos de IA: Opero y optimizo algoritmos de aprendizaje automático para el reconocimiento y evaluación del estado de las carreteras a partir de inspecciones masivas.||Automatización y Escalabilidad: Implemento pipelines inteligentes para procesar grandes volúmenes de datos, integrando dashboards interactivos que facilitan el análisis en tiempo real.||Gestión de Datos de Terreno y Activos Digitales: Estructuro y administro grandes volúmenes de evidencia audiovisual obtenida en inspecciones viales, asegurando integridad, trazabilidad y accesibilidad del banco de datos corporativo.||Soporte Estratégico: Genero métricas e informes técnicos derivados de modelos predictivos y análisis de imágenes, fundamentales para nuevas licitaciones y proyectos.||Desarrollo Web y Presencia Digital: Diseño y desarrollo del sitio oficial roadwise.cl, optimizando UX/UI, junto con la gestión integral de las redes sociales corporativas (LinkedIn e Instagram) para fortalecer la marca.||Divulgación Técnica: Apoyo la creación de material audiovisual didáctico y corporativo para difundir el trabajo del equipo.",
@@ -273,6 +285,8 @@ const translations = {
     "websites.viewProject": "Ver proyecto",
     "websites.roadwise.title": "ROADWISE.CL",
     "websites.roadwise.desc": "Plataforma web corporativa para empresa de análisis y monitoreo de infraestructura vial. Desarrollada con React y Three.js, presenta modelos 3D interactivos de equipamiento vial, animaciones fluidas y un diseño moderno que transmite innovación tecnológica.",
+    "websites.finsight.title": "FinSightAI",
+    "websites.finsight.desc": "Tu copiloto financiero con IA. Transforma tus datos en decisiones inteligentes: clasifica gastos automáticamente, calcula tu Financial Score y te dice exactamente cómo mejorar con Machine Learning explicable. React · Spring Boot · FastAPI · Supabase · OCI.",
     "websites.litestartsup.title": "LITESTARTSUP",
     "websites.litestartsup.desc": "Startup tecnológica fundada para impulsar el crecimiento de emprendimientos y empresas. Convertimos ideas en soluciones digitales simples y efectivas para dar visibilidad al proyecto y conectar con más personas. Desarrollada con React, Next.js, Three.js y elementos 3D interactivos.",
     "websites.ssgl.title": "SSGL.CL",
@@ -294,6 +308,7 @@ const translations = {
     "websites.smartcare.title": "Centro Médico SmartCare",
     "websites.smartcare.desc": "Landing page profesional para la Dra. Cecilia Salinas. Incluye mapas interactivos y presentación de servicios médicos en el sur de Chile.",
     "websites.otherProjects.title": "Más Proyectos y Colaboraciones",
+    "websites.otherProjects.subtitle": "Explora una variedad de sitios web desarrollados para diferentes industrias.",
 
     // Duration/Time translations
     "duration.present": "actualidad",
@@ -456,6 +471,10 @@ const translations = {
     "projects.project5.desc": "Real-time multiplayer experience with Socket.IO and Node.js. Integrates state synchronization mechanics, modern UI design and a theme inspired by Chilean football culture.",
     "projects.project6.title": "Telecom Churn AI",
     "projects.project6.desc": "Comprehensive Data Science pipeline for strategic customer retention. Includes complex ETL processes, deep statistical analysis, and predictive models to identify churn patterns.",
+    "projects.project7.title": "FinSightAI",
+    "projects.project7.desc": "Financial-health platform built at the Oracle Next Education × No Country hackathon. Turns income and debts into a Financial Score, risk assessment and LLM-generated recommendations.",
+    "projects.project8.title": "World Cup 2026 Predictor",
+    "projects.project8.desc": "End-to-end Machine Learning and Monte Carlo pipeline estimating championship probabilities from 46,000+ international matches since 1950, using a dynamic Elo rating and a LightGBM classifier.",
 
     "workHistory.title": "Work Experience",
 
@@ -475,8 +494,16 @@ const translations = {
     "work.saez_saez.title": "Network & Telecommunications Engineer",
     "work.unab_ayudante.title": "Teaching Assistant & Tutor",
     "work.roadwise.title": "Software Engineer | AI Specialist, R&D and Audiovisual Analysis",
+    "work.bancoestado.title": "Process Engineer – Systems",
+    "work.grupo_forum_bbva.title": "Full Stack Developer | Training & Development Program",
 
     // Work item translations (English)
+    "work.bancoestado.description": "Design, optimization and management of reporting, data analysis and business-oriented solutions for the financial sector, built on Salesforce Financial Services Cloud.",
+    "work.bancoestado.bullets": "Salesforce (Financial Services Cloud) Management: Building, administering and maintaining advanced reports and dashboards to support commercial operations.||Commercial & Management Reporting: Developing strategic reports for branches and central areas, enabling management decisions based on consistent, high-quality data.||Requirements Gathering: Working with internal users to capture information needs, validating data consistency and quality.||Technology Coordination: Managing, tracking and resolving technical requirements and incidents together with the Technology areas.",
+
+    "work.grupo_forum_bbva.description": "Intensive full-stack training and development program focused on financial platforms for leasing, renting and P2P ecosystems, combining advanced technical training with the delivery of scalable, secure and high-performance Frontend and Backend solutions.",
+    "work.grupo_forum_bbva.bullets": "Backend Architecture & Microservices: Design and implementation of robust RESTful APIs with Java, Spring Boot and Quarkus, managing dependencies with Maven to ensure the transactional integrity of the financial core.||Deployment & Orchestration (DevOps): Containerizing applications with Docker and running deployments on Kubernetes clusters for high availability and service resilience.||Front-End & UX/UI Development: Building dynamic, efficient interfaces for financing products, focused on optimal response times and a smooth user experience.||End-to-End P2P Ecosystem: Implementing workflows on Peer-to-Peer platforms, connecting the frontend with complex backend architectures for secure financial transactions.||Agile Culture & Methodologies: Collaborative work in development squads under Scrum and Kanban frameworks, taking part in the full software lifecycle.",
+
     "work.roadwise.description": "Specialist in the integration of Artificial Intelligence and data analysis applied to road infrastructure management. I lead the digital transformation of road conservation projects, designing, developing and implementing advanced solutions that optimize decision-making and scale maintenance processes.",
     "work.roadwise.bullets": "Predictive Data Engineering and Analysis: I apply data engineering and Machine Learning (Python, R, Macros) to predict future infrastructure damage and optimize maintenance planning.||AI Model Deployment: I operate and optimize machine learning algorithms for road condition recognition and assessment from large-scale inspections.||Automation and Scalability: I implement intelligent pipelines to process large volumes of data, integrating interactive dashboards that facilitate real-time analysis.||Ground Data and Digital Assets Management: I structure and manage large volumes of audiovisual evidence obtained in road inspections, ensuring integrity, traceability and accessibility of the corporate database.||Strategic Support: I generate metrics and technical reports derived from predictive models and image analysis, fundamental for new tenders and projects.||Web Development and Digital Presence: I design and develop the official roadwise.cl site, optimizing UX/UI, along with comprehensive management of corporate social networks (LinkedIn and Instagram) to strengthen the brand.||Technical Dissemination: I support the creation of educational and corporate audiovisual material to disseminate the team's work.",
 
@@ -576,6 +603,8 @@ const translations = {
     "websites.viewProject": "View project",
     "websites.roadwise.title": "ROADWISE.CL",
     "websites.roadwise.desc": "Corporate web platform for a road infrastructure analysis and monitoring company. Built with React and Three.js, featuring interactive 3D models of road equipment, smooth animations, and a modern design that conveys technological innovation.",
+    "websites.finsight.title": "FinSightAI",
+    "websites.finsight.desc": "Your AI financial copilot. Turn your data into smart decisions: it classifies expenses automatically, computes your Financial Score and tells you exactly how to improve with explainable Machine Learning. React · Spring Boot · FastAPI · Supabase · OCI.",
     "websites.litestartsup.title": "LITESTARTSUP",
     "websites.litestartsup.desc": "Tech startup founded to boost the growth of ventures and companies. We turn ideas into simple and effective digital solutions to give visibility to your project and connect with more people. Built with React, Next.js, Three.js and interactive 3D elements.",
     "websites.ssgl.title": "SSGL.CL",
@@ -597,6 +626,7 @@ const translations = {
     "websites.smartcare.title": "SmartCare Medical Center",
     "websites.smartcare.desc": "Professional landing page for Dr. Cecilia Salinas. Includes interactive maps and medical service showcase in southern Chile.",
     "websites.otherProjects.title": "More Projects and Collaborations",
+    "websites.otherProjects.subtitle": "Explore a variety of websites developed for different industries.",
 
     // Duration/Time translations
     "duration.present": "present",
@@ -775,6 +805,10 @@ const translations = {
     "projects.project5.desc": "Socket.IO eta Node.js-ekin garatutako jokalari anitzeko esperientzia. Egoera sinkronizatzeko mekanikak, UI diseinu modernoa eta Txileko futbol-kulturan oinarritutako gaia.",
     "projects.project6.title": "Telecom Churn AI",
     "projects.project6.desc": "Bezeroen atxikipen estrategikorako Data Science bide integral bat. ETL prozesu konplexuak, analisi estatistiko sakona eta ihes-patroiak identifikatzeko eredu prediktiboak biltzen ditu.",
+    "projects.project7.title": "FinSightAI",
+    "projects.project7.desc": "Finantza-osasunerako plataforma, Oracle Next Education × No Country hackathonean sortua. Diru-sarrerak eta zorrak Finantza Score, arrisku-ebaluazio eta LLM bidezko gomendio bihurtzen ditu.",
+    "projects.project8.title": "2026ko Munduko Kopa Iragarlea",
+    "projects.project8.desc": "Machine Learning eta Monte Carlo pipeline osoa, 1950etik 46.000 partida baino gehiagotatik txapeldun probabilitateak estimatzen dituena, Elo rating dinamiko eta LightGBM sailkatzailea erabiliz.",
 
     // Work History Section
     "workHistory.title": "Lan Esperientzia",
@@ -795,8 +829,16 @@ const translations = {
     "work.saez_saez.title": "Sare eta Telekomunikazio Ingeniaria",
     "work.unab_ayudante.title": "Laguntzaile eta Tutorea",
     "work.roadwise.title": "Informatika Ingeniaria | AI, I+G eta Ikus-entzunezko Analisi Espezialista",
+    "work.bancoestado.title": "Prozesu Ingeniaria – Sistemak",
+    "work.grupo_forum_bbva.title": "Full Stack Garatzailea | Prestakuntza eta Garapen Programa",
 
     // Work item translations (Basque)
+    "work.bancoestado.description": "Finantza-negoziora bideratutako txostengintza, datu-analisia eta soluzioen diseinua, optimizazioa eta kudeaketa, Salesforce Financial Services Cloud gainean.",
+    "work.bancoestado.bullets": "Salesforce (Financial Services Cloud) Kudeaketa: Txosten eta dashboard aurreratuak sortu, administratu eta mantentzea kudeaketa komertziala babesteko.||Txostengintza Komertziala eta Gerentziala: Sukurtsal eta area zentraletarako txosten estrategikoak garatzea, kalitatezko datu koherenteetan oinarritutako erabakiak errazteko.||Eskakizunen Bilketa: Barne-erabiltzaileekin informazio-beharrak jasotzea, datuen koherentzia eta kalitatea baliozkotuz.||Koordinazio Teknologikoa: Eskakizun eta gorabehera teknikoak kudeatu, jarraitu eta konpontzea Teknologia arloekin batera.",
+
+    "work.grupo_forum_bbva.description": "Full stack prestakuntza eta garapen programa intentsiboa, leasing, renting eta P2P ekosistemetako finantza-plataformetara bideratua, prestakuntza tekniko aurreratua eta soluzio eskalagarri, seguru eta errendimendu handikoen garapena (Frontend eta Backend) uztartuz.",
+    "work.grupo_forum_bbva.bullets": "Backend Arkitektura eta Mikrozerbitzuak: Java, Spring Boot eta Quarkus-ekin RESTful API sendoak diseinatu eta inplementatzea, Maven bidez mendekotasunak kudeatuz finantza-core-aren osotasun transakzionala bermatzeko.||Hedapena eta Orkestrazioa (DevOps): Aplikazioak Docker-ekin edukiontzitzea eta Kubernetes cluster-etan hedapenak kudeatzea, erabilgarritasun handia eta zerbitzuen erresilientzia bilatuz.||Front-End eta UX/UI Garapena: Finantzaketa-produktuetarako interfaze dinamiko eta eraginkorrak eraikitzea, erantzun-denbora optimoetan eta erabiltzaile-esperientzia arinean fokatuta.||P2P Ekosistema End-to-End: Peer-to-Peer plataformetan lan-fluxuak inplementatzea, frontend-a backend arkitektura konplexuekin lotuz transakzio finantzario seguruetarako.||Kultura eta Metodologia Arinak: Garapen-zeluletan lan kolaboratiboa Scrum eta Kanban markoen pean, softwarearen bizi-ziklo osoan parte hartuz.",
+
     "work.roadwise.description": "Adimen Artifizialaren integrazioan eta bide azpiegituren kudeaketara aplikatutako datu-analisian espezialista. Errepideen kontserbazio proiektuen eraldaketa digitala gidatzen dut, erabaki-hartze prozesuak optimizatzen eta mantentze prozesuak eskalatzen dituzten soluzio aurreratuak diseinatuz, garatuz eta inplementatuz.",
     "work.roadwise.bullets": "Datu Ingeniaritza eta Analisi Prediktiboa: Datu ingeniaritza eta Machine Learning (Python, R, Makroak) aplikatzen dut bide azpiegituretako etorkizuneko kalteak iragartzeko eta mantentze planifikazioa optimizatzeko.||AI Ereduen Hedapena: Ikaskuntza automatikoaren algoritmoak operatzen eta optimizatzen ditut, ikuskapen masiboetan oinarritutako errepideen egoera ezagutzeko eta ebaluatzeko.||Automatizazioa eta Eskalagarritasuna: Pipeline adimentsuak inplementatzen ditut datu bolumen handiak prozesatzeko, denbora errealeko analisia errazten duten dashboard interaktiboak integratuz.||Lur Datuak eta Aktibo Digitalen Kudeaketa: Bide ikuskapenetan lortutako ikus-entzunezko ebidentziaren bolumen handiak egituratu eta kudeatzen ditut, datu-base korporatiboaren integritatea, trazabilitatea eta sarbidea bermatuz.||Laguntza Estrategikoa: Eredu prediktiboetatik eta irudi analisitik eratorritako metrikak eta txosten teknikoak sortzen ditut, licitazio eta proiektu berrietarako ezinbestekoak.||Web Garapena eta Presentzia Digitala: roadwise.cl webgune ofiziala diseinatu eta garatzen dut, UX/UI optimizatuz, enpresako sare sozialen (LinkedIn eta Instagram) kudeaketa integralarekin batera, marka indartzeko.||Hedapen Teknikoa: Taldearen lana zabaltzeko material ikus-entzunezko didaktiko eta korporatiboaren sorkuntzan laguntzen dut.",
 
@@ -881,6 +923,8 @@ const translations = {
     "websites.viewProject": "Proiektua ikusi",
     "websites.roadwise.title": "ROADWISE.CL",
     "websites.roadwise.desc": "Bide azpiegituren analisi eta jarraipenerako enpresa baten web plataforma korporatiboa. React eta Three.js-rekin garatua, bide ekipamenduaren 3D eredu interaktiboak, animazio leunak eta berrikuntza teknologikoa transmititzen duen diseinu modernoa ditu.",
+    "websites.finsight.title": "FinSightAI",
+    "websites.finsight.desc": "Zure IA finantza-kopilotua. Bihurtu zure datuak erabaki adimendun: gastuak automatikoki sailkatzen ditu, zure Financial Score kalkulatzen du eta zehazki nola hobetu esaten dizu Machine Learning azalgarriarekin. React · Spring Boot · FastAPI · Supabase · OCI.",
     "websites.litestartsup.title": "LITESTARTSUP",
     "websites.litestartsup.desc": "Ekintzailetzen eta enpresen hazkundea bultzatzeko sortutako startup teknologikoa. Ideiak soluzio digital sinple eta eraginkor bihurtzen ditugu, proiektuari ikusgarritasuna emateko eta jende gehiagorekin konektatzeko. React, Next.js, Three.js eta 3D elementu interaktiboekin garatua.",
     "websites.ssgl.title": "SSGL.CL",
@@ -902,6 +946,7 @@ const translations = {
     "websites.smartcare.title": "SmartCare Mediku Zentroa",
     "websites.smartcare.desc": "Cecilia Salinas Dr.-aren orri profesionala. Mapa interaktiboak eta zerbitzu medikuen aurkezpena Txileko hegoaldean.",
     "websites.otherProjects.title": "Proiektu eta Elkarlan Gehiago",
+    "websites.otherProjects.subtitle": "Hainbat industriatarako garatutako webguneen aukera zabala arakatu.",
 
     // Duration/Time translations
     "duration.present": "orain",

@@ -13,6 +13,19 @@ interface Message {
   text: string
   isBot: boolean
   timestamp: Date
+  section?: string | null
+}
+
+// IDs de las <section> de app/page.tsx -> clave de traducción para su nombre.
+const SECTION_LABEL_KEYS: Record<string, string> = {
+  about: "nav.about",
+  experience: "nav.experience",
+  education: "nav.education",
+  scholarships: "nav.scholarships",
+  projects: "nav.projects",
+  websites: "nav.websites",
+  certifications: "certifications.title",
+  contact: "nav.contact",
 }
 
 export function AIChatbot() {
@@ -23,7 +36,18 @@ export function AIChatbot() {
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const chatContainerRef = useRef<HTMLDivElement>(null) // Ref para el contenedor principal
-  const { language } = useLanguage()
+  const { language, t } = useLanguage()
+
+  const goToSection = (id: string) => {
+    if (typeof document === "undefined") return
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  const takeMeThereLabel = () => {
+    if (language === "en") return "Take me there"
+    if (language === "eu") return "Eraman nazazu hara"
+    return "Te llevo allá"
+  }
 
   // Efecto para el mensaje de bienvenida
   useEffect(() => {
@@ -124,11 +148,19 @@ export function AIChatbot() {
       }
 
       const data = await response.json();
+
+      // Respuesta local (diccionario): simula el tiempo de "escribiendo"
+      // para que se sienta como un asistente real.
+      if (data?.source === "local") {
+        await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 500));
+      }
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: data.reply || "Sorry, I couldn't get a response.",
         isBot: true,
         timestamp: new Date(),
+        section: data.section ?? null,
       };
       setMessages((prev) => [...prev, botMessage]);
 
@@ -256,6 +288,19 @@ export function AIChatbot() {
                         {message.text}
                       </ReactMarkdown>
                     </div>
+
+                    {message.isBot && message.section && (
+                      <button
+                        type="button"
+                        onClick={() => goToSection(message.section as string)}
+                        className="mt-2 inline-flex items-center gap-1 rounded-full border border-blue-200 bg-white px-3 py-1 text-xs font-medium text-blue-600 transition-colors hover:bg-blue-50"
+                      >
+                        👉 {takeMeThereLabel()}
+                        {SECTION_LABEL_KEYS[message.section]
+                          ? `: ${t(SECTION_LABEL_KEYS[message.section])}`
+                          : ""}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

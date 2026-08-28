@@ -1,27 +1,52 @@
 // Archivo: app/api/chat/route.ts
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 import { NextRequest, NextResponse } from "next/server";
 
 import { portfolioData, Language } from "@/lib/portfolio-data";
+import { matchCannedResponse } from "@/lib/assistant/matcher";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
+const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
+
+const SUPPORTED_LANGUAGES: Language[] = ["es", "en", "eu"];
 
 export async function POST(req: NextRequest) {
   try {
     const { message, language } = (await req.json()) as { message: string; language: Language };
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash-lite",
-    });
+    if (typeof message !== "string" || !message.trim()) {
+      return NextResponse.json({ error: "El mensaje no puede estar vacío." }, { status: 400 });
+    }
 
-    const safeLanguage = ["es", "en", "eu"].includes(language) ? language : "es";
+    const safeLanguage: Language = SUPPORTED_LANGUAGES.includes(language) ? language : "es";
+
+    // 1. CAPA LOCAL: respuestas pregrabadas (FAQ) servidas sin llamar al modelo.
+    //    Cubre preguntas frecuentes y acotadas (cargo, origen, contacto, edad, etc.)
+    //    de forma instantánea, determinista y con coste cero de tokens.
+    try {
+      const canned = matchCannedResponse(message, safeLanguage);
+      if (canned) {
+        return NextResponse.json({
+          reply: canned.reply,
+          source: "local",
+          intent: canned.intentId,
+          section: canned.section ?? null,
+        });
+      }
+    } catch (matchError) {
+      // Un fallo en el matcher nunca debe romper el chat: se continúa con la IA.
+      console.error("Fallo en el matcher local, se continúa con la IA:", matchError);
+    }
+
+    // 2. FALLBACK IA: contexto compacto (sin FAQ, sin pretty-print) y respuesta acotada.
     const langInstruction =
-      safeLanguage === 'es' ? 'Responde en español.'
-        : safeLanguage === 'en' ? 'Respond in English.'
-          : 'Erantzun euskaraz.';
+      safeLanguage === "es" ? "Responde en español."
+        : safeLanguage === "en" ? "Respond in English."
+          : "Erantzun euskaraz.";
 
     const localizedContext = {
       name: portfolioData.name,
+      age: portfolioData.age,
       title: portfolioData.title[safeLanguage],
       contact: portfolioData.contact,
       about: portfolioData.about[safeLanguage],
@@ -34,39 +59,38 @@ export async function POST(req: NextRequest) {
       education: portfolioData.education,
       scholarships: portfolioData.scholarships,
       websites: portfolioData.websites,
-      faq: portfolioData.faq, // Asegúrate de pasar el FAQ al contexto
     };
 
-    const portfolioContext = JSON.stringify(localizedContext, null, 2);
-
-    const prompt = `
+    const systemPrompt = `
       Eres el asistente virtual del portafolio de Felipe Pereira.
       Tu tono debe ser amigable y profesional.
 
-      **INSTRUCCIONES DE COMPORTAMIENTO (CRÍTICO):**
-      1. **ANÁLISIS INTERNO:** Determina internamente si la pregunta está en el FAQ o requiere uso del contexto. NO muestres este análisis en la respuesta.
-      2. **RESPUESTA FAQ:** Si coincide con el FAQ, responde EXACTAMENTE con el texto de la 'respuesta' predefinida.
-      3. **RESPUESTA CONTEXTUAL:** Si no es FAQ, responde usando SOLO la información del contexto entregado.
-      4. **FORMATO DE SALIDA:** Entrega ÚNICAMENTE la respuesta final al usuario. **ESTÁ PROHIBIDO** incluir textos como "TAREA 1", "Análisis", o explicar tu proceso.
-
       **REGLAS:**
-      - Usa Markdown para enlaces y estilos.
-      - **IMPORTANTE:** Usa **negrita** para resaltar los nombres de los servicios (ej: **Landing Pages**, **WordPress**, **Aplicaciones Web**) y conceptos clave.
+      - Entrega ÚNICAMENTE la respuesta final para el usuario. Está PROHIBIDO explicar tu razonamiento o incluir encabezados como "Análisis" o "Tarea".
+      - Usa SOLO la información del contexto entregado. Si algo no aparece en el contexto, dilo con honestidad y sugiere contactar a Felipe.
+      - Sé conciso: 1-4 frases, salvo que pidan explícitamente más detalle.
+      - Usa Markdown para enlaces y **negrita** para resaltar nombres de servicios (**Landing Pages**, **WordPress**, **Aplicaciones Web**) y conceptos clave.
       - Idioma de respuesta: ${langInstruction}
 
       ---
       **CONTEXTO (JSON):**
-      ${portfolioContext}
+      ${JSON.stringify(localizedContext)}
       ---
-
-      **MENSAJE DEL USUARIO:**
-      "${message}"
     `;
 
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    const completion = await groq.chat.completions.create({
+      model: MODEL,
+      temperature: 0.5,
+      max_tokens: 700,
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: message },
+      ],
+    });
 
-    return NextResponse.json({ reply: text });
+    const text = completion.choices[0]?.message?.content ?? "";
+
+    return NextResponse.json({ reply: text, source: "ai" });
 
   } catch (error: any) {
     console.error("Error en la API de chat:", error);
