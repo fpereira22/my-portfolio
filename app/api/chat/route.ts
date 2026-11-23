@@ -4,9 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { portfolioData, Language } from "@/lib/portfolio-data";
 import { matchCannedResponse } from "@/lib/assistant/matcher";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
 const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
+
+const MAX_MESSAGE_LENGTH = 500;
+// Máx. de llamadas a la IA por IP en la ventana (las FAQ locales no cuentan).
+const AI_LIMIT = 10;
+const AI_WINDOW_MS = 10 * 60 * 1000;
 
 const SUPPORTED_LANGUAGES: Language[] = ["es", "en", "eu"];
 
@@ -16,6 +22,10 @@ export async function POST(req: NextRequest) {
 
     if (typeof message !== "string" || !message.trim()) {
       return NextResponse.json({ error: "El mensaje no puede estar vacío." }, { status: 400 });
+    }
+
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return NextResponse.json({ error: "El mensaje es demasiado largo." }, { status: 400 });
     }
 
     const safeLanguage: Language = SUPPORTED_LANGUAGES.includes(language) ? language : "es";
@@ -36,6 +46,15 @@ export async function POST(req: NextRequest) {
     } catch (matchError) {
       // Un fallo en el matcher nunca debe romper el chat: se continúa con la IA.
       console.error("Fallo en el matcher local, se continúa con la IA:", matchError);
+    }
+
+    // Límite por IP solo para las llamadas que consumen cuota del modelo.
+    const limited = rateLimit(getClientIp(req.headers), AI_LIMIT, AI_WINDOW_MS);
+    if (!limited.ok) {
+      return NextResponse.json(
+        { error: "Demasiadas peticiones (Rate Limit). Intenta más tarde." },
+        { status: 429, headers: { "Retry-After": String(limited.retryAfterSec) } }
+      );
     }
 
     // 2. FALLBACK IA: contexto compacto (sin FAQ, sin pretty-print) y respuesta acotada.
