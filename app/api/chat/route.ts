@@ -6,7 +6,14 @@ import { portfolioData, Language } from "@/lib/portfolio-data";
 import { matchCannedResponse } from "@/lib/assistant/matcher";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
+// El cliente se crea al atender la petición (no al importar el módulo): así el build no
+// falla en entornos sin GROQ_API_KEY (p. ej. previews de Vercel) y las FAQ locales siguen funcionando.
+let groqClient: Groq | null = null;
+function getGroq(): Groq | null {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) return null;
+  return (groqClient ??= new Groq({ apiKey }));
+}
 const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 
 const MAX_MESSAGE_LENGTH = 500;
@@ -96,6 +103,15 @@ export async function POST(req: NextRequest) {
       ${JSON.stringify(localizedContext)}
       ---
     `;
+
+    const groq = getGroq();
+    if (!groq) {
+      console.error("GROQ_API_KEY no está configurada en este entorno.");
+      return NextResponse.json(
+        { error: "El asistente de IA no está disponible en este momento." },
+        { status: 503 }
+      );
+    }
 
     const completion = await groq.chat.completions.create({
       model: MODEL,
