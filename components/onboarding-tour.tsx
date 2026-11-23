@@ -5,8 +5,7 @@ import { driver } from "driver.js"
 import "driver.js/dist/driver.css"
 import { useLanguage } from "@/hooks/useLanguage"
 
-// Export event name to avoid typos
-export const START_TOUR_EVENT = "start-onboarding-tour";
+import { START_TOUR_EVENT } from "@/lib/tour-events"
 
 export function OnboardingTour() {
     const { t, language } = useLanguage()

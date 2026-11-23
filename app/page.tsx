@@ -6,6 +6,7 @@ import type React from "react"
 //no se que chicha este wea
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
+import dynamic from "next/dynamic"
 import {
   Code,
   User,
@@ -36,13 +37,16 @@ import type { LucideIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "../components/language-selector"
 import { SocialMediaPanel } from "../components/social-media-panel"
-import { AIChatbot } from "../components/ai-chatbot"
-import { ProfileModal } from "../components/profile-modal"
-import { LinuxTerminal } from "../components/linux-terminal"
 import { TechGrid } from "../components/tech-grid"
 import { useLanguage } from "../hooks/useLanguage"
 import { WebsiteCarousel } from "@/components/website-carousel"
-import { OnboardingTour, START_TOUR_EVENT } from "@/components/onboarding-tour"
+import { START_TOUR_EVENT } from "@/lib/tour-events"
+
+// Componentes pesados o de uso opcional: se cargan en un chunk aparte, fuera del bundle inicial.
+const AIChatbot = dynamic(() => import("../components/ai-chatbot").then((m) => m.AIChatbot), { ssr: false })
+const ProfileModal = dynamic(() => import("../components/profile-modal").then((m) => m.ProfileModal), { ssr: false })
+const LinuxTerminal = dynamic(() => import("../components/linux-terminal").then((m) => m.LinuxTerminal), { ssr: false })
+const OnboardingTour = dynamic(() => import("@/components/onboarding-tour").then((m) => m.OnboardingTour), { ssr: false })
 
 
 interface ExperienceCardProps {
@@ -2201,12 +2205,14 @@ export default function Portfolio() {
       </a>
 
       {/* Profile Modal */}
-      <ProfileModal
-        isOpen={isProfileModalOpen}
-        onClose={() => setIsProfileModalOpen(false)}
-        user={user}
-        onUpdateUser={handleUpdateUser}
-      />
+      {isProfileModalOpen && (
+        <ProfileModal
+          isOpen={isProfileModalOpen}
+          onClose={() => setIsProfileModalOpen(false)}
+          user={user}
+          onUpdateUser={handleUpdateUser}
+        />
+      )}
 
       {/* Social Media Panel - Siempre visible */}
       <SocialMediaPanel />
