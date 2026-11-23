@@ -4,7 +4,8 @@ import React, { useState, useRef, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { useLanguage } from "@/hooks/useLanguage"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Play, Pause, ChevronLeft, ChevronRight } from "lucide-react"
+import { ExternalLink, Play, Pause, ChevronLeft, ChevronRight, Gamepad2, Rocket, Trophy } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 
 function WebsiteCarouselComponent() {
     const { t } = useLanguage()
@@ -42,7 +43,55 @@ function WebsiteCarouselComponent() {
         }
     }, [])
 
-    const websitesData = [
+    const websitesData: {
+        slug: string; url: string; imageSrc: string; logoSrc: string; borderClass: string; shadowClass: string;
+        gradientClass: string; textClass: string; descColorClass: string; tags: string[]; tagBgClass: string;
+        badge?: { key: string; icon: LucideIcon; tone: "purple" | "blue" }; ctaKey?: string
+    }[] = [
+        {
+            slug: "finsight",
+            url: "https://finsight.ai.sppa.cl/",
+            imageSrc: "/img/websites/previews/finsight-preview.webp",
+            logoSrc: "/img/logos/websites/finsight.png",
+            borderClass: "border-teal-400 hover:border-teal-300",
+            shadowClass: "hover:shadow-teal-500/30",
+            gradientClass: "from-teal-900/90",
+            textClass: "text-teal-300",
+            descColorClass: "text-teal-200",
+            tags: ["React", "Spring Boot", "PostgreSQL", "LLM local"],
+            tagBgClass: "bg-teal-500/20 border-teal-400/30",
+            badge: { key: "websites.badge.hackathon", icon: Trophy, tone: "purple" }
+        },
+        {
+            slug: "aether",
+            url: "https://nasa-space-apps-game-two.vercel.app/tablero.html",
+            imageSrc: "/img/websites/previews/aether-tablero-preview.webp",
+            logoSrc: "/img/logos/websites/aether.svg",
+            borderClass: "border-amber-500 hover:border-amber-400",
+            shadowClass: "hover:shadow-amber-500/30",
+            gradientClass: "from-amber-900/90",
+            textClass: "text-amber-300",
+            descColorClass: "text-amber-200",
+            tags: ["Node.js", "WebSockets", "Three.js", "NASA"],
+            tagBgClass: "bg-amber-500/20 border-amber-400/30",
+            badge: { key: "websites.badge.nasa", icon: Rocket, tone: "blue" },
+            ctaKey: "websites.playBtn"
+        },
+        {
+            slug: "aethermct",
+            url: "https://nasa-space-apps-game-two.vercel.app/",
+            imageSrc: "/img/websites/previews/aether-openmct-preview.webp",
+            logoSrc: "/img/logos/websites/aether.svg",
+            borderClass: "border-sky-500 hover:border-sky-400",
+            shadowClass: "hover:shadow-sky-500/30",
+            gradientClass: "from-sky-900/90",
+            textClass: "text-sky-300",
+            descColorClass: "text-sky-200",
+            tags: ["NASA Open MCT", "Telemetría", "WebRTC"],
+            tagBgClass: "bg-sky-500/20 border-sky-400/30",
+            badge: { key: "websites.badge.nasa", icon: Rocket, tone: "blue" },
+            ctaKey: "websites.playBtn"
+        },
         {
             slug: "roadwise",
             url: "https://roadwise.cl/",
@@ -441,6 +490,12 @@ function WebsiteCarouselComponent() {
                                     draggable={false}
                                 />
                                 <div className={`absolute inset-0 bg-gradient-to-t ${site.gradientClass} to-transparent opacity-60`}></div>
+                                {site.badge && (
+                                    <span className={`absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-white text-xs font-semibold shadow-lg border ${site.badge.tone === "blue" ? "bg-blue-600 border-blue-300/50" : "bg-purple-600 border-purple-300/50"}`}>
+                                        <site.badge.icon className="w-3.5 h-3.5" aria-hidden="true" />
+                                        {t(site.badge.key)}
+                                    </span>
+                                )}
                                 <div className="absolute top-3 right-3 w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl p-1.5 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
                                     <Image
                                         src={site.logoSrc}
@@ -475,7 +530,7 @@ function WebsiteCarouselComponent() {
                                         }}
                                     >
                                         <ExternalLink className="w-4 h-4" />
-                                        {t("websites.visitBtn")}
+                                        {t(site.ctaKey ?? "websites.visitBtn")}
                                     </a>
                                 </div>
                             </div>

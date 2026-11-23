@@ -129,9 +129,9 @@ export const CANNED_INTENTS: CannedIntent[] = [
       "where do you work now",
     ],
     answer: {
-      es: "Actualmente es **Ingeniero de Procesos – Sistemas en BancoEstado** (desde agosto de 2026), donde trabaja en reportería y dashboards avanzados sobre Salesforce Financial Services Cloud. En paralelo trabaja como desarrollador freelance.",
-      en: "He currently works as a **Process Engineer – Systems at BancoEstado** (since August 2026), building advanced reporting and dashboards on Salesforce Financial Services Cloud. He also works as a freelance developer.",
-      eu: "Gaur egun **Prozesu Ingeniaria – Sistemak da BancoEstado-n** (2026ko abuztutik), Salesforce Financial Services Cloud gainean txosten eta dashboard aurreratuak eginez. Horrez gain, garatzaile freelance gisa aritzen da.",
+      es: "Actualmente es **Ingeniero de Procesos – Sistemas en BancoEstado** (desde agosto de 2026), donde trabaja en reportería y dashboards avanzados sobre Salesforce Financial Services Cloud, dentro de la célula de Seguimiento Comercial y Usuarios (Scrum y Jira), con consultas SOQL y SQL, automatización de procesos, levantamiento de sistemas y liberación de reportes a QA y Producción para ejecutivos. En paralelo trabaja como desarrollador freelance.",
+      en: "He currently works as a **Process Engineer – Systems at BancoEstado** (since August 2026), building advanced reporting and dashboards on Salesforce Financial Services Cloud, within the Commercial Follow-up & Users cell (Scrum and Jira), with SOQL and SQL queries, process automation, systems analysis and report releases to QA and Production for executives. He also works as a freelance developer.",
+      eu: "Gaur egun **Prozesu Ingeniaria – Sistemak da BancoEstado-n** (2026ko abuztutik), Salesforce Financial Services Cloud gainean txosten eta dashboard aurreratuak eginez, Jarraipen Komertziala eta Erabiltzaileen zelulan (Scrum eta Jira), SOQL eta SQL kontsultekin, prozesuen automatizazioarekin, sistemen azterketarekin eta zuzendarientzako txostenen QA eta Produkzio kaleratzeekin. Horrez gain, garatzaile freelance gisa aritzen da.",
     },
   },
   {
@@ -307,8 +307,8 @@ export const CANNED_INTENTS: CannedIntent[] = [
       "where can i see your projects", "nire proiektuak non ikus ditzaket",
     ],
     answer: {
-      es: "Puedes ver todos sus proyectos en la sección **Proyectos** del portafolio. Algunos destacados: **FinSightAI** (salud financiera con IA), **Predictor Mundial 2026** (Machine Learning + Monte Carlo) y **Road Infrastructure AI** (visión por computadora para infraestructura vial).",
-      en: "You can see all his projects in the **Projects** section of the portfolio. Some highlights: **FinSightAI** (AI financial health), **World Cup 2026 Predictor** (Machine Learning + Monte Carlo) and **Road Infrastructure AI** (computer vision for road infrastructure).",
+      es: "Puedes ver todos sus proyectos en la sección **Proyectos** del portafolio. Algunos destacados: **FinSightAI** (salud financiera con IA), **It's About Time** (videojuego indie en pixel art), **Houston, We Have a Problem** (juego cooperativo para el hackathon NASA Space Apps Challenge), **Predictor Mundial 2026** (Machine Learning + Monte Carlo) y **Road Infrastructure AI** (visión por computadora para infraestructura vial).",
+      en: "You can see all his projects in the **Projects** section of the portfolio. Some highlights: **FinSightAI** (AI financial health), **It's About Time** (indie pixel-art game), **Houston, We Have a Problem** (cooperative game for the NASA Space Apps Challenge hackathon), **World Cup 2026 Predictor** (Machine Learning + Monte Carlo) and **Road Infrastructure AI** (computer vision for road infrastructure).",
       eu: "Bere proiektu guztiak portfolioko **Proiektuak** atalean ikus ditzakezu. Nabarmentzekoak: **FinSightAI** (finantza-osasuna IArekin), **2026ko Munduko Kopa Iragarlea** (Machine Learning + Monte Carlo) eta **Road Infrastructure AI** (ikusmen artifiziala errepideetarako).",
     },
   },

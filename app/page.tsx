@@ -24,8 +24,15 @@ import {
   Award,
   Globe,
   Github,
-  Lightbulb
+  Lightbulb,
+  Gamepad2,
+  Rocket,
+  Trophy,
+  Star,
+  Lock,
+  LockOpen
 } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "../components/language-selector"
 import { SocialMediaPanel } from "../components/social-media-panel"
@@ -48,6 +55,7 @@ interface ExperienceCardProps {
   bullets: string[];
   imageSrc: string;
   skills?: string[]; // Added skills prop
+  secretNote?: string; // Nota discreta que se revela con un clic
   isOpen: boolean;
   onClick: () => void;
   onMouseEnter?: () => void;
@@ -73,6 +81,7 @@ type ExperienceData = {
   bullets: string[];
   imageSrc: string;
   skills?: string[]; // Added skills property
+  hidden?: boolean; // true = no se muestra en la sección de experiencia
 };
 
 // Función para calcular duración formateada
@@ -334,18 +343,23 @@ const experiencesData: ExperienceData[] = [
     endMonth: null,
     location: "Gran Santiago, Región Metropolitana de Santiago, Chile",
     imageSrc: "/img/logos/bancoestado.png",
-    description: "Diseño, optimización y gestión de reportería, análisis de datos y soluciones orientadas al negocio financiero sobre Salesforce Financial Services Cloud.",
+    description: "Integrante de la célula de Seguimiento Comercial y Usuarios del área comercial: diseño, optimización y gestión de reportería, análisis de datos, automatización de procesos y soluciones orientadas al negocio financiero sobre Salesforce Financial Services Cloud, con consultas SOQL y SQL y despliegues controlados en ambientes QA y Producción, bajo Scrum y Jira.",
     bullets: [
+      "Célula de Seguimiento Comercial y Usuarios: Trabajo en el área comercial junto a ejecutivos, usuarios y líderes de negocio, evolucionando la plataforma según sus necesidades y prioridades.",
+      "Metodologías Ágiles (Scrum y Jira): Planificación, seguimiento y entrega de requerimientos bajo Scrum, con gestión de tareas en Jira y registro de horas por requerimiento para dar trazabilidad al avance.",
       "Gestión en Salesforce (Financial Services Cloud): Creación, administración y mantenimiento de reportes y dashboards avanzados para respaldar la gestión comercial.",
-      "Reportería Comercial y Gerencial: Desarrollo de reportes estratégicos para sucursales y áreas centrales, facilitando la toma de decisiones gerenciales basadas en datos consistentes y de calidad.",
-      "Levantamiento de Requerimientos: Interacción con usuarios internos para la captura de necesidades de información, validando la consistencia y calidad de los datos.",
+      "Consultas SOQL y SQL: Desarrollo de consultas SOQL sobre Salesforce y SQL sobre fuentes de datos corporativas para extraer, cruzar y validar información comercial, asegurando su consistencia y calidad.",
+      "Automatización de Procesos: Diseño e implementación de automatizaciones que reducen tareas manuales y tiempos de entrega de información, mejorando la eficiencia operativa de las áreas usuarias.",
+      "Levantamiento de Sistemas y Requerimientos: Análisis de sistemas, procesos y necesidades de información junto a usuarios internos, traduciéndolos en especificaciones funcionales y técnicas claras.",
+      "Reportería para Ejecutivos (QA y Producción): Desarrollo, validación en QA y liberación a Producción de reportes y dashboards estratégicos para ejecutivos, sucursales y áreas centrales, facilitando decisiones basadas en datos confiables.",
       "Coordinación Tecnológica: Gestión, seguimiento y resolución de requerimientos e incidencias técnicas en conjunto con las áreas de Tecnología."
     ],
-    skills: ["Salesforce FSC", "Reportería", "Análisis de Datos", "SQL", "Power BI", "Levantamiento de Requerimientos"]
+    skills: ["Salesforce FSC", "SOQL", "SQL", "Scrum", "Jira", "Automatización de Procesos", "Reportería", "QA y Producción", "Levantamiento de Sistemas", "Power BI"]
   },
   {
     id: 9,
     slug: "grupo_forum_bbva",
+    hidden: true, // Oculta en el portafolio
     company: "Grupo Forum – BBVA",
     title: "Desarrollador Full Stack | Programa de Formación y Desarrollo",
     startYear: 2026,
@@ -648,12 +662,19 @@ const ExperienceCard = ({
   imageSrc,
   index,
   skills,
+  secretNote,
   isOpen,
   onClick,
   onMouseEnter,
   onMouseLeave
 }: CardComponentProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [noteOpen, setNoteOpen] = useState(false);
+
+  // La nota se vuelve a ocultar cuando la tarjeta se cierra
+  useEffect(() => {
+    if (!isOpen) setNoteOpen(false);
+  }, [isOpen]);
 
   useEffect(() => {
     // Only scroll on mobile (screens smaller than lg/1024px)
@@ -745,6 +766,26 @@ const ExperienceCard = ({
                   </span>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Nota discreta: solo se ve al hacer clic en el candado */}
+          {secretNote && (
+            <div className="mt-4 flex flex-col items-end gap-2">
+              <button
+                type="button"
+                onClick={() => setNoteOpen((v) => !v)}
+                aria-expanded={noteOpen}
+                aria-label="Nota"
+                className="p-1.5 rounded-full text-purple-200 opacity-30 hover:opacity-100 focus-visible:opacity-100 transition-opacity"
+              >
+                {noteOpen ? <LockOpen className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
+              </button>
+              {noteOpen && (
+                <p className="w-full text-sm italic leading-relaxed text-purple-100 bg-purple-800/60 border border-purple-500/40 rounded-lg p-4">
+                  {secretNote}
+                </p>
+              )}
             </div>
           )}
         </div>
@@ -1331,7 +1372,7 @@ export default function Portfolio() {
             'space-y-8' añade espacio entre cada tarjeta.
           */}
           <div className="space-y-8">
-            {experiencesData.map((exp, index) => {
+            {experiencesData.filter((exp) => !exp.hidden).map((exp, index) => {
               // Si la experiencia tiene un slug, intentamos buscar traducciones
               const descKey = exp.slug ? `work.${exp.slug}.description` : null
               const bulletsKey = exp.slug ? `work.${exp.slug}.bullets` : null
@@ -1380,6 +1421,12 @@ export default function Portfolio() {
                   imageSrc={exp.imageSrc}
                   index={index}
                   skills={exp.skills}
+                  secretNote={(() => {
+                    if (!exp.slug) return undefined
+                    const noteKey = `work.${exp.slug}.secretNote`
+                    const note = t(noteKey)
+                    return note && note !== noteKey ? note : undefined
+                  })()}
                   isOpen={openExperienceId === exp.id}
                   onClick={() => toggleExperience(exp.id)}
                   onMouseEnter={() => handleHover(exp.id, setOpenExperienceId)}
@@ -1496,11 +1543,37 @@ export default function Portfolio() {
 
           {/* Projects Data Definition - internal for now to keep it simple */}
           {(() => {
-            const projectsData: { slug: string; imageSrc: string; fit?: string; tags: string[]; link: string }[] = [
+            const projectsData: {
+              slug: string;
+              imageSrc: string;
+              fit?: string;
+              tags: string[];
+              link?: string;
+              badge?: { key: string; icon: LucideIcon; tone: "purple" | "blue" };
+              actions?: { labelKey: string; href: string }[];
+            }[] = [
+              {
+                slug: "project9",
+                imageSrc: "/img/projects/its_about_time.webp",
+                tags: ["Phaser 3", "TypeScript", "Vite", "PWA", "Game Dev"],
+                badge: { key: "projects.badge.indie", icon: Gamepad2, tone: "purple" },
+                actions: [{ labelKey: "projects.playBtn", href: "https://its-about-time.sppa.cl/" }]
+              },
+              {
+                slug: "project10",
+                imageSrc: "/img/projects/houston_aether.webp",
+                tags: ["NASA Open MCT", "Node.js", "WebSockets", "WebRTC", "Three.js"],
+                badge: { key: "projects.badge.nasa", icon: Rocket, tone: "blue" },
+                actions: [
+                  { labelKey: "projects.nasa.boardBtn", href: "https://nasa-space-apps-game-two.vercel.app/tablero.html" },
+                  { labelKey: "projects.nasa.controlBtn", href: "https://nasa-space-apps-game-two.vercel.app/" }
+                ]
+              },
               {
                 slug: "project7",
                 imageSrc: "/img/projects/finsightai.png",
                 fit: "contain",
+                badge: { key: "projects.badge.hackathon", icon: Trophy, tone: "purple" },
                 tags: ["React", "Spring Boot", "Java", "LLM local", "OCI"],
                 link: "https://github.com/No-Country-simulation/G9-FinanceAI-Team29"
               },
@@ -1535,12 +1608,13 @@ export default function Portfolio() {
                 tags: ["Julia", "C", "AMPL", "Optimization"],
                 link: "https://github.com/fpereira22/knapsack-optimization-research"
               },
-              {
-                slug: "project5",
-                imageSrc: "/img/projects/impostor_fc.png",
-                tags: ["Node.js", "Socket.IO", "JavaScript"],
-                link: "https://github.com/fpereira22/Impostor-FC"
-              },
+              // Oculto temporalmente: Impostor Futbolero (project5). Descomentar para mostrarlo de nuevo.
+              // {
+              //   slug: "project5",
+              //   imageSrc: "/img/projects/impostor_fc.png",
+              //   tags: ["Node.js", "Socket.IO", "JavaScript"],
+              //   link: "https://github.com/fpereira22/Impostor-FC"
+              // },
               {
                 slug: "project6",
                 imageSrc: "/img/projects/telecom_churn.png",
@@ -1561,6 +1635,12 @@ export default function Portfolio() {
                         height={200}
                         className={`w-full h-full rounded-lg group-hover:scale-110 transition-transform duration-500 ${project.fit === "contain" ? "object-contain p-2" : "object-cover"}`}
                       />
+                      {project.badge && (
+                        <span className={`absolute bottom-6 left-6 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-xs font-semibold shadow-lg ${project.badge.tone === "blue" ? "bg-blue-600" : "bg-purple-600"}`}>
+                          <project.badge.icon className="w-3.5 h-3.5" aria-hidden="true" />
+                          {t(project.badge.key)}
+                        </span>
+                      )}
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
                       <div className="flex items-center gap-2 mb-3">
@@ -1578,16 +1658,34 @@ export default function Portfolio() {
                           </span>
                         ))}
                       </div>
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full border-purple-600 text-purple-600 hover:bg-purple-50 mt-auto"
-                      >
-                        <a href={project.link} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          {t("projects.viewBtn")}
-                        </a>
-                      </Button>
+                      {project.actions ? (
+                        <div className="flex flex-col gap-2 mt-auto">
+                          {project.actions.map((action) => (
+                            <Button
+                              key={action.href}
+                              asChild
+                              variant="outline"
+                              className="w-full border-purple-600 text-purple-600 hover:bg-purple-50"
+                            >
+                              <a href={action.href} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                {t(action.labelKey)}
+                              </a>
+                            </Button>
+                          ))}
+                        </div>
+                      ) : (
+                        <Button
+                          asChild
+                          variant="outline"
+                          className="w-full border-purple-600 text-purple-600 hover:bg-purple-50 mt-auto"
+                        >
+                          <a href={project.link} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            {t("projects.viewBtn")}
+                          </a>
+                        </Button>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -1628,67 +1726,60 @@ export default function Portfolio() {
             <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-indigo-400 mx-auto mt-6 rounded-full"></div>
           </div>
 
-          {/* Featured Project - FinSightAI */}
+          {/* Featured Project - It's About Time (principal) */}
           <div className="mb-12">
-            <a href="https://finsight.ai.sppa.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-teal-400 shadow-2xl shadow-teal-500/20 hover:shadow-teal-500/40 transition-all duration-500 hover:scale-[1.02] cursor-pointer">
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/20 to-cyan-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <a href="https://its-about-time.sppa.cl/" target="_blank" rel="noopener noreferrer" className="block group relative bg-white/10 backdrop-blur-lg rounded-3xl overflow-hidden border-2 border-emerald-400 shadow-2xl shadow-emerald-500/25 hover:shadow-emerald-500/45 transition-all duration-500 hover:scale-[1.02] cursor-pointer">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/20 to-lime-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
               <div className="flex flex-col lg:flex-row">
-                <div className="lg:w-1/2 relative overflow-hidden">
-                  <div className="h-52 sm:h-64 lg:h-auto lg:aspect-auto lg:min-h-full relative bg-gradient-to-br from-slate-900 via-teal-950 to-cyan-950">
-                    <video
-                      src="/img/websites/previews/finsight-preview.mp4"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      aria-hidden="true"
-                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                <div className="lg:w-3/5 relative overflow-hidden bg-slate-950">
+                  <div className="aspect-video lg:aspect-auto lg:h-full lg:min-h-[420px] relative">
+                    {/* WebP animado liviano (gameplay sin sonido) */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/img/websites/previews/itsabouttime-gameplay.webp"
+                      alt="It's About Time gameplay"
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 w-full h-full object-cover [image-rendering:pixelated]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-teal-900/80 via-transparent to-transparent lg:bg-gradient-to-r"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/70 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-emerald-950/40 pointer-events-none"></div>
                   </div>
-                  <div className="absolute top-4 left-4">
-                    <span className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-bold rounded-full shadow-lg animate-pulse">
-                      {t("websites.latestBadge")}
+                  <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-lime-500 text-white text-sm font-bold rounded-full shadow-lg">
+                      <Gamepad2 className="w-4 h-4" aria-hidden="true" />
+                      {t("websites.badge.indie")}
+                    </span>
+                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 text-sm font-extrabold rounded-full shadow-lg shadow-amber-500/40 animate-pulse">
+                      <Star className="w-4 h-4 fill-current" aria-hidden="true" />
+                      {t("websites.badge.featured")}
                     </span>
                   </div>
-                  {/* Logo badge */}
                   <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl p-2 shadow-lg border border-white/30 group-hover:scale-110 transition-transform">
                     <Image
-                      src="/img/logos/websites/finsight.png"
-                      alt="FinSightAI Logo"
+                      src="/img/logos/websites/itsabouttime.png"
+                      alt="It's About Time Logo"
                       fill
                       className="object-contain rounded-lg"
                     />
                   </div>
                 </div>
-                <div className="lg:w-1/2 p-6 lg:p-10 flex flex-col justify-center">
-                  <div className="flex items-center gap-4 mb-3 group-hover:opacity-90 transition-opacity">
-                    <img
-                      src="/img/logos/finsightai.png"
-                      alt={t("websites.finsight.title")}
-                      className="h-12 lg:h-16 w-auto object-contain"
-                    />
-                    <img
-                      src="https://finsight.ai.sppa.cl/images/mascot/finsight-bird-auth-lean-light-compact.png"
-                      alt="FinSightAI mascota"
-                      className="h-12 lg:h-16 w-auto object-contain"
-                    />
-                  </div>
-                  <p className="text-teal-100 text-base lg:text-lg mb-4 leading-relaxed">
-                    {t("websites.finsight.desc")}
+                <div className="lg:w-2/5 p-6 lg:p-10 flex flex-col justify-center">
+                  <h3 className="text-3xl lg:text-4xl font-extrabold tracking-wide mb-3 bg-gradient-to-r from-emerald-200 to-lime-200 bg-clip-text text-transparent">
+                    {t("websites.itsabouttime.title")}
+                  </h3>
+                  <p className="text-emerald-100 text-base lg:text-lg mb-5 leading-relaxed">
+                    {t("websites.itsabouttime.desc")}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-full text-sm">Vite + React</span>
-                    <span className="px-3 py-1 bg-orange-500/30 border border-orange-400/50 rounded-full text-sm">Next.js</span>
-                    <span className="px-3 py-1 bg-green-500/30 border border-green-400/50 rounded-full text-sm">Spring Boot / Java</span>
-                    <span className="px-3 py-1 bg-cyan-500/30 border border-cyan-400/50 rounded-full text-sm">PostgreSQL</span>
-                    <span className="px-3 py-1 bg-purple-500/30 border border-purple-400/50 rounded-full text-sm">LLM local</span>
-                    <span className="px-3 py-1 bg-red-500/30 border border-red-400/50 rounded-full text-sm">OCI</span>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="px-3 py-1 bg-amber-500/30 border border-amber-400/50 rounded-full text-sm">Pixel art</span>
+                    <span className="px-3 py-1 bg-rose-500/30 border border-rose-400/50 rounded-full text-sm">Santiago → Cali</span>
+                    <span className="px-3 py-1 bg-purple-500/30 border border-purple-400/50 rounded-full text-sm">PWA</span>
+                    <span className="px-3 py-1 bg-emerald-500/30 border border-emerald-400/50 rounded-full text-sm">Phaser 3</span>
+                    <span className="px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-full text-sm">TypeScript</span>
                   </div>
-                  <div className="w-fit bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-semibold shadow-lg shadow-teal-500/25 px-4 py-2 rounded-lg flex items-center gap-2">
-                    <ExternalLink className="w-4 h-4" />
-                    {t("websites.visitBtn")}
+                  <div className="w-fit bg-gradient-to-r from-emerald-500 to-lime-500 hover:from-emerald-600 hover:to-lime-600 text-white font-semibold shadow-lg shadow-emerald-500/25 px-5 py-2.5 rounded-lg flex items-center gap-2">
+                    <Gamepad2 className="w-5 h-5" />
+                    {t("websites.playBtn")}
                   </div>
                 </div>
               </div>

@@ -45,7 +45,7 @@
 
 **About me**
 
-- 🏦 **Process Engineer – Systems** at **BancoEstado**, building advanced reporting & dashboards on **Salesforce Financial Services Cloud**.
+- 🏦 **Process Engineer – Systems** at **BancoEstado**, building advanced reporting & dashboards on **Salesforce Financial Services Cloud** with SOQL/SQL, process automation and QA → Production releases for executives.
 - 🎓 **Computer Science Engineer** (UNAB, graduated *with distinction*, Dec 2025) — currently pursuing an **MSc in Computer Engineering** (UNAB, 2026–2027) with **IBM-certified** tracks in Data Science & AI.
 - 🤖 I build **Computer Vision** models for critical road infrastructure: crack detection on New Jersey barriers, pothole measurement and road-asset recognition.
 - 💸 Co-built **[FinSightAI](https://finsight.ai.sppa.cl/)** at the **Oracle Next Education × No Country** hackathon — a financial-health platform with an ML microservice, LLM explanations and a full cloud deployment.
@@ -59,7 +59,6 @@
 | Period | Role | Organization |
 |---|---|---|
 | **2026 – Present** | Process Engineer – Systems | **BancoEstado** |
-| 2026 | Semi-Senior Full Stack Developer | **Grupo Forum – BBVA** |
 | 2026 | IT Engineer & AI / R&D Specialist | **Roadwise** |
 | 2025 – 2026 | MLOps Engineer & Full Stack Dev | **Sociedad de Servicios Generales** |
 | 2024 – 2025 | Cybersecurity Engineer – IT | **MRComputer** |
@@ -77,7 +76,7 @@
 
 **Sobre mí**
 
-- 🏦 **Ingeniero de Procesos – Sistemas** en **BancoEstado**, desarrollando reportería y dashboards avanzados en **Salesforce Financial Services Cloud**.
+- 🏦 **Ingeniero de Procesos – Sistemas** en **BancoEstado**, desarrollando reportería y dashboards avanzados en **Salesforce Financial Services Cloud** con SOQL/SQL, automatización de procesos y liberaciones QA → Producción para ejecutivos.
 - 🎓 **Ingeniero Civil Informático** (UNAB, aprobado *con distinción*, Dic. 2025) — cursando el **Máster en Ingeniería Informática** (UNAB, 2026–2027), con trayectorias certificadas por **IBM** en Data Science e IA.
 - 🤖 Desarrollo modelos de **Visión por Computadora** para infraestructura vial crítica: detección de fisuras en barreras New Jersey, medición de baches y reconocimiento de elementos viales.
 - 💸 Co-construí **[FinSightAI](https://finsight.ai.sppa.cl/)** en el hackathon **Oracle Next Education × No Country** — plataforma de salud financiera con microservicio de ML, explicaciones con LLM y despliegue cloud completo.
@@ -91,7 +90,6 @@
 | Periodo | Rol | Organización |
 |---|---|---|
 | **2026 – Actualidad** | Ingeniero de Procesos – Sistemas | **BancoEstado** |
-| 2026 | Desarrollador Full Stack Semi Senior | **Grupo Forum – BBVA** |
 | 2026 | Ingeniero Informático & Especialista en IA / I+D | **Roadwise** |
 | 2025 – 2026 | MLOps Engineer & Full Stack Dev | **Sociedad de Servicios Generales** |
 | 2024 – 2025 | Ingeniero en Ciberseguridad – TI | **MRComputer** |
@@ -123,7 +121,6 @@
 | Aldia | Kargua | Erakundea |
 |---|---|---|
 | **2026 – Gaur egun** | Prozesu Ingeniaria – Sistemak | **BancoEstado** |
-| 2026 | Full Stack Garatzailea (Semi Senior) | **Grupo Forum – BBVA** |
 | 2026 | Informatika Ingeniaria & AI/I+G Espezialista | **Roadwise** |
 | 2025 – 2026 | MLOps Engineer & Full Stack Dev | **Sociedad de Servicios Generales** |
 | 2024 – 2025 | Zibersegurtasun Ingeniaria – IT | **MRComputer** |
@@ -359,7 +356,7 @@
 
 🎓 **Scholarships** — Oracle Next Education (ONE) G9 · Santander *Skills for Work* · Pacific Alliance Academic Mobility
 
-<sub><b>130+ professional certifications</b> — <a href="https://www.linkedin.com/in/felipe-pereira-alarcon/details/certifications/">see the full list on LinkedIn →</a></sub>
+<sub><b>Industry-recognized professional certifications</b> — <a href="https://www.linkedin.com/in/felipe-pereira-alarcon/details/certifications/">see the full list on LinkedIn →</a></sub>
 
 </div>
 
